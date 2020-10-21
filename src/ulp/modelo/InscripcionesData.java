@@ -61,6 +61,8 @@ public class InscripcionesData {
 
             if (celAfectadas > 0) {
                 System.out.println("Inscripción eliminada");
+            } else {
+                System.out.println("No se pudo borrar inscripción");
             }
         } catch (SQLException ex) {
             System.out.println("No se pudo borrar inscripción");
@@ -78,7 +80,13 @@ public class InscripcionesData {
 
         try {
             Statement statement = c.createStatement();
-            statement.executeUpdate("UPDATE registro SET nota=" + nota + " WHERE id_alumno=" + id_alumno + " AND id_materia=" + id_materia + ";");
+            int celAfectadas = statement.executeUpdate("UPDATE registro SET nota=" + nota + " WHERE id_alumno=" + id_alumno + " AND id_materia=" + id_materia + ";");
+
+            if (celAfectadas > 0) {
+                System.out.println("Se registró nota");
+            } else {
+                System.out.println("No se registró nota");
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -91,12 +99,6 @@ public class InscripcionesData {
 
     }
 
-    // ACÁ HAY QUE AGREGAR UN MÉTODO PARA VER LAS NOTAS DE UN ALUMNO
-    // DEBERÍA DEVOLVER UNA COLECCIÓN, YA QUE NECESITAMOS LA MATERIA, Y SU CORRESPONDIENTE NOTA
-    // SI DEVOLVEMOS ESTRICTAMENTE EL OBJETO MATERIA (Coleccion<Materia, nota>), HAY QUE SOBRESCRIBIR EL HASHCODE Y EL EQUALS PARA EVITAR REPETIR MATERIAS EN LA COLECCION
-    // SALVO, SI DEVOLVEMOS SOLAMENTE EL NOMBRE DE LA MATERIA (Coleccion<nombre_materia, nota> NOS AHORRAMOS EL HASHCODE Y EL EQUALS, PERO PERDEMOS ACCESO A OTROS DATOS
-    // AL NO TENER CONSTRUÍDO UN OBJETO MATERIA DENTRO DE JAVA, EN CASO DE QUERER CONSULTAR ID DE MATERIA, ETC.
-    // PARECE LARGO ESTE MÉTODO, ASÍ QUE LO DEJO ANOTADO PARA DESPUÉS.
     public List<Alumno> alumnos_en_materia(int id_materia) {
         c = conexion.getConnection();
         List<Alumno> alumnos = new ArrayList<>();
@@ -157,7 +159,36 @@ public class InscripcionesData {
 
         return materias;
     }
-    // faltan:
-    // ver notas de un alumno
+
+    public Map<Materia, Double> notas_alumno(int id) {
+        c = conexion.getConnection();
+        Map<Materia, Double> notas = new TreeMap<>();
+        Materia materia;
+        Double nota;
+
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT id_materia, nombre_materia, nota FROM registro, materia WHERE registro.id_alumno=" + id
+                    + " AND registro.id_materia=materia.id_materia;");
+
+            while (consulta.next()) {
+                materia = new Materia();
+                materia.setId_materia(consulta.getInt("id_materia"));
+                materia.setNombre_materia(consulta.getString("nombre_materia"));
+                nota = consulta.getDouble("nota");
+                notas.put(materia, nota);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                c.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(InscripcionesData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return notas;
+    }
 
 }
