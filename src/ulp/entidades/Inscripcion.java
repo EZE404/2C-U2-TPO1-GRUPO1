@@ -1,26 +1,31 @@
 package ulp.entidades;
 
+import java.time.LocalDate;
+
 public class Inscripcion {
 
     private int id_inscripcion;
     private Alumno alumno;
     private Materia materia;
+    private LocalDate fecha_i;
     private double calificacion;
 
     public Inscripcion() {
     }
 
-    public Inscripcion(Alumno alumno, Materia materia, double calificacion) {
+    public Inscripcion(Alumno alumno, Materia materia, LocalDate fecha_i, double calificacion) {
         this.alumno = alumno;
         this.materia = materia;
         this.calificacion = calificacion;
+        this.fecha_i = fecha_i;
     }
 
-    public Inscripcion(int id_inscripcion, Alumno alumno, Materia materia, double calificacion) {
+    public Inscripcion(int id_inscripcion, Alumno alumno, Materia materia, LocalDate fecha_i, double calificacion) {
         this.id_inscripcion = id_inscripcion;
         this.alumno = alumno;
         this.materia = materia;
         this.calificacion = calificacion;
+        this.fecha_i = fecha_i;
     }
 
     public int getId_inscripcion() {
@@ -55,6 +60,15 @@ public class Inscripcion {
         this.calificacion = calificacion;
     }
 
+    public LocalDate getFecha_i() {
+        return fecha_i;
+    }
+
+    public void setFecha_i(LocalDate fecha_i) {
+        this.fecha_i = fecha_i;
+    }
+
+    
     @Override
     public String toString() {
         return "Inscripcion{" + "id_inscripcion=" + id_inscripcion + ", alumno=" + alumno + ", materia=" + materia + ", calificacion=" + calificacion + '}';

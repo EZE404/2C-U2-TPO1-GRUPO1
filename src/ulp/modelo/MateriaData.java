@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import ulp.entidades.Materia;
 
 public class MateriaData {
 
-    Conexion conexion;
     Connection c;
 
-    MateriaData(Conexion conexion) {
-        this.conexion = conexion;
+    public MateriaData(Conexion conexion) {
+        this.c = conexion.getConnection();
     }
 
     public void cargar_materia(Materia materia) {
-        c = conexion.getConnection();
+
         String pre_instruccion = "INSERT INTO materia (nombre_materia) VALUES(?);";
 
         try {
@@ -36,20 +36,36 @@ public class MateriaData {
             if (llaves.next()) {
                 materia.setId_materia(llaves.getInt(1));
             }
-
+            instruccion.close();
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                c.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 
+    public Materia buscar_materia(int id) {
+
+        Materia materia = null;
+
+        try {
+            Statement instruccion = c.createStatement();
+            try (ResultSet consulta = instruccion.executeQuery("SELECT * FROM materia WHERE id_materia=" + id + ";")) {
+                if (consulta.next()) {
+                    materia = new Materia();
+                    materia.setId_materia(consulta.getInt("id_materia"));
+                    materia.setNombre_materia(consulta.getString("nombre_materia"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo buscar alumno");
+                }
+            }
+            instruccion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar Alumno, " + ex);
+        }
+        return materia;
+    }
+
     public void borrar_materia(int id) {
-        c = conexion.getConnection();
 
         try {
             Statement statement = c.createStatement();
@@ -60,19 +76,13 @@ public class MateriaData {
             } else {
                 System.out.println("No se pudo borrar materia");
             }
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                c.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 
     public List<Materia> obtener_materias() {
-        c = conexion.getConnection();
         List<Materia> materias = new ArrayList<>();
         Materia materia;
         try {
@@ -85,14 +95,9 @@ public class MateriaData {
                 materia.setNombre_materia(consulta.getString("nombre_materia"));
                 materias.add(materia);
             }
+            statement.close();
         } catch (SQLException ex) {
 
-        } finally {
-            try {
-                c.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
         return materias;
