@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2020 a las 17:44:31
+-- Tiempo de generación: 23-10-2020 a las 00:56:35
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -36,6 +36,13 @@ CREATE TABLE `alumno` (
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `alumno`
+--
+
+INSERT INTO `alumno` (`id_alumno`, `nombre`, `apellido`, `dni`, `fecha_n`, `activo`) VALUES
+(43, 'Ezequiel', 'Albornoz', '36227970', '1991-09-16', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -44,8 +51,18 @@ CREATE TABLE `alumno` (
 
 CREATE TABLE `materia` (
   `id_materia` int(11) NOT NULL,
-  `nombre_materia` varchar(50) DEFAULT NULL
+  `nombre_materia` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `materia`
+--
+
+INSERT INTO `materia` (`id_materia`, `nombre_materia`) VALUES
+(30, 'EDA'),
+(20, 'Lab 1'),
+(27, 'Labo 1'),
+(31, 'MATEMATICA');
 
 -- --------------------------------------------------------
 
@@ -57,8 +74,7 @@ CREATE TABLE `registro` (
   `id_registro` int(11) NOT NULL,
   `id_alumno` int(11) NOT NULL,
   `id_materia` int(11) NOT NULL,
-  `nota` double DEFAULT NULL,
-  `fecha_i` date NOT NULL
+  `nota` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -69,31 +85,45 @@ CREATE TABLE `registro` (
 -- Indices de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  ADD PRIMARY KEY (`id_alumno`);
+  ADD PRIMARY KEY (`id_alumno`),
+  ADD UNIQUE KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `materia`
 --
 ALTER TABLE `materia`
-  ADD PRIMARY KEY (`id_materia`);
+  ADD PRIMARY KEY (`id_materia`),
+  ADD UNIQUE KEY `nombre_materia` (`nombre_materia`);
 
 --
 -- Indices de la tabla `registro`
 --
 ALTER TABLE `registro`
   ADD PRIMARY KEY (`id_registro`),
-  ADD KEY `id_alumno` (`id_alumno`,`id_materia`),
-  ADD KEY `id_materia` (`id_materia`);
+  ADD UNIQUE KEY `id_materia` (`id_materia`) USING BTREE,
+  ADD UNIQUE KEY `id_alumno` (`id_alumno`,`id_materia`) USING BTREE;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
+-- AUTO_INCREMENT de la tabla `alumno`
+--
+ALTER TABLE `alumno`
+  MODIFY `id_alumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT de la tabla `materia`
+--
+ALTER TABLE `materia`
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restricciones para tablas volcadas
