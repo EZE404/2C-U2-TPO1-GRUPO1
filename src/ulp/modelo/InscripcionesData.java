@@ -3,39 +3,24 @@ package ulp.modelo;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import javax.swing.JOptionPane;
 import ulp.entidades.Alumno;
 import ulp.entidades.Inscripcion;
 import ulp.entidades.Materia;
 
 public class InscripcionesData {
-    //private Conexion conexion;
+
+
     private Connection c;
 
     public InscripcionesData(Conexion conexion) {
         this.c = conexion.getConnection();
-        //this.conexion = conexion;
+
     }
 
     public void inscribir_alumno(Inscripcion inscripcion) {
-        
-//        AlumnoData ad = new AlumnoData(conexion);
-//        MateriaData md = new MateriaData (conexion);
-        String pre_instruccion = "INSERT INTO registro (id_alumno, id_materia, nota, fecha_i) VALUES (?, ?, ?, ?);";
 
-//        try  {
-//            Statement stment = c.createStatement();
-//            ResultSet consulta = stment.executeQuery("SELECT * FROM alumno, materia, registro (id_alumno, id_materia) WHERE alumno.id_alumno=registro.id_alumno AND materia.id_materia=registro.id_materia AND registro.id_alumno="
-//                    + ad.buscar_alumno(inscripcion.getAlumno().getId_alumno()).getId_alumno() + " AND registro.id_materia=" + md.buscar_materia(inscripcion.getMateria().getId_materia()).getId_materia() + ";");
-//
-//            if (consulta.next()) {
-//                System.out.println(consulta.getInt("id_alumno") + " " + consulta.getInt("id_materia"));
-//            } else {
-//                System.out.println("No hay resultados");
-//            }
-//            stment.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(InscripcionesData.class.getName()).log(Level.SEVERE, null, ex);
-//        } 
+        String pre_instruccion = "INSERT INTO registro (id_alumno, id_materia, nota) VALUES (?, ?, ?);";
 
         try {
 
@@ -45,7 +30,7 @@ public class InscripcionesData {
             instruccion.setInt(1, inscripcion.getAlumno().getId_alumno());
             instruccion.setInt(2, inscripcion.getMateria().getId_materia());
             instruccion.setDouble(3, inscripcion.getCalificacion());
-            instruccion.setDate(4, Date.valueOf(inscripcion.getFecha_i()));
+            //instruccion.setDate(4, Date.valueOf(inscripcion.getFecha_i()));
             // EJECUTANDO Y GUARDANDO LLAVES GENERADAS
             int celAfectadas = instruccion.executeUpdate();
             ResultSet llaves = instruccion.getGeneratedKeys();
@@ -80,6 +65,7 @@ public class InscripcionesData {
             statement.close();
         } catch (SQLException ex) {
             System.out.println("No se pudo borrar inscripción");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -172,6 +158,33 @@ public class InscripcionesData {
         }
 
         return notas;
+    }
+
+    public List<Inscripcion> alumnos_en_materias() {
+        List<Inscripcion> registros = new ArrayList<>();
+        Inscripcion inscripcion;
+        
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT * FROM registro;");
+
+            while (consulta.next()) {
+                inscripcion = new Inscripcion(new Alumno(), new Materia());
+                inscripcion.getAlumno().setId_alumno(consulta.getInt("id_alumno"));
+                inscripcion.getMateria().setId_materia(consulta.getInt("id_materia"));
+                inscripcion.setCalificacion(consulta.getDouble("nota"));
+                registros.add(inscripcion);
+
+            }
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudieron obtener las inscripciones");
+            System.out.println(ex.getMessage());
+        }
+
+        return registros;
     }
 
 }

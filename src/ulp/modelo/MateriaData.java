@@ -38,7 +38,8 @@ public class MateriaData {
             }
             instruccion.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Nombre materia duplicado");
+            System.out.println(ex.getMessage());
         }
     }
 

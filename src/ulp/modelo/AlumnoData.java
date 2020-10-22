@@ -36,14 +36,17 @@ public class AlumnoData {
             try (ResultSet resultado = instruccion.getGeneratedKeys()) {
                 if (resultado.next()) {
                     alumno.setId_alumno(resultado.getInt(1));
+                    System.out.println("Alumno cargado");
+                    JOptionPane.showMessageDialog(null, "Alumno cargado");
                 } else {
                     JOptionPane.showMessageDialog(null, "No pudo obtener id");
                 }
             }
 
             instruccion.close();
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar Alumno");
+            System.out.println(ex.getMessage());
         }
     }
 

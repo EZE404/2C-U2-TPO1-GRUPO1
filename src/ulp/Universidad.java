@@ -20,8 +20,10 @@ public class Universidad {
         
         Alumno eze = new Alumno("Ezequiel", "Albornoz", "36227970", LocalDate.of(1991, 9, 16), true);
         alumno_data.guardar_alumno(eze);
-
-        System.out.println(alumno_data.buscar_alumno(eze.getId_alumno()).toString());
+        alumno_data.guardar_alumno(eze);
+        alumno_data.guardar_alumno(eze);
+//
+//        System.out.println(alumno_data.buscar_alumno(eze.getId_alumno()).toString());
         //alumno_data.borrar_alumno(9);
         
 //        Alumno franco = new Alumno(1, "Franco", "Ezequiel", "35789545", LocalDate.of(1990,7,12), false);
@@ -32,13 +34,19 @@ public class Universidad {
 //            System.out.println(a.toString());
 //        }
         
-        Materia lab = new Materia("Lab 1");
+        Materia lab1 = new Materia("EdA");
+        Materia lab2 = new Materia("MAtemATICA");
+        materia_data.cargar_materia(lab1);
+        materia_data.cargar_materia(lab2);
+        materia_data.cargar_materia(lab2);
         
-        materia_data.cargar_materia(lab);
         
-        Inscripcion ins = new Inscripcion(alumno_data.buscar_alumno(12), materia_data.buscar_materia(4), LocalDate.of(2020, 10, 21), 7.5);
         
-        ins_data.inscribir_alumno(ins);
+//        Inscripcion ins = new Inscripcion(alumno_data.buscar_alumno(12), materia_data.buscar_materia(4), 7.5);
+//        
+//        ins_data.inscribir_alumno(ins);
+//        ins_data.inscribir_alumno(ins);
+//        ins_data.inscribir_alumno(ins);
 
 
         
