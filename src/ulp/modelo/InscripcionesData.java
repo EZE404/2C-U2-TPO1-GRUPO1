@@ -40,7 +40,8 @@ public class InscripcionesData {
                 System.out.println("Inscripción realizada");
                 JOptionPane.showMessageDialog(null, "Inscripcion Exitosa");
             } else {
-                System.out.println("No se pudo realizar inscripción");
+                System.out.println("No se pudo realizar la inscripción");
+                JOptionPane.showMessageDialog(null, "No se pudo realizar la inscripción");
             }
             // CARGANDO ID GENERADA EN TABLA AL ALUMNO EN JAVA
             if (llaves.next()) {
@@ -48,6 +49,7 @@ public class InscripcionesData {
             }
             instruccion.close();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo realizar la inscripción");
             System.out.println(e.getMessage());
 
         }
@@ -68,9 +70,8 @@ public class InscripcionesData {
             }
             statement.close();
         } catch (SQLException ex) {
-            System.out.println("No se pudo borrar inscripción");
+            System.out.println("No se pudo borrar inscripción:" + ex.getMessage());
             JOptionPane.showMessageDialog(null, "No se pudo borrar inscripción");
-            System.out.println(ex.getMessage());
         }
     }
 
@@ -92,7 +93,6 @@ public class InscripcionesData {
         } catch (SQLException ex) {
             System.out.println("No se pudo borrar inscripción:" + ex.getMessage());
             JOptionPane.showMessageDialog(null, "No se pudo borrar inscripción. SQLException");
-
         }
     }
 
@@ -113,7 +113,6 @@ public class InscripcionesData {
         } catch (SQLException ex) {
             System.out.println("No se pudo borrar inscripción:" + ex.getMessage());
             JOptionPane.showMessageDialog(null, "No se pudo borrar inscripción. SQLException");
-
         }
     }
 
@@ -167,21 +166,67 @@ public class InscripcionesData {
             ResultSet consulta;
             consulta = statement.executeQuery("SELECT alumno.id_alumno, nombre, apellido, dni, fecha_n, activo FROM registro, alumno, materia WHERE alumno.id_alumno=registro.id_alumno AND registro.id_materia=materia.id_materia AND registro.id_materia=" + id_materia + ";");
 
-            while (consulta.next()) {
-                alumno = new Alumno();
-                alumno.setId_alumno(consulta.getInt("id_alumno"));
-                alumno.setNombre(consulta.getString("nombre"));
-                alumno.setApellido(consulta.getString("apellido"));
-                alumno.setDni(consulta.getString("dni"));
-                alumno.setFecha_n(consulta.getDate("fecha_n").toLocalDate());
-                alumno.setActivo(consulta.getBoolean("activo"));
-                alumnos.add(alumno);
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    alumno = new Alumno();
+                    alumno.setId_alumno(consulta.getInt("id_alumno"));
+                    alumno.setNombre(consulta.getString("nombre"));
+                    alumno.setApellido(consulta.getString("apellido"));
+                    alumno.setDni(consulta.getString("dni"));
+                    alumno.setFecha_n(consulta.getDate("fecha_n").toLocalDate());
+                    alumno.setActivo(consulta.getBoolean("activo"));
+                    alumnos.add(alumno);
+                }
+                JOptionPane.showMessageDialog(null, "Se encontraron alumnos en la materia con id " + id_materia);
+                System.out.println("Se encontraron alumnos en la materia con id " + id_materia);
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay alumnos inscriptos para la materia con id " + id_materia);
+                System.out.println("No hay alumnos inscriptos para la materia con id " + id_materia);
             }
+
             statement.close();
-            JOptionPane.showMessageDialog(null, "Se encontraron las materias");
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de algun tipo");
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo obtener la lista de alumnos");
+            System.out.println("No se pudo obtener la lista de alumnos: " + ex.getMessage());
+        }
+
+        return alumnos;
+    }
+
+    public List<Alumno> alumnos_en_materia(String nombre_materia) {
+        List<Alumno> alumnos = new ArrayList<>();
+        Alumno alumno;
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta;
+            consulta = statement.executeQuery("SELECT alumno.id_alumno, nombre, apellido, dni, fecha_n, activo FROM registro, alumno, materia WHERE alumno.id_alumno=registro.id_alumno AND registro.id_materia=materia.id_materia AND materia.nombre_materia='" + nombre_materia + "';");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    alumno = new Alumno();
+                    alumno.setId_alumno(consulta.getInt("id_alumno"));
+                    alumno.setNombre(consulta.getString("nombre"));
+                    alumno.setApellido(consulta.getString("apellido"));
+                    alumno.setDni(consulta.getString("dni"));
+                    alumno.setFecha_n(consulta.getDate("fecha_n").toLocalDate());
+                    alumno.setActivo(consulta.getBoolean("activo"));
+                    alumnos.add(alumno);
+                }
+                JOptionPane.showMessageDialog(null, "Se encontraron alumnos en la materia " + nombre_materia);
+                System.out.println("Se encontraron alumnos en la materia " + nombre_materia);
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay alumnos inscriptos para la materia " + nombre_materia);
+                System.out.println("No hay alumnos inscriptos para la materia " + nombre_materia);
+            }
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener la lista de alumnos");
+            System.out.println("No se pudo obtener la lista de alumnos: " + ex.getMessage());
         }
 
         return alumnos;
@@ -221,8 +266,40 @@ public class InscripcionesData {
         return materias;
     }
 
+    public List<Materia> materias_alumno(String dni) {
+        Materia materia;
+        List<Materia> materias = new ArrayList<>();
+
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT materia.id_materia, nombre_materia FROM registro, materia, alumno WHERE registro.id_materia=materia.id_materia AND registro.id_alumno=alumno.id_alumno AND alumno.dni='" + dni + "';");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    materia = new Materia();
+                    materia.setId_materia(consulta.getInt("id_materia"));
+                    materia.setNombre_materia(consulta.getString("nombre_materia"));
+                    materias.add(materia);
+                }
+                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                System.out.println("Materias encontradas");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno");
+                System.out.println("No se encontraron materias");
+            }
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al encontrar materias");
+            System.out.println(ex.getMessage());
+        }
+
+        return materias;
+    }
+
 //########################## COLECCION NOTAS DE ALUMNO #########################
-    
     public Map<Materia, Double> notas_alumno(int id) {
         Map<Materia, Double> notas = new TreeMap<>();
         Materia materia;
@@ -257,8 +334,41 @@ public class InscripcionesData {
         return notas;
     }
 
-//############################ LISTA INSCRIPCIONES #############################
+    public Map<Materia, Double> notas_alumno(String dni) {
+        Map<Materia, Double> notas = new TreeMap<>();
+        Materia materia;
+        Double nota;
 
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT materia.id_materia, nombre_materia, nota FROM registro, materia, alumno WHERE alumno.id_alumno=registro.id_alumno AND registro.id_materia=materia.id_materia AND alumno.dni='" + dni + "';");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    materia = new Materia();
+                    materia.setId_materia(consulta.getInt("id_materia"));
+                    materia.setNombre_materia(consulta.getString("nombre_materia"));
+                    nota = (Double) consulta.getDouble("nota");
+                    notas.put(materia, nota);
+                }
+                JOptionPane.showMessageDialog(null, "Notas encontradas");
+                System.out.println("Notas encontradas");
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripciones para ese alumno");
+                System.out.println("No hay inscripciones para ese alumno");
+            }
+
+            statement.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de algun tipo");
+            System.out.println(ex.getMessage());
+        }
+
+        return notas;
+    }
+
+//############################ LISTA INSCRIPCIONES #############################
     public List<Inscripcion> alumnos_en_materias() {
         List<Inscripcion> registros = new ArrayList<>();
         Inscripcion inscripcion;
@@ -298,7 +408,6 @@ public class InscripcionesData {
     }
 
 //########################### MÉTODOS ÚTILES ###################################
-    
     public Alumno buscarAlumno(int id) {
         AlumnoData a = new AlumnoData(conexion);
         return a.buscar_alumno(id);
