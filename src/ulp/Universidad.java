@@ -17,7 +17,7 @@ public class Universidad {
 
     public static void main(String[] args) {
         // TODO code application logic here
-       /* 
+        /* 
         Conexion conexion = new Conexion();
         AlumnoData alumno_data = new AlumnoData(conexion);
         MateriaData materia_data = new MateriaData(conexion);
@@ -27,11 +27,11 @@ public class Universidad {
         alumno_data.guardar_alumno(eze);
         alumno_data.guardar_alumno(eze);
         alumno_data.guardar_alumno(eze);
-        */
+         */
 //
 //        System.out.println(alumno_data.buscar_alumno(eze.getId_alumno()).toString());
         //alumno_data.borrar_alumno(9);
-        
+
 //        Alumno franco = new Alumno(1, "Franco", "Ezequiel", "35789545", LocalDate.of(1990,7,12), false);
 //        alumno_data.modificar_alumno(franco);
 //        System.out.println(alumno_data.buscar_alumno(1).toString());
@@ -39,36 +39,27 @@ public class Universidad {
 //        for (Alumno a: alumno_data.ver_alumnos()) {
 //            System.out.println(a.toString());
 //        }
-        
-        
-/*
+        /*
         Materia lab1 = new Materia("EdA");
         Materia lab2 = new Materia("MAtemATICA");
         materia_data.cargar_materia(lab1);
         materia_data.cargar_materia(lab2);
         materia_data.cargar_materia(lab2);
- */       
-        
-        
+         */
 //        Inscripcion ins = new Inscripcion(alumno_data.buscar_alumno(12), materia_data.buscar_materia(4), 7.5);
 //        
 //        ins_data.inscribir_alumno(ins);
 //        ins_data.inscribir_alumno(ins);
 //        ins_data.inscribir_alumno(ins);
-
-		 
 //------------   Bloque de Testeo de conexion     ---------------------------------
-	/*	  
+        /*	  
 		 Conexion cc= new Conexion();//creo un objeto conectar
 	     Connection con = cc.conexion();
-	  */   
+         */
 //-------------------------------------------------------------------------------- 
-		 
-                            //TODO ALUMNO DATA
-		 
-		 
+        //TODO ALUMNO DATA
 //----------   Bloque de Testeo de UPDATE de ALUMNO       ------------------------		
-	/*	 	   Conexion conexion = new Conexion();
+        /*	 	   Conexion conexion = new Conexion();
                 AlumnoData alumno_data = new AlumnoData(conexion);
                 MateriaData materia_data = new MateriaData(conexion);
                 InscripcionesData ins_data = new InscripcionesData(conexion);
@@ -76,11 +67,10 @@ public class Universidad {
       //  Alumno eze = new Alumno("Ezequiel", "Albornoz", "36227970", LocalDate.of(1991, 9, 16), true);
         
        
-	*/
-
+         */
 //-----------------------------------------------------------------------------------  
 //--------------------Bloque de Testeo de recuperar de Lista de Alumnos---------------------
-	/*	 
+        /*	 
 		 //---Conexion----
 		 Conexion cc= new Conexion();
 		 	
@@ -100,10 +90,10 @@ public class Universidad {
 		System.out.println("Nombre: "+ alu.getNombreAlumno());
 		System.out.println("Fecha de nacimiento: "+ alu.getFnAlumno());
 			}
-	*/	 
+         */
 //-----------------------------------------------------------------------------------  
 //--------     Bloque de Testeo de recuperar un solo almuno por nombre      -----------------------
-	/*		
+        /*		
 		Conexion cc= new Conexion();
 	  	//-----------Alumno pasar por parametro a buscar
 		Alumno parametro=new Alumno("avaca");
@@ -121,16 +111,12 @@ public class Universidad {
 	    	System.out.println("Nombre: "+resultado.getNombreAlumno());
 	    	System.out.println("Fecha Nacimiento: "+resultado.getFnAlumno());
 	    	System.out.println("Activo: "+resultado.isActivo());
-	*/    	
+         */
 //-------------------------------------------------------------------------------------------------------------- 
-	  
-
-                            //    TODO MATERIA
-
-                     //Agregar materia probado
-
+        //    TODO MATERIA
+        //Agregar materia probado
 //----------   Bloque de Testeo de UPDATE de MATERIA       ------------------------		
-	/*	 	//---Conexion----
+        /*	 	//---Conexion----
 		 	Conexion cc= new Conexion();
 		 	
 		 	//----------Materia auxiliar para ingresar los datos---------
@@ -141,11 +127,10 @@ public class Universidad {
 		 	MateriaData meterMateria=new MateriaData(cc);
 		 	meterMateria.guardarMateria(materiaParametro);
 	
-	*/
-
+         */
 //-----------------------------------------------------------------------------------	
 //----------      Bloque de Testeo de BUSCAR una MATERIA       ------------------------		
-	/*	 	
+        /*	 	
 		 	//---Conexion----
 		 	Conexion cc= new Conexion();
 		 	
@@ -161,26 +146,21 @@ public class Universidad {
 			System.out.println("Nombre: "+ aux.getNombreMateria());
 		
 	
-	*/
-
+         */
 //-----------------------------------------------------------------------------------
-
-
-
-
-
-                                //TODO INSCRIPCION
-                                
-                                
-                       //probado Inscribir - ok
-                       //probado desinscribir por ID de Inscripcion - ok
-                       //Probado registro de nota - ok
-                       //Probado mostrar alumnos de una materia con id materia - ok
-                       //Probado Mostrar Materias de un Alumno por id de alumn - ok
-                       //PRobado MOstrar Notas y MAterias de un alumno por id_alumno - ok
-                       
+        //TODO INSCRIPCION
+        //probado Inscribir - ok
+        //probado desinscribir por ID de Inscripcion - ok
+        //probado desinscribir por id alumno e id materia - ok
+        //probado desinscribir por dni y nombre_materia - ok
+        //Probado registro de nota por id_alumno e id_materia - ok
+        //probado registro de nota por dni y nombre_materia - ok
+        //Probado mostrar alumnos de una materia con id materia - ok
+        //Probado Mostrar Materias de un Alumno por id de alumn - ok
+        //PRobado MOstrar Notas y MAterias de un alumno por id_alumno - ok
+        
 //----------      Bloque de Testeo de INSCRIPCION     ------------------------                       
- /*       
+        /*       
         Conexion conexion = new Conexion();
         AlumnoData alumno_data = new AlumnoData(conexion);
         MateriaData materia_data = new MateriaData(conexion);
@@ -192,36 +172,32 @@ public class Universidad {
         Inscripcion ins2 = new Inscripcion(alumno_data.buscar_alumno(47), materia_data.buscar_materia(27), 7.5);
         ins_data.inscribir_alumno(ins1);
         ins_data.inscribir_alumno(ins2);
-*/   
-        
+         */
 //----------      Bloque de Testeo de DESINCRIBIR una INSCRIPCION       ------------------------                       
- /*       
-        Conexion conexion = new Conexion();
+        //Conexion conexion = new Conexion();
         //AlumnoData alumno_data = new AlumnoData(conexion);
-        alumno_data.buscaralumno
+        //alumno_data.buscaralumno
         //MateriaData materia_data = new MateriaData(conexion);
-        InscripcionesData ins_data = new InscripcionesData(conexion);
-        
-        ins_data.desinscribir_alumno(28);
+        //InscripcionesData ins_data = new InscripcionesData(conexion);
+        // DESINSCRIBIR POR ID INSCRIPCION
+        //ins_data.desinscribir_alumno(28);
         //ins_data.desinscribir_alumno(12);
-    
- */
- 
- //----------      Bloque de Testeo de Registrar Nota de  una INSCRIPCION       ------------------------                       
-  /*     
-        Conexion conexion = new Conexion();
+        // DESINSCRIBIR POR ID ALUMNO E ID MATERIA
+        //ins_data.desinscribir_alumno("30377673", "Labo 1");
+        // DESINSCRIBIR POR DNI ALUMNO Y NOMBRE_MATERIA
+        //ins_data.desinscribir_alumno("30377673", "SDFSDFDA");
+        
+        //----------      Bloque de Testeo de Registrar Nota de  una INSCRIPCION       ------------------------                       
+        //Conexion conexion = new Conexion();
         //AlumnoData alumno_data = new AlumnoData(conexion);
         //MateriaData materia_data = new MateriaData(conexion);
-        InscripcionesData ins_data = new InscripcionesData(conexion);
-        
+        //InscripcionesData ins_data = new InscripcionesData(conexion);
         //int id_alumno, int id_materia, double not
+        // REGISTRAR NOTA POR ID DE ALUMNO E ID DE MATERIA
         //ins_data.registrar_nota(46, 20, 3.0);
-        ins_data.registrar_nota(2, 4, 3.0);
-    
- 
- 
- */
- 
+        // REGISTRAR NOTA POR DNI Y NOMBRE_MATERIA
+        //ins_data.registrar_nota("30377673", "Lab 1", 10);
+        
 //----------      Bloque de Testeo de Mostrar Alumnos de una materia id de materia   ------------------------		
 /*			 	
 		 Conexion conexion = new Conexion();
@@ -236,70 +212,39 @@ public class Universidad {
                 
                 }
 		
-*/			
+         */
 //-----------------------------------------------------------------------------------	
-		 
 //----------      Bloque de Testeo de Mostrar Materias de un Alumno por id de alumno   ------------------------		
-
-
-
-		 Conexion conexion = new Conexion();
-                AlumnoData alumno_data = new AlumnoData(conexion);
-                MateriaData materia_data = new MateriaData(conexion);
-                InscripcionesData ins_data = new InscripcionesData(conexion);
-        
-                 List <Materia> aux=ins_data.materias_alumno(4);
-                System.out.println("EN la materia 27 los alumnos son: ");	 	
-		for(Materia alu: aux){
-                    System.out.println(alu);
-                }
-		
-
-
+//		 Conexion conexion = new Conexion();
+//                AlumnoData alumno_data = new AlumnoData(conexion);
+//                MateriaData materia_data = new MateriaData(conexion);
+//                InscripcionesData ins_data = new InscripcionesData(conexion);
+//        
+//                 List <Materia> aux=ins_data.materias_alumno(47);	 	
+//		for(Materia alu: aux){
+//                    System.out.println(alu);
+//               }
 //-----------------------------------------------------------------------------------	
-		 
-		
-//----------      Bloque de Testeo de Mostrar Notas y MAterias de un Alumno por id alumno  ------------------------		
-
-/*
-
-		 Conexion conexion = new Conexion();
-                AlumnoData alumno_data = new AlumnoData(conexion);
-                MateriaData materia_data = new MateriaData(conexion);
-                InscripcionesData ins_data = new InscripcionesData(conexion);
-        
-                
-                ins_data.notas_alumno(4).forEach
-                (
-               (materia,nota) -> System.out.println("Materia: " + materia.getNombre_materia() + ": Nota "+nota));
-
-    
- */       
+//----------      Bloque de Testeo de Mostrar Notas de MAterias de un Alumno por id alumno  ------------------------		
+//		Conexion conexion = new Conexion();
+//                InscripcionesData ins_data = new InscripcionesData(conexion);
+//        
+//                
+//                ins_data.notas_alumno(47).forEach
+//                (
+//               (materia,nota) -> System.out.println("Materia: " + materia.getNombre_materia() + " Nota: "+nota));
+//----------      Bloque de Testeo de Lista de inscripciones  ------------------------
 
 
-//----------      Bloque de Testeo de Lista de inscriciones por materia     ------------------------                       
-  
- /*   
-        Conexion conexion = new Conexion();
-        //AlumnoData alumno_data = new AlumnoData(conexion);
+//        Conexion conexion = new Conexion();
+//        InscripcionesData ins_data = new InscripcionesData(conexion);
+//
+//        List<Inscripcion> aux = ins_data.alumnos_en_materias();
+//        //System.out.println("EN la materia 27 los alumnos son: ");	 	
+//        for (Inscripcion alu : aux) {
+//            //System.out.println("Inscripcion: "+alu.getId_inscripcion()+" Alumno: "+alu.getAlumno().getNombre()+"  "+"Apellido: "+ alu.getAlumno().getApellido()+ "  " + "Materia: " + alu.getMateria().getNombre_materia());
+//            System.out.println(alu);
+//        }
 
-        //MateriaData materia_data = new MateriaData(conexion);
-        InscripcionesData ins_data = new InscripcionesData(conexion);
-        
-        List <Inscripcion> aux=ins_data.alumnos_en_materias();
-        System.out.println("EN la materia 27 los alumnos son: ");	 	
-        for(Inscripcion alu: aux){
-           System.out.println("Inscripcion: "+alu.getId_inscripcion()+" Alumno: "+alu.getAlumno().getNombre()+"  "+"Apellido: "+ alu.getAlumno().getApellido()+ "  " + "Materia: " + alu.getMateria().getNombre_materia());
-           // System.out.println(alu.toString());
-                }			
-*/
-		
-
+    }
 }
-}
-
-	   	
-
-
-
-  
