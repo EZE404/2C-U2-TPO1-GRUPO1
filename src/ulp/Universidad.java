@@ -271,12 +271,20 @@ public class Universidad {
              
                 //Iterator<Map.Entry<Materia, Double>> it = ins_data.notas_alumno(47).entrySet().iterator();
                 System.out.println("La nota del alumno 47 son: ");
-               // while (it.hasNext()) {
+               //while (it.hasNext()) {
                 //System.out.println("Materia: "+it.next().getKey().getNombre_materia()+" nota: "+it.next().getValue());
-                // }
-                ins_data.notas_alumno(47);
-
-                
+                 //}
+                ins_data.notas_alumno(47).forEach((materia,nota) -> System.out.println("Materia: " + materia.getNombre_materia() + ": Nota "+nota));
+//
+//                Map<Materia, Double> notas = new TreeMap(ins_data.notas_alumno(47));
+//               
+//        int n=1;
+//        for(Materia it:notas.keySet()){
+//            
+//            System.out.println(n+" Materia "+it.getNombre_materia());//+" Dni "+clientes.get(it).getDni()+" Nombre "+clientes.get(it).getApellido()+" "+clientes.get(it).getNombre());
+//            n++;
+//        }
+    }
                 
 
 		
@@ -285,15 +293,9 @@ public class Universidad {
 //-----------------------------------------------------------------------------------				
 
 		
-
+}
 	   	
 
 
 
-        
-        }
-    
-        
-        
-
-}
+  

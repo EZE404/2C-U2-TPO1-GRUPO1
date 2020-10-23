@@ -152,9 +152,9 @@ public class InscripcionesData {
         return materias;
     }
 
-    //Map<Materia, Double> 
-    public void notas_alumno(int id) {
-        //Map<Materia, Double> notas = new TreeMap<>();
+    // 
+    public Map<Materia, Double> notas_alumno(int id) {
+        Map notas = new TreeMap<>();
         Materia materia;
         Double nota;
 
@@ -167,8 +167,8 @@ public class InscripcionesData {
                 materia.setId_materia(consulta.getInt("id_materia"));
                 materia.setNombre_materia(consulta.getString("nombre_materia"));
                 nota = (Double)consulta.getDouble("nota");
-                System.out.println(materia.getNombre_materia()+nota);
-               // notas.put(materia, nota);
+                System.out.println(materia.getNombre_materia()+" "+nota);
+               notas.put(materia, nota);
             }
             JOptionPane.showMessageDialog(null, "Notas encontradas");
             statement.close();
@@ -177,7 +177,7 @@ public class InscripcionesData {
             System.out.println(ex.getMessage());
         }
 
-       // return notas;
+        return notas;
     }
 
     public List<Inscripcion> alumnos_en_materias() {
