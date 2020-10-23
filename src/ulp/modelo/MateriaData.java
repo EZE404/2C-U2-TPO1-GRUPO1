@@ -13,7 +13,7 @@ public class MateriaData {
     public MateriaData(Conexion conexion) {
         this.c = conexion.getConnection();
     }
-
+//########################## CARGAR MATERIA #############################
     public void cargar_materia(Materia materia) {
 
         String pre_instruccion = "INSERT INTO materia (nombre_materia) VALUES(?);";
@@ -29,8 +29,8 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null, "Materia cargada");
                 System.out.println("Materia cargada");
             } else {
-                JOptionPane.showMessageDialog(null, "No se pudo cargar materia");
-                System.out.println("No se pudo cargar materia");
+                JOptionPane.showMessageDialog(null, "No se pudo cargar materia. La materia "+materia.getNombre_materia()+ " ya existe");
+                System.out.println("No se pudo cargar materia. La materia "+materia.getNombre_materia()+ " ya existe");
             }
 
             if (llaves.next()) {
@@ -43,6 +43,8 @@ public class MateriaData {
         }
     }
 
+//##################### BUSCAR MATERIA #############################    
+    
     public Materia buscar_materia(int id) {
 
         Materia materia = null;
@@ -54,9 +56,10 @@ public class MateriaData {
                     materia = new Materia();
                     materia.setId_materia(consulta.getInt("id_materia"));
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
-
+                    JOptionPane.showMessageDialog(null, "Materia encontrada");
+                    System.out.println("Materia encontrada");
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo buscar materia");
+                    JOptionPane.showMessageDialog(null, "No se encontró tal materia");
                 }
             }
             instruccion.close();
@@ -78,9 +81,10 @@ public class MateriaData {
                     materia = new Materia();
                     materia.setId_materia(consulta.getInt("id_materia"));
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
-
+                    JOptionPane.showMessageDialog(null, "Materia encontrada");
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo buscar materia");
+                    JOptionPane.showMessageDialog(null, "No se encontró tal materia");
+                    System.out.println("No se encontró tal materia");
                 }
             }
             instruccion.close();
@@ -90,7 +94,7 @@ public class MateriaData {
         }
         return materia;
     }
-
+//############################ BORRAR MATERIA ################################
     public void borrar_materia(int id) {
 
         try {
@@ -137,13 +141,22 @@ public class MateriaData {
         try {
             Statement statement = c.createStatement();
             ResultSet consulta = statement.executeQuery("SELECT * FROM materia;");
-
-            while (consulta.next()) {
+            
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
                 materia = new Materia();
                 materia.setId_materia(consulta.getInt("id_materia"));
                 materia.setNombre_materia(consulta.getString("nombre_materia"));
                 materias.add(materia);
+                }
+                System.out.println("Se encontraron materias");
+                JOptionPane.showMessageDialog(null, "Se encontraron materias");
+            } else {
+                System.out.println("No se encontraron materias");
+                JOptionPane.showMessageDialog(null, "No se encontraorn materias");
             }
+            
             statement.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudieron obtener las materias");

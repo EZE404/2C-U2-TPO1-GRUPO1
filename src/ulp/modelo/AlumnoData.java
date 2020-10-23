@@ -182,7 +182,10 @@ public class AlumnoData {
         try {
             PreparedStatement instruccion = c.prepareStatement("SELECT * FROM alumno");
             ResultSet consulta = instruccion.executeQuery();
-            while (consulta.next()) {
+            
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
                 alumno = new Alumno();
                 alumno.setId_alumno(consulta.getInt("id_alumno"));
                 alumno.setNombre(consulta.getString("nombre"));
@@ -192,6 +195,13 @@ public class AlumnoData {
                 alumno.setActivo(consulta.getBoolean("activo"));
                 alumnos.add(alumno);
             }
+                JOptionPane.showMessageDialog(null, "Se encontraron alumnos");
+                System.out.println("Se encontraron alumnos");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron alumnos");
+                System.out.println("No se encontraron alumnos");
+            }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener Alumnos");
             System.out.println(ex.getMessage());
@@ -208,7 +218,9 @@ public class AlumnoData {
         try {
             PreparedStatement instruccion = c.prepareStatement("SELECT * FROM alumno WHERE activo=1");
             ResultSet consulta = instruccion.executeQuery();
-            while (consulta.next()) {
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
                 alumno = new Alumno();
                 alumno.setId_alumno(consulta.getInt("id_alumno"));
                 alumno.setNombre(consulta.getString("nombre"));
@@ -218,6 +230,13 @@ public class AlumnoData {
                 alumno.setActivo(consulta.getBoolean("activo"));
                 alumnos.add(alumno);
             }
+                JOptionPane.showMessageDialog(null, "Se encontraron alumnos");
+                System.out.println("Se encontraron alumnos");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron alumnos");
+                System.out.println("No se encontraron alumnos");
+            }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener Alumnos");
             System.out.println(ex.getMessage());
@@ -234,7 +253,9 @@ public class AlumnoData {
         try {
             PreparedStatement instruccion = c.prepareStatement("SELECT * FROM alumno WHERE activo=0");
             ResultSet consulta = instruccion.executeQuery();
-            while (consulta.next()) {
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
                 alumno = new Alumno();
                 alumno.setId_alumno(consulta.getInt("id_alumno"));
                 alumno.setNombre(consulta.getString("nombre"));
@@ -244,6 +265,13 @@ public class AlumnoData {
                 alumno.setActivo(consulta.getBoolean("activo"));
                 alumnos.add(alumno);
             }
+                JOptionPane.showMessageDialog(null, "Se encontraron alumnos");
+                System.out.println("Se encontraron alumnos");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron alumnos");
+                System.out.println("No se encontraron alumnos");
+            }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener Alumnos");
             System.out.println(ex.getMessage());

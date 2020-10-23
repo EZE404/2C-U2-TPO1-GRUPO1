@@ -406,6 +406,86 @@ public class InscripcionesData {
 
         return registros;
     }
+    
+    public List<Inscripcion> alumnos_activos_en_materias() {
+        List<Inscripcion> registros = new ArrayList<>();
+        Inscripcion inscripcion;
+        Alumno a;
+        Materia m;
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("select * from registro\n" +
+"WHERE EXISTS (SELECT * FROM alumno WHERE registro.id_alumno = alumno.id_alumno\n" +
+"              AND alumno.activo=1);");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    inscripcion = new Inscripcion(new Alumno(), new Materia());
+                    inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
+                    a = this.buscarAlumno(consulta.getInt("id_alumno"));
+                    m = this.buscarMateria(consulta.getInt("id_materia"));
+                    inscripcion.setCalificacion(consulta.getDouble("nota"));
+                    inscripcion.setAlumno(a);
+                    inscripcion.setMateria(m);
+                    registros.add(inscripcion);
+                }
+                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripciones");
+                System.out.println("Registro de inscripciones vacío");
+            }
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudieron obtener las inscripciones");
+            System.out.println(ex.getMessage());
+        }
+
+        return registros;
+    }
+    
+    public List<Inscripcion> alumnos_inactivos_en_materias() {
+        List<Inscripcion> registros = new ArrayList<>();
+        Inscripcion inscripcion;
+        Alumno a;
+        Materia m;
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("select * from registro\n" +
+"WHERE EXISTS (SELECT * FROM alumno WHERE registro.id_alumno = alumno.id_alumno\n" +
+"              AND alumno.activo=0);");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    inscripcion = new Inscripcion(new Alumno(), new Materia());
+                    inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
+                    a = this.buscarAlumno(consulta.getInt("id_alumno"));
+                    m = this.buscarMateria(consulta.getInt("id_materia"));
+                    inscripcion.setCalificacion(consulta.getDouble("nota"));
+                    inscripcion.setAlumno(a);
+                    inscripcion.setMateria(m);
+                    registros.add(inscripcion);
+                }
+                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripciones");
+                System.out.println("Registro de inscripciones vacío");
+            }
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudieron obtener las inscripciones");
+            System.out.println(ex.getMessage());
+        }
+
+        return registros;
+    }
 
 //########################### MÉTODOS ÚTILES ###################################
     public Alumno buscarAlumno(int id) {
