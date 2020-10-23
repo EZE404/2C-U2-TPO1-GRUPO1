@@ -37,6 +37,7 @@ public class InscripcionesData {
             // NOTIFICANDO OPERACION
             if (celAfectadas > 0) {
                 System.out.println("Inscripción realizada");
+                JOptionPane.showMessageDialog(null, "Inscripcion Exitosa");
             } else {
                 System.out.println("No se pudo realizar inscripción");
             }
@@ -55,16 +56,18 @@ public class InscripcionesData {
 
         try {
             Statement statement = c.createStatement();
-            int celAfectadas = statement.executeUpdate("DELETE FROM registro WHERE id_alumno=" + id + ";");
+            int celAfectadas = statement.executeUpdate("DELETE FROM registro WHERE id_registro=" + id + ";");
 
             if (celAfectadas > 0) {
                 System.out.println("Inscripción eliminada");
+                JOptionPane.showMessageDialog(null, "Desincripcion Exitosa");
             } else {
                 System.out.println("No se pudo borrar inscripción");
             }
             statement.close();
         } catch (SQLException ex) {
             System.out.println("No se pudo borrar inscripción");
+            JOptionPane.showMessageDialog(null, "No se pudo borrar inscripción");
             System.out.println(ex.getMessage());
         }
     }
@@ -77,7 +80,9 @@ public class InscripcionesData {
 
             if (celAfectadas > 0) {
                 System.out.println("Se registró nota");
+                JOptionPane.showMessageDialog(null, "Se registró nota");
             } else {
+                JOptionPane.showMessageDialog(null, "No se registró nota");
                 System.out.println("No se registró nota");
             }
             statement.close();
@@ -93,7 +98,7 @@ public class InscripcionesData {
         try {
             Statement statement = c.createStatement();
             ResultSet consulta;
-            consulta = statement.executeQuery("SELECT id_alumno, nombre, apellido, dni, fecha_n, activo FROM registro, alumno, materia WHERE alumno.id_alumno=registro.id_alumno AND registro.id_materia=" + id_materia + ";");
+            consulta = statement.executeQuery("SELECT alumno.id_alumno, nombre, apellido, dni, fecha_n, activo FROM registro, alumno, materia WHERE alumno.id_alumno=registro.id_alumno AND registro.id_materia=materia.id_materia AND registro.id_materia=" + id_materia + ";");
 
             while (consulta.next()) {
                 alumno = new Alumno();
@@ -106,7 +111,9 @@ public class InscripcionesData {
                 alumnos.add(alumno);
             }
             statement.close();
+            JOptionPane.showMessageDialog(null, "Se encontraron las materias");
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de algun tipo");
             System.out.println(ex.getMessage());
         }
 
@@ -119,45 +126,58 @@ public class InscripcionesData {
 
         try {
             Statement statement = c.createStatement();
-            ResultSet consulta = statement.executeQuery("SELECT id_materia, nombre_materia FROM registro, materia WHERE registro.id_materia=materia.id_materia AND registro.id_alumno=" + id_alumno + ";");
-
+            ResultSet consulta = statement.executeQuery("SELECT materia.id_materia, nombre_materia FROM registro, materia WHERE registro.id_materia=materia.id_materia AND registro.id_alumno=" + id_alumno + ";");
+             
             while (consulta.next()) {
                 materia = new Materia();
                 materia.setId_materia(consulta.getInt("id_materia"));
                 materia.setNombre_materia(consulta.getString("nombre_materia"));
                 materias.add(materia);
             }
+            if(consulta.next()){
+                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                System.out.println("No se encontraron materias");
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "No se encontraron materias");
+                System.out.println("No se encontraron materias");
+            }
             statement.close();
+            
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al encontrar materias");
             System.out.println(ex.getMessage());
         }
 
         return materias;
     }
 
-    public Map<Materia, Double> notas_alumno(int id) {
-        Map<Materia, Double> notas = new TreeMap<>();
+    //Map<Materia, Double> 
+    public void notas_alumno(int id) {
+        //Map<Materia, Double> notas = new TreeMap<>();
         Materia materia;
         Double nota;
 
         try {
             Statement statement = c.createStatement();
-            ResultSet consulta = statement.executeQuery("SELECT id_materia, nombre_materia, nota FROM registro, materia WHERE registro.id_alumno=" + id
-                    + " AND registro.id_materia=materia.id_materia;");
+            ResultSet consulta = statement.executeQuery("SELECT materia.id_materia, nombre_materia, nota FROM registro, materia, alumno WHERE alumno.id_alumno=registro.id_alumno AND registro.id_materia=materia.id_materia AND registro.id_alumno=" + id +";");
 
             while (consulta.next()) {
                 materia = new Materia();
                 materia.setId_materia(consulta.getInt("id_materia"));
                 materia.setNombre_materia(consulta.getString("nombre_materia"));
-                nota = consulta.getDouble("nota");
-                notas.put(materia, nota);
+                nota = (Double)consulta.getDouble("nota");
+                System.out.println(materia.getNombre_materia()+nota);
+               // notas.put(materia, nota);
             }
+            JOptionPane.showMessageDialog(null, "Notas encontradas");
             statement.close();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de algun tipo");
             System.out.println(ex.getMessage());
         }
 
-        return notas;
+       // return notas;
     }
 
     public List<Inscripcion> alumnos_en_materias() {

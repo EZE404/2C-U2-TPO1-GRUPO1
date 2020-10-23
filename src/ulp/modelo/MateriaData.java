@@ -3,8 +3,6 @@ package ulp.modelo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import ulp.entidades.Materia;
 
@@ -28,8 +26,10 @@ public class MateriaData {
             ResultSet llaves = instruccion.getGeneratedKeys();
 
             if (celAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Materia cargada");
                 System.out.println("Materia cargada");
             } else {
+                JOptionPane.showMessageDialog(null, "No se pudo cargar materia");
                 System.out.println("No se pudo cargar materia");
             }
 
@@ -56,12 +56,37 @@ public class MateriaData {
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo buscar alumno");
+                    JOptionPane.showMessageDialog(null, "No se pudo buscar materia");
                 }
             }
             instruccion.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar Alumno, " + ex);
+            JOptionPane.showMessageDialog(null, "Error al buscar materia");
+            System.out.println(ex.getMessage());
+        }
+        return materia;
+    }
+    
+    public Materia buscar_materia(String nombre_materia) {
+
+        Materia materia = null;
+
+        try {
+            Statement instruccion = c.createStatement();
+            try (ResultSet consulta = instruccion.executeQuery("SELECT * FROM materia WHERE nombre_materia='" + nombre_materia + "';")) {
+                if (consulta.next()) {
+                    materia = new Materia();
+                    materia.setId_materia(consulta.getInt("id_materia"));
+                    materia.setNombre_materia(consulta.getString("nombre_materia"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo buscar materia");
+                }
+            }
+            instruccion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar materia");
+            System.out.println(ex.getMessage());
         }
         return materia;
     }
@@ -73,13 +98,36 @@ public class MateriaData {
             int celAfectadas = statement.executeUpdate("DELETE FROM materia WHERE id_materia=" + id + ";");
 
             if (celAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Materia Eliminada");
                 System.out.println("Materia eliminada");
             } else {
+                JOptionPane.showMessageDialog(null, "No se borró la materia");
                 System.out.println("No se pudo borrar materia");
             }
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo borrar materia");
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void borrar_materia(String nombre_materia) {
+
+        try {
+            Statement statement = c.createStatement();
+            int celAfectadas = statement.executeUpdate("DELETE FROM materia WHERE nombre_materia='" + nombre_materia + "';");
+
+            if (celAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Materia Eliminada");
+                System.out.println("Materia eliminada");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se borró la materia");
+                System.out.println("No se pudo borrar materia");
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo borrar materia");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -98,7 +146,8 @@ public class MateriaData {
             }
             statement.close();
         } catch (SQLException ex) {
-
+            JOptionPane.showMessageDialog(null, "No se pudieron obtener las materias");
+            System.out.println("No se pudieron obtener las materias");
         }
 
         return materias;
