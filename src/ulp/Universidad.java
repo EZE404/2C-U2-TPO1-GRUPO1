@@ -23,20 +23,6 @@ public class Universidad {
         MateriaData materia_data = new MateriaData(conexion);
         InscripcionesData ins_data = new InscripcionesData(conexion);
 
-//        Alumno franco = new Alumno(1, "Franco", "Ezequiel", "35789545", LocalDate.of(1990,7,12), false);
-//        alumno_data.modificar_alumno(franco);
-//        System.out.println(alumno_data.buscar_alumno(1).toString());
-//        
-//        for (Alumno a: alumno_data.ver_alumnos()) {
-//            System.out.println(a.toString());
-//        }
-      
-//        Inscripcion ins = new Inscripcion(alumno_data.buscar_alumno(12), materia_data.buscar_materia(4), 7.5);
-//        
-//        ins_data.inscribir_alumno(ins);
-//        ins_data.inscribir_alumno(ins);
-//        ins_data.inscribir_alumno(ins);
-
 
 //##############################################################################
 //###################### Bloque de Testeo de conexion ##########################
