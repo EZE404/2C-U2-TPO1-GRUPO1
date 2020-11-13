@@ -42,7 +42,31 @@ public class MateriaData {
             System.out.println(ex.getMessage());
         }
     }
+//##################### ACTUALIZAR MATERIA #############################    
+    
+    public void actualizar_materia(Materia materia) {
 
+       
+        try {
+            Statement instruccion = c.createStatement();
+            try (ResultSet consulta = instruccion.executeQuery("UPDATE materia SET nombre_materia="+materia.getNombre_materia()+" WHERE id_materia="+materia.getId_materia()+ ";")) {
+                if (consulta.next()) {
+                    materia = new Materia();
+                    materia.setId_materia(consulta.getInt("id_materia"));
+                    materia.setNombre_materia(consulta.getString("nombre_materia"));
+                    JOptionPane.showMessageDialog(null, "Materia encontrada");
+                    System.out.println("Materia encontrada");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró tal materia");
+                }
+            }
+            instruccion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar materia");
+            System.out.println(ex.getMessage());
+        }
+       
+    }
 //##################### BUSCAR MATERIA #############################    
     
     public Materia buscar_materia(int id) {
