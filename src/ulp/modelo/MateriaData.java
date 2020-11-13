@@ -43,14 +43,15 @@ public class MateriaData {
         }
     }
 
-//##################### ACTUALIZAR MATERIA #############################    
+//##################### BUSCAR MATERIA #############################    
     
-    public void actualizar_materia(Materia materia) {
+    public Materia buscar_materia(int id) {
 
-       
+        Materia materia = null;
+
         try {
             Statement instruccion = c.createStatement();
-            try (ResultSet consulta = instruccion.executeQuery("UPDATE materia SET nombre_materia="+materia.getNombre_materia()+" WHERE id_materia="+materia.getId_materia()+ ";")) {
+            try (ResultSet consulta = instruccion.executeQuery("SELECT * FROM materia WHERE id_materia=" + id + ";")) {
                 if (consulta.next()) {
                     materia = new Materia();
                     materia.setId_materia(consulta.getInt("id_materia"));
@@ -66,8 +67,9 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "Error al buscar materia");
             System.out.println(ex.getMessage());
         }
-       
+        return materia;
     }
+    
     public Materia buscar_materia(String nombre_materia) {
 
         Materia materia = null;
@@ -83,29 +85,6 @@ public class MateriaData {
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró tal materia");
                     System.out.println("No se encontró tal materia");
-                }
-            }
-            instruccion.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar materia");
-            System.out.println(ex.getMessage());
-        }
-        return materia;
-    }
-    public Materia buscar_materia(int id) {
-
-        Materia materia = null;
-
-        try {
-            Statement instruccion = c.createStatement();
-            try (ResultSet consulta = instruccion.executeQuery("SELECT * FROM materia WHERE id_materia=" + id + ";")) {
-                if (consulta.next()) {
-                    materia = new Materia();
-                    materia.setId_materia(consulta.getInt("id_materia"));
-                    materia.setNombre_materia(consulta.getString("nombre_materia"));
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo buscar materia");
                 }
             }
             instruccion.close();
@@ -182,39 +161,6 @@ public class MateriaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudieron obtener las materias");
             System.out.println("No se pudieron obtener las materias");
-        }
-
-        return materias;
-    }
-//###################### MATERIAS QUE NO CURSA UN ALUMNO #######################
-
-    public List<Materia> obtener_materias_alumno_nocursa(int id_alumno) {
-        List<Materia> materias = new ArrayList<>();
-        Materia materia;
-        try {
-            Statement statement = c.createStatement();
-            ResultSet consulta = statement.executeQuery("SELECT materia.id_materia, materia.nombre_materia FROM materia, registro WHERE registro.id_materia=materia.id_materia"
-                    + " AND registro.id_alumno!="+id_alumno+";");
-
-            if (consulta.next()) {
-                consulta.beforeFirst();
-                while (consulta.next()) {
-                materia = new Materia();
-                materia.setId_materia(consulta.getInt("id_materia"));
-                materia.setNombre_materia(consulta.getString("nombre_materia"));
-                materias.add(materia);
-                }
-                System.out.println("Se encontraron materias");
-                JOptionPane.showMessageDialog(null, "Se encontraron materias");
-            } else {
-                System.out.println("No se encontraron materias");
-                JOptionPane.showMessageDialog(null, "No se encontraorn materias");
-            }
-
-            statement.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudieron obtener las materias");
-            System.out.println("No se pudieron obtener las materias: "+ex.getMessage());
         }
 
         return materias;
