@@ -272,7 +272,7 @@ public class vistaMateria extends javax.swing.JInternalFrame {
     private void jb_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_actualizarActionPerformed
         materia=new Materia();
         materia.setNombre_materia(jtf_nombre.getText());
-        materia_data.actualizar_materia(materia);
+       // materia_data.(materia);
         cajaSalida.setText("Materia Actualizada con Exito");
     }//GEN-LAST:event_jb_actualizarActionPerformed
 

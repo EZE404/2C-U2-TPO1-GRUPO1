@@ -55,7 +55,6 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mapPaneAdapter1 = new org.geotools.swing.event.MapPaneAdapter();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -267,7 +266,6 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrb_inscripcion;
     private javax.swing.JRadioButton jrb_no_inscriptas;
     private javax.swing.JTable jt_materia;
-    private org.geotools.swing.event.MapPaneAdapter mapPaneAdapter1;
     // End of variables declaration//GEN-END:variables
 public void borrarFilasTabla(){
 //       int a=jt_materia.getRowCount()-1;
