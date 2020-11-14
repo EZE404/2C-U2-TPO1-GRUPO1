@@ -6,12 +6,16 @@
 package ulp.vista;
 
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import ulp.entidades.Alumno;
+import ulp.entidades.Inscripcion;
 import ulp.entidades.Materia;
 import ulp.modelo.AlumnoData;
 import ulp.modelo.Conexion;
@@ -51,13 +55,20 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         armaCabeceraTabla();
         borraFilasTabla();
         cargarMaterias();
+        jcb_materias.setSelectedItem(null);
+        
+        
+        
+        
+        
     }
     
     public void armaCabeceraTabla(){
   
            //Titulos de Columnas
         ArrayList<Object> columnas=new ArrayList<Object>();
-        columnas.add("ID Materia modelo");
+        columnas.add("ID Inscripcion");
+        columnas.add("ID Materia");
         columnas.add("Nombre Materia");
         columnas.add("Nota");
        
@@ -79,11 +90,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 }
     
     public void cargarMaterias(){
+        jcb_materias.setSelectedItem(new Object[]{" "});
         List<Materia> materias = materia_Data.obtener_materias();
         for(Materia item: materias){
             jcb_materias.addItem(item);
         }
+        
     }
+    
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,7 +121,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_cargaNotas = new javax.swing.JTable();
         jButton_buscar = new javax.swing.JButton();
-        jButton_limipar = new javax.swing.JButton();
+        javax.swing.JButton jButton_limpiar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jcb_materias = new javax.swing.JComboBox<>();
         jL_buscarMateria = new javax.swing.JLabel();
@@ -122,6 +136,10 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jLabel_nota = new javax.swing.JLabel();
         jTextField_nota = new javax.swing.JTextField();
         jtf_alumno = new javax.swing.JTextField();
+        jPanel_estado = new javax.swing.JPanel();
+        jtf_estadoSistema = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jbt_actualizar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,6 +154,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        setResizable(false);
         setTitle("Carga de Notas");
 
         jl_titulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -205,6 +224,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
         jTable_cargaNotas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jTable_cargaNotas.setAutoscrolls(false);
+        jTable_cargaNotas.setEnabled(false);
         jTable_cargaNotas.setRowHeight(30);
         jScrollPane2.setViewportView(jTable_cargaNotas);
 
@@ -215,10 +235,10 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton_limipar.setText("Limpiar");
-        jButton_limipar.addActionListener(new java.awt.event.ActionListener() {
+        jButton_limpiar.setText("Limpiar");
+        jButton_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_limiparActionPerformed(evt);
+                jButton_limpiarActionPerformed(evt);
             }
         });
 
@@ -354,31 +374,75 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel_estado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jtf_estadoSistema.setEditable(false);
+        jtf_estadoSistema.setText("estados y mensajes");
+        jtf_estadoSistema.setToolTipText("");
+
+        jLabel3.setText("Estado");
+
+        jbt_actualizar.setText("Actualizar");
+        jbt_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbt_actualizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_estadoLayout = new javax.swing.GroupLayout(jPanel_estado);
+        jPanel_estado.setLayout(jPanel_estadoLayout);
+        jPanel_estadoLayout.setHorizontalGroup(
+            jPanel_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_estadoLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel3)
+                .addGap(26, 26, 26)
+                .addComponent(jtf_estadoSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbt_actualizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_estadoLayout.setVerticalGroup(
+            jPanel_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_estadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtf_estadoSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jbt_actualizar))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(144, 144, 144)
+                .addGap(151, 151, 151)
                 .addComponent(jButton_buscar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton_limipar)
-                .addGap(18, 18, 18)
+                .addComponent(jButton_limpiar)
+                .addGap(27, 27, 27)
                 .addComponent(jButton_guardar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_salir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jl_titulo)
-                        .addGap(33, 33, 33)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(75, 75, 75)
+                            .addComponent(jl_titulo)
+                            .addGap(33, 33, 33)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,13 +455,15 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_buscar)
-                    .addComponent(jButton_limipar)
+                    .addComponent(jButton_limpiar)
                     .addComponent(jButton_guardar)
                     .addComponent(jButton_salir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jPanel_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -449,19 +515,46 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         
         jtf_alumno.setText(elAlumno.getApellido()+" "+elAlumno.getNombre());
         
-        Map<Materia, Double> notas = new TreeMap<>();
-        notas = inscripcion_data.notas_alumno(elAlumno.getId_alumno());
-
-            int i= 0;
-        for (Map.Entry<Materia, Double> entry : notas.entrySet()) {
+        Inscripcion laInscripcion = new Inscripcion();
+        Materia seleccionada = (Materia)jcb_materias.getSelectedItem();
         
-            Materia key = entry.getKey();
-            Double value = entry.getValue();
+        laInscripcion = inscripcion_data.inscripcion_alumno_materia(elAlumno.getId_alumno(), seleccionada.getId_materia());
+        
+        System.out.println(laInscripcion);
+        
+        modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion() });
+    
+        
+//        Map<Materia, Double> notas = new TreeMap<>();
+//        notas = inscripcion_data.notas_alumno(elAlumno.getId_alumno());
+//
+//            int i= 0;
+//        for (Map.Entry<Materia, Double> entry : notas.entrySet()) {
+//        
+//            Materia key = entry.getKey();
+//            Double value = entry.getValue();
+//            
+//            modelo.addRow(new Object[]{key.getId_materia(),key.getNombre_materia(),entry.getValue()});
+//            
+//       i++;
+        int delay = 3000; // miliseg
+        ActionListener taskPerformer = new ActionListener() {
+
             
-            modelo.addRow(new Object[]{key.getId_materia(),key.getNombre_materia(),entry.getValue()});
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                
+                escribirEstados();
+            }
             
-       i++;
-        }
+         };
+
+
+        Timer timer = new Timer (delay,taskPerformer );
+        timer.setRepeats(false);
+        timer.start();
+        System.out.println("Hola");
         
 
         
@@ -471,10 +564,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtf_alumnoActionPerformed
 
-    private void jButton_limiparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limiparActionPerformed
+    private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
         // TODO add your handling code here:
+        jcb_materias.setSelectedItem(null);
         this.borraFilasTabla();
-    }//GEN-LAST:event_jButton_limiparActionPerformed
+        jtf_ingreseValor.setText("");
+        jtf_alumno.setText("");
+        jTextField_nota.setText("");
+    }//GEN-LAST:event_jButton_limpiarActionPerformed
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
         // TODO add your handling code here:
@@ -487,25 +584,37 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton_guardarActionPerformed
 
+    private void jbt_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_actualizarActionPerformed
+        // TODO add your handling code here:
+        escribirEstados();
+    }//GEN-LAST:event_jbt_actualizarActionPerformed
+    public void escribirEstados() {
+        System.out.println("a");
+
+        jtf_estadoSistema.setText(Errores_mensajes.getEstado() + "d");
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton_buscar;
     private javax.swing.JButton jButton_guardar;
-    private javax.swing.JButton jButton_limipar;
     private javax.swing.JButton jButton_salir;
     private javax.swing.JLabel jL_buscarMateria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_nota;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel_estado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     public javax.swing.JTable jTable_cargaNotas;
     private javax.swing.JTextField jTextField_nota;
+    private javax.swing.JButton jbt_actualizar;
     private javax.swing.JComboBox<Materia> jcb_materias;
     private javax.swing.JCheckBox jchb_porApellido;
     private javax.swing.JCheckBox jchb_porDni;
@@ -516,6 +625,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jl_ingreseDni;
     private javax.swing.JLabel jl_titulo;
     private javax.swing.JTextField jtf_alumno;
+    private javax.swing.JTextField jtf_estadoSistema;
     private javax.swing.JTextField jtf_ingreseValor;
     // End of variables declaration//GEN-END:variables
 }

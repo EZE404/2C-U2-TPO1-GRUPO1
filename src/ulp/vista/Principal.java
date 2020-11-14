@@ -5,23 +5,32 @@
  */
 package ulp.vista;
 
+import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author Genaro
  */
 public class Principal extends javax.swing.JFrame {
+//    public static String estados;
 //    private VistasMateria visM = new VistasMateria;
 
+    
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+//        System.out.println("a");
+        
+//        jLabel_estadosSistema.setText(traerEstados()+ "c");
+//        jLabel_estadosSistema.setText(traerEstados()+ "d");
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,16 +154,17 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelEscritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelEscritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelEscritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelEscritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void jMenuItemArchivos_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemArchivos_SalirActionPerformed
         this.setVisible(false);
         this.dispose();
@@ -196,6 +206,10 @@ public class Principal extends javax.swing.JFrame {
         VistaCargaNota visCN = new VistaCargaNota();
         visCN.setVisible(true);
         jPanelEscritorio.add(visCN);
+        Dimension tamEsc = jPanelEscritorio.getSize();
+        Dimension tamFor = visCN.getSize();
+        
+        visCN.setLocation((tamEsc.width - tamFor.width)/2 , (tamEsc.height - tamFor.height)/2) ;
     }//GEN-LAST:event_jMenuItem_CargaDeNotas_Formulario_NotasActionPerformed
 
     /**
@@ -231,7 +245,10 @@ public class Principal extends javax.swing.JFrame {
                 new Principal().setVisible(true);
             }
         });
+        
+        
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

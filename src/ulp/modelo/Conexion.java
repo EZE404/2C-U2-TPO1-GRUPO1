@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import ulp.vista.Errores_mensajes;
+import ulp.vista.Principal;
 
 public class Conexion {
 
@@ -20,8 +22,11 @@ public class Conexion {
 
                 conexion = DriverManager.getConnection(url, user, pass);
                 JOptionPane.showMessageDialog(null, "Conexion Exitosa");
+                Errores_mensajes.escribirMensaje("Conexon Exitosa");
+                               
             } catch (SQLException | ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null, "Error al conectarse");
+                              
             }
         }
         return conexion;
