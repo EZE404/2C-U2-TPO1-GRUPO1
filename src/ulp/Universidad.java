@@ -276,5 +276,12 @@ public class Universidad {
 //        }
 
 //##############################################################################
+//    List<Materia> materias= materia_data.obtener_materias_alumno_nocursa(47);
+//    for(Materia m:materias){
+//        System.out.println(m);
+//    }
+
+
+
     }
 }

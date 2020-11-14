@@ -18,7 +18,7 @@ import ulp.modelo.MateriaData;
  *
  * @author MArio
  */
-public class vistaMateria extends javax.swing.JInternalFrame {
+public class MateriaAlta extends javax.swing.JInternalFrame {
         Conexion conexion = new Conexion();
         Alumno alumno;
         Materia materia =new Materia();
@@ -26,7 +26,7 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         MateriaData materia_data = new MateriaData(conexion);
         InscripcionesData ins_data = new InscripcionesData(conexion);
     /**
-     * Creates new form vistaMateria
+     * Creates new form MateriaAlta
      */
     public void Limpiar(){
         jtf_id.setText("");
@@ -36,7 +36,7 @@ public class vistaMateria extends javax.swing.JInternalFrame {
         jtf_id.setText("");
     
     }
-    public vistaMateria() {
+    public MateriaAlta() {
         initComponents();
     }
 
