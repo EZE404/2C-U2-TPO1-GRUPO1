@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import ulp.entidades.Alumno;
 import ulp.entidades.Inscripcion;
@@ -29,11 +31,10 @@ import ulp.modelo.MateriaData;
  * @author Genaro
  */
 public class VistaCargaNota extends javax.swing.JInternalFrame {
-    private Conexion conexion = new Conexion();
-    private MateriaData materia_Data = new MateriaData(conexion);
-    private AlumnoData alumno_data = new AlumnoData(conexion);
-    private InscripcionesData inscripcion_data = new InscripcionesData(conexion);
-    
+    private Conexion conexion;
+    private MateriaData materia_Data;
+    private AlumnoData alumno_data;
+    private InscripcionesData inscripcion_data;
     private DefaultTableModel modelo;       //Para la tabla
     
 
@@ -42,6 +43,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
      */
     public VistaCargaNota() {
         initComponents();
+        conexion = new Conexion();
+        materia_Data = new MateriaData(conexion);
+        alumno_data = new AlumnoData(conexion);
+        inscripcion_data = new InscripcionesData(conexion);
+        modelo=new DefaultTableModel();     //Instancio un nuevo modelo
         
         this.jchb_porId.setSelected(true);
         this.jlIngreseApellido.setVisible(false);
@@ -52,7 +58,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         this.jl_ingreseDni.setLocation(new Point(20,3));
         this.jtf_ingreseValor.setLocation(new Point(20,3));
        
-        modelo=new DefaultTableModel();     //Instancio un nuevo modelo
+        
         armaCabeceraTabla();
         borraFilasTabla();
         cargarMaterias();
@@ -248,6 +254,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jl_IngreseId.setText("Ingrese el Id:");
 
         jtf_ingreseValor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtf_ingreseValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtf_ingreseValorActionPerformed(evt);
+            }
+        });
 
         jl_buscarAlumno.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jl_buscarAlumno.setText("Buscar Alumno");
@@ -287,7 +298,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel_nota)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField_nota)
+                .addComponent(jTextField_nota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
 
@@ -455,6 +466,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jcb_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_materiasActionPerformed
         // TODO add your handling code here:
+      
     }//GEN-LAST:event_jcb_materiasActionPerformed
 
     private void jTextField_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_notaActionPerformed
@@ -463,11 +475,16 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         // TODO add your handling code here:
+        
+        if(true){
         borraFilasTabla();      //Borra los datos de la tabla
         Alumno elAlumno = new Alumno();
-        elAlumno = alumno_data.buscar_alumno(Integer.parseInt(jtf_ingreseValor.getText()));
-        
-        System.out.println(elAlumno);
+        if(jchb_porId.isSelected()){
+            elAlumno = alumno_data.buscar_alumno(Integer.parseInt(jtf_ingreseValor.getText())); 
+        } else {
+            elAlumno = alumno_data.buscar_alumno(jtf_ingreseValor.getText());
+        }
+         
         
         jtf_alumno.setText(elAlumno.getApellido()+" "+elAlumno.getNombre());
         
@@ -475,45 +492,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         Materia seleccionada = (Materia)jcb_materias.getSelectedItem();
         
         laInscripcion = inscripcion_data.inscripcion_alumno_materia(elAlumno.getId_alumno(), seleccionada.getId_materia());
+        if(laInscripcion != null){
         
         System.out.println(laInscripcion);
         
         modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion() });
-    
-        
-//        Map<Materia, Double> notas = new TreeMap<>();
-//        notas = inscripcion_data.notas_alumno(elAlumno.getId_alumno());
-//
-//            int i= 0;
-//        for (Map.Entry<Materia, Double> entry : notas.entrySet()) {
-//        
-//            Materia key = entry.getKey();
-//            Double value = entry.getValue();
-//            
-//            modelo.addRow(new Object[]{key.getId_materia(),key.getNombre_materia(),entry.getValue()});
-//            
-//       i++;
-        int delay = 3000; // miliseg
-        ActionListener taskPerformer = new ActionListener() {
-
-            
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                
-//                escribirEstados();
-            }
-            
-         };
-
-
-        Timer timer = new Timer (delay,taskPerformer );
-        timer.setRepeats(false);
-        timer.start();
-        System.out.println("Hola");
-        
-
-        
+        }
+        }escribirEstados("No hay inscripcion para mostrar");
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     private void jtf_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_alumnoActionPerformed
@@ -527,6 +512,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jtf_ingreseValor.setText("");
         jtf_alumno.setText("");
         jTextField_nota.setText("");
+        hacerFoco();
     }//GEN-LAST:event_jButton_limpiarActionPerformed
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
@@ -539,15 +525,76 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
             
         }
     }//GEN-LAST:event_jButton_guardarActionPerformed
-//    public void escribirEstados() {
-//        System.out.println("a");
-//
-//        jtf_estadoSistema.setText(Errores_mensajes.getEstado() + "d");
-//
-//    }
+
+    private void jtf_ingreseValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_ingreseValorActionPerformed
+        // TODO add your handling code here:
+        
+        jtf_ingreseValor.getDocument().addDocumentListener(new DocumentListener() 
+        { 
+            @Override
+            public void changedUpdate(DocumentEvent e){
+                changed(); 
+            } 
+            @Override
+            public void removeUpdate(DocumentEvent e){ 
+                changed(); 
+            } 
+            @Override
+            public void insertUpdate(DocumentEvent e){ 
+                changed(); 
+            }
+            public void changed() {
+            if (jtf_ingreseValor.getText().equals("")){
+                jButton_buscar.setEnabled(false); 
+            } else { jButton_buscar.setEnabled(true); } } }); 
+    }//GEN-LAST:event_jtf_ingreseValorActionPerformed
+    
+    
+    public void escribirEstados(String estado) {
+        int delay = 5000; // miliseg
+        ActionListener taskPerformer = (ActionEvent evt) -> {
+            jl_estadosYMensajes.setVisible(false);
+        };
+
+
+        Timer timer = new Timer (delay,taskPerformer );
+        timer.setRepeats(false);
+        timer.start();
+        jl_estadosYMensajes.setText(estado);
+
+    }
     
     public void hacerFoco(){
         jtf_ingreseValor.requestFocus();
+    }
+    
+    public boolean chekaDatosIngresados(){
+        boolean esValido = false;
+        if((jtf_ingreseValor.getText().isEmpty()) && ((jcb_materias.getSelectedObjects())==null)){
+//          if(true){
+            
+            esValido = false;
+                    
+           if (jtf_ingreseValor.getText().isEmpty()){
+                escribirEstados("Falta ingresar el argumento para la busqueda. Ingrese un id o dni de acuerdo a su seleccion");
+                jtf_ingreseValor.requestFocus();
+           } 
+           else if (jcb_materias.getSelectedObjects() == null){
+                escribirEstados("Eliga una materia. ");
+                jcb_materias.requestFocus();
+           } else {
+               escribirEstados("Eliga una materia y un alumno. ");
+                jtf_ingreseValor.requestFocus();
+               
+           }
+           } 
+        else 
+        {
+           esValido=true;
+        }
+        
+        
+        return esValido;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
