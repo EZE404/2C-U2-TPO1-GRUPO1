@@ -117,7 +117,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jButton_guardar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jchb_porId = new javax.swing.JCheckBox();
-        jchb_porApellido = new javax.swing.JCheckBox();
         jchb_porDni = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_cargaNotas = new javax.swing.JTable();
@@ -137,10 +136,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jLabel_nota = new javax.swing.JLabel();
         jTextField_nota = new javax.swing.JTextField();
         jtf_alumno = new javax.swing.JTextField();
-        jPanel_estado = new javax.swing.JPanel();
-        jtf_estadoSistema = new javax.swing.JTextField();
+        jl_estadosYMensajes = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jbt_actualizar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,14 +180,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonGroup1.add(jchb_porApellido);
-        jchb_porApellido.setText("Por Apellido");
-        jchb_porApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jchb_porApellidoActionPerformed(evt);
-            }
-        });
-
         buttonGroup1.add(jchb_porDni);
         jchb_porDni.setText("Por Dni");
         jchb_porDni.addActionListener(new java.awt.event.ActionListener() {
@@ -207,9 +196,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jchb_porId)
-                    .addComponent(jchb_porDni)
-                    .addComponent(jchb_porApellido))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(jchb_porDni))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,10 +205,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jchb_porId)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jchb_porApellido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jchb_porDni)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jTable_cargaNotas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -293,7 +279,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jTextField_nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,29 +304,31 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jtf_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jL_buscarMateria)
+                        .addComponent(jtf_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jl_buscarAlumno)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jl_IngreseId)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jl_ingreseDni)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlIngreseApellido))
-                    .addComponent(jtf_ingreseValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jL_buscarMateria)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jl_buscarAlumno)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jl_IngreseId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jl_ingreseDni)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlIngreseApellido))
+                            .addComponent(jtf_ingreseValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,51 +363,31 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel_estado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jl_estadosYMensajes.setText("Estados y mensajes");
 
-        jtf_estadoSistema.setEditable(false);
-        jtf_estadoSistema.setText("estados y mensajes");
-        jtf_estadoSistema.setToolTipText("");
-
-        jLabel3.setText("Estado");
-
-        jbt_actualizar.setText("Actualizar");
-        jbt_actualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbt_actualizarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_estadoLayout = new javax.swing.GroupLayout(jPanel_estado);
-        jPanel_estado.setLayout(jPanel_estadoLayout);
-        jPanel_estadoLayout.setHorizontalGroup(
-            jPanel_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_estadoLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addGap(26, 26, 26)
-                .addComponent(jtf_estadoSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbt_actualizar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel_estadoLayout.setVerticalGroup(
-            jPanel_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_estadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel_estadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtf_estadoSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jbt_actualizar))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        jLabel3.setText("Estado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jl_estadosYMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(141, 141, 141)
+                                .addComponent(jl_titulo))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(155, 155, 155)
                 .addComponent(jButton_buscar)
                 .addGap(18, 18, 18)
                 .addComponent(jButton_limpiar)
@@ -427,44 +395,38 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addComponent(jButton_guardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_salir)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(75, 75, 75)
-                            .addComponent(jl_titulo)
-                            .addGap(33, 33, 33)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(23, 23, 23)
                         .addComponent(jl_titulo)
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_buscar)
                     .addComponent(jButton_limpiar)
                     .addComponent(jButton_guardar)
                     .addComponent(jButton_salir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jPanel_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jl_estadosYMensajes))
                 .addContainerGap())
         );
 
@@ -477,13 +439,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         this.jlIngreseApellido.setVisible(false);
         this.jl_ingreseDni.setVisible(true);
     }//GEN-LAST:event_jchb_porDniActionPerformed
-
-    private void jchb_porApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porApellidoActionPerformed
-        // TODO add your handling code here:
-        this.jl_IngreseId.setVisible(false);
-        this.jl_ingreseDni.setVisible(false);
-        this.jlIngreseApellido.setVisible(true);
-    }//GEN-LAST:event_jchb_porApellidoActionPerformed
 
     private void jButton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_salirActionPerformed
         // TODO add your handling code here:
@@ -584,17 +539,16 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
             
         }
     }//GEN-LAST:event_jButton_guardarActionPerformed
-
-    private void jbt_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_actualizarActionPerformed
-        // TODO add your handling code here:
-//        escribirEstados();
-    }//GEN-LAST:event_jbt_actualizarActionPerformed
 //    public void escribirEstados() {
 //        System.out.println("a");
 //
 //        jtf_estadoSistema.setText(Errores_mensajes.getEstado() + "d");
 //
 //    }
+    
+    public void hacerFoco(){
+        jtf_ingreseValor.requestFocus();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -609,24 +563,21 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel_estado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     public javax.swing.JTable jTable_cargaNotas;
     private javax.swing.JTextField jTextField_nota;
-    private javax.swing.JButton jbt_actualizar;
     private javax.swing.JComboBox<Materia> jcb_materias;
-    private javax.swing.JCheckBox jchb_porApellido;
     private javax.swing.JCheckBox jchb_porDni;
     private javax.swing.JCheckBox jchb_porId;
     private javax.swing.JLabel jlIngreseApellido;
     private javax.swing.JLabel jl_IngreseId;
     private javax.swing.JLabel jl_buscarAlumno;
+    private javax.swing.JLabel jl_estadosYMensajes;
     private javax.swing.JLabel jl_ingreseDni;
     private javax.swing.JLabel jl_titulo;
     private javax.swing.JTextField jtf_alumno;
-    private javax.swing.JTextField jtf_estadoSistema;
     private javax.swing.JTextField jtf_ingreseValor;
     // End of variables declaration//GEN-END:variables
 }
