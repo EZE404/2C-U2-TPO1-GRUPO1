@@ -54,41 +54,6 @@ public class InscripcionesData {
 
         }
     }
-    
-    //###################### INSCRIPCION QUE CURSA UN ALUMNO #######################
-
-    public Inscripcion inscripcion_alumno_materia(int id_alumno, int id_materia) {
-        Materia materia = null;
-        Alumno alumno = null;
-        Inscripcion inscripcion = null;
-
-        try {
-            Statement statement = c.createStatement();
-            ResultSet consulta = statement.executeQuery("SELECT * FROM registro WHERE registro.id_alumno=" + id_alumno + " AND registro.id_materia=" + id_materia + ";");
-
-            if (consulta.next()) {
-                inscripcion = new Inscripcion();
-                inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
-                inscripcion.setCalificacion(consulta.getDouble("nota"));
-                alumno = this.buscarAlumno(consulta.getInt("id_alumno"));
-                materia = this.buscarMateria(consulta.getInt("id_materia"));
-
-                JOptionPane.showMessageDialog(null, "Inscripción encontrada");
-                System.out.println("Inscripción encontrada");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay inscripción para este alumno en esta materia");
-                System.out.println("No hay inscripción para este alumno en esta materia");
-            }
-
-            statement.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al encontrar inscripción");
-            System.out.println("Error al encontrar inscripción: "+ex.getMessage());
-        }
-
-        return inscripcion;
-    }
 
 //######################## DESINSCRIBIR ALUMNO #################################    
     public void desinscribir_alumno(int id) {
@@ -541,5 +506,39 @@ public class InscripcionesData {
     public Materia buscarMateria(String nombre) {
         MateriaData m = new MateriaData(conexion);
         return m.buscar_materia(nombre);
+    }
+    //###################### INSCRIPCION QUE CURSA UN ALUMNO #######################
+
+    public Inscripcion inscripcion_alumno_materia(int id_alumno, int id_materia) {
+        Materia materia = null;
+        Alumno alumno = null;
+        Inscripcion inscripcion = null;
+
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT * FROM registro WHERE registro.id_alumno=" + id_alumno + " AND registro.id_materia=" + id_materia + ";");
+
+            if (consulta.next()) {
+                inscripcion = new Inscripcion();
+                inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
+                inscripcion.setCalificacion(consulta.getDouble("nota"));
+                alumno = this.buscarAlumno(consulta.getInt("id_alumno"));
+                materia = this.buscarMateria(consulta.getInt("id_materia"));
+
+                JOptionPane.showMessageDialog(null, "Inscripción encontrada");
+                System.out.println("Inscripción encontrada");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripción para este alumno en esta materia");
+                System.out.println("No hay inscripción para este alumno en esta materia");
+            }
+
+            statement.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al encontrar inscripción");
+            System.out.println("Error al encontrar inscripción: "+ex.getMessage());
+        }
+
+        return inscripcion;
     }
 }

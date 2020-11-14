@@ -37,7 +37,7 @@ public class Materia implements Comparable{
 
     @Override
     public String toString() {
-        return id_materia + "-" + nombre_materia ;
+        return "Materia{" + "id_materia=" + id_materia + ", nombre_materia=" + nombre_materia + '}';
     }
 
 //    @Override
