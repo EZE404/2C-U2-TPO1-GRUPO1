@@ -252,15 +252,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_listado_alumnoActionPerformed
 
     private void jmi_manejo_inscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_manejo_inscripcionActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
-        VistaInscripcion vi=new VistaInscripcion();
-        vi.setVisible(true);
-        escritorio.add(vi);
-        Dimension desktopSize = escritorio.getSize();
-        Dimension FrameSize = vi.getSize();
-        vi.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        vi.show();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+//        VistaInscripcion vi=new VistaInscripcion();
+//        vi.setVisible(true);
+//        escritorio.add(vi);
+//        Dimension desktopSize = escritorio.getSize();
+//        Dimension FrameSize = vi.getSize();
+//        vi.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+//        vi.show();
     }//GEN-LAST:event_jmi_manejo_inscripcionActionPerformed
 
     private void jmi_manipulacion_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_manipulacion_notasActionPerformed
