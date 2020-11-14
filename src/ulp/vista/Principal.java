@@ -254,7 +254,7 @@ public class Principal extends javax.swing.JFrame {
     private void jmi_manejo_inscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_manejo_inscripcionActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        vistaInscripcion vi=new vistaInscripcion();
+        VistaInscripcion vi=new VistaInscripcion();
         vi.setVisible(true);
         escritorio.add(vi);
         Dimension desktopSize = escritorio.getSize();
@@ -264,15 +264,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_manejo_inscripcionActionPerformed
 
     private void jmi_manipulacion_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_manipulacion_notasActionPerformed
-//        escritorio.removeAll();
-//        escritorio.repaint();
-//        vistaCargaNota vcn=new vistaCargaNota();
-//        vcn.setVisible(true);
-//        escritorio.add(vcn);
-//        Dimension desktopSize = escritorio.getSize();
-//        Dimension FrameSize = vcn.getSize();
-//        vcn.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-//        vcn.show();
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaCargaNota vcn=new VistaCargaNota();
+        vcn.setVisible(true);
+        escritorio.add(vcn);
+        Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = vcn.getSize();
+        vcn.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        vcn.show();
+        vcn.hacerFoco();
     }//GEN-LAST:event_jmi_manipulacion_notasActionPerformed
 
     private void item_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_salirActionPerformed
