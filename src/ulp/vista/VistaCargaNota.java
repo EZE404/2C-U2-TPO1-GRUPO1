@@ -50,20 +50,26 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         modelo=new DefaultTableModel();     //Instancio un nuevo modelo
         
         this.jchb_porId.setSelected(true);
-        this.jlIngreseApellido.setVisible(false);
+        this.jlIngreseApellido.setVisible(true);
         this.jl_ingreseDni.setVisible(false);
         this.jl_IngreseId.setVisible(true);
         this.jl_IngreseId.setLocation(new Point(20,3));
         this.jl_IngreseId.setLocation(new Point(20,3));
         this.jl_ingreseDni.setLocation(new Point(20,3));
         this.jtf_ingreseValor.setLocation(new Point(20,3));
+        jl_PorCombobox.setVisible(true);
+        jcb_alumno.setEnabled(false);
        
         
         armaCabeceraTabla();
         borraFilasTabla();
-        cargarMaterias();
+//        cargarMateriasVacia();
         cargarAlumnos();
-        jcb_materias.setSelectedItem(null);
+//        cargarMaterias();
+
+        jcb_materias.setEnabled(false);
+
+        jButton_buscar.setEnabled(false);
         
         
         
@@ -96,10 +102,26 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 modelo.removeRow(i);
            }
 }
+     
+    public void cargarMateriasVacia(){
+        Materia item = null;
+        jcb_materias.addItem(item);
+    } 
     
     public void cargarMaterias(){
         jcb_materias.setSelectedItem(new Object[]{" "});
         List<Materia> materias = materia_Data.obtener_materias();
+        materias.forEach((item) -> {
+            jcb_materias.addItem(item);
+        });
+        
+    }
+    
+    public void cargarMateriasxAlumno(){
+        
+        jcb_materias.removeAllItems();
+        jcb_materias.setSelectedItem(new Object[]{" "});
+        List<Materia> materias = inscripcion_data.materias_alumno((Alumno)jcb_alumno.getSelectedItem());
         materias.forEach((item) -> {
             jcb_materias.addItem(item);
         });
@@ -142,7 +164,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jcb_materias = new javax.swing.JComboBox<>();
         jL_buscarMateria = new javax.swing.JLabel();
-        jlIngreseApellido = new javax.swing.JLabel();
         jl_ingreseDni = new javax.swing.JLabel();
         jl_IngreseId = new javax.swing.JLabel();
         jtf_ingreseValor = new javax.swing.JTextField();
@@ -151,8 +172,10 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel_nota = new javax.swing.JLabel();
-        jTextField_nota = new javax.swing.JTextField();
+        jFormattedTextField_nota = new javax.swing.JFormattedTextField();
         jcb_alumno = new javax.swing.JComboBox<>();
+        jl_PorCombobox = new javax.swing.JLabel();
+        jlIngreseApellido = new javax.swing.JLabel();
         jl_estadosYMensajes = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -271,14 +294,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jL_buscarMateria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jL_buscarMateria.setText("Buscar Materia");
 
-        jlIngreseApellido.setLabelFor(jtf_ingreseValor);
-        jlIngreseApellido.setText("Ingrese el Apellido:");
-
         jl_ingreseDni.setLabelFor(jtf_ingreseValor);
-        jl_ingreseDni.setText("Ingrese el Dni:");
+        jl_ingreseDni.setText(" DNI:");
 
         jl_IngreseId.setLabelFor(jtf_ingreseValor);
-        jl_IngreseId.setText("Ingrese el Id:");
+        jl_IngreseId.setText("ID:");
 
         jtf_ingreseValor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtf_ingreseValor.addActionListener(new java.awt.event.ActionListener() {
@@ -297,11 +317,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jLabel_nota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel_nota.setText("Nota:");
 
-        jTextField_nota.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField_nota.setText("10,00");
-        jTextField_nota.addActionListener(new java.awt.event.ActionListener() {
+        jFormattedTextField_nota.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##,##"))));
+        jFormattedTextField_nota.setText("10.50");
+        jFormattedTextField_nota.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jFormattedTextField_nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_notaActionPerformed(evt);
+                jFormattedTextField_notaActionPerformed(evt);
             }
         });
 
@@ -310,23 +331,23 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jFormattedTextField_nota)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel_nota))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField_nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel_nota, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 10, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_nota)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField_nota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jFormattedTextField_nota, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jcb_alumno.addActionListener(new java.awt.event.ActionListener() {
@@ -334,6 +355,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jcb_alumnoActionPerformed(evt);
             }
         });
+
+        jl_PorCombobox.setLabelFor(jtf_ingreseValor);
+        jl_PorCombobox.setText("Por ComboBox");
+
+        jlIngreseApellido.setLabelFor(jtf_ingreseValor);
+        jlIngreseApellido.setText("Ingrese ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -346,19 +373,22 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jl_IngreseId)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jl_ingreseDni)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlIngreseApellido))
-                            .addComponent(jtf_ingreseValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jL_buscarMateria)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jcb_alumno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(69, 69, 69)
+                                .addComponent(jL_buscarMateria)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jlIngreseApellido)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jl_IngreseId)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jl_ingreseDni))
+                                    .addComponent(jtf_ingreseValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcb_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jl_PorCombobox))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(118, 118, 118)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -383,17 +413,20 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                             .addComponent(jlIngreseApellido))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtf_ingreseValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(jl_PorCombobox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcb_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jL_buscarMateria)
-                            .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47))
+                            .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jL_buscarMateria))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
@@ -412,7 +445,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jl_estadosYMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(159, 159, 159))
@@ -422,12 +455,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                                 .addGap(141, 141, 141)
                                 .addComponent(jl_titulo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 21, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 24, Short.MAX_VALUE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(0, 0, 0))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -447,17 +480,16 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(220, 220, 220))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jl_titulo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -465,7 +497,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                     .addComponent(jButton_limpiar)
                     .addComponent(jButton_guardar)
                     .addComponent(jButton_salir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jl_estadosYMensajes))
@@ -477,10 +509,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jchb_porDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porDniActionPerformed
         // TODO add your handling code here:
+//        jl_PorCombobox.setVisible(false);
         this.jl_IngreseId.setVisible(false);
-        this.jlIngreseApellido.setVisible(false);
         this.jl_ingreseDni.setVisible(true);
-        escribirEstados("Ha elegido buscar por Dni, ingrese un numero valido");
+        jtf_ingreseValor.setEnabled(true);
+        jcb_alumno.setEnabled(false);
+        this.escribirEstados("Ha elegido buscar por Dni, ingrese un numero valido");
+        limpiar();
     }//GEN-LAST:event_jchb_porDniActionPerformed
 
     private void jButton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_salirActionPerformed
@@ -491,10 +526,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jchb_porIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porIdActionPerformed
         // TODO add your handling code here:
-        this.jlIngreseApellido.setVisible(false);
+//        jl_PorCombobox.setVisible(false);
         this.jl_ingreseDni.setVisible(false);
         this.jl_IngreseId.setVisible(true);
-        escribirEstados("Ha elegido buscar por Id, ingrese un numero valido");
+        jtf_ingreseValor.setEnabled(true);
+        jcb_alumno.setEnabled(false);
+        this.escribirEstados("Ha elegido buscar por Id, ingrese un numero valido");
+        limpiar();
+        
     }//GEN-LAST:event_jchb_porIdActionPerformed
 
     private void jcb_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_materiasActionPerformed
@@ -502,10 +541,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         escribirEstados("Materia seleccionada");
       
     }//GEN-LAST:event_jcb_materiasActionPerformed
-
-    private void jTextField_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_notaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_notaActionPerformed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         // TODO add your handling code here:
@@ -515,9 +550,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         Alumno elAlumno = new Alumno();
         if(jchb_porId.isSelected()){
             elAlumno = alumno_data.buscar_alumno(Integer.parseInt(jtf_ingreseValor.getText())); 
+            jcb_alumno.setSelectedItem(elAlumno);
             
-        } else {
+        } if (jchb_porId.isSelected()){
             elAlumno = alumno_data.buscar_alumno(jtf_ingreseValor.getText());
+            jcb_alumno.setSelectedItem(elAlumno);
+        } else {
+            elAlumno = (Alumno)jcb_alumno.getSelectedItem();
         }
          
              
@@ -529,6 +568,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         
         System.out.println(laInscripcion);
         
+        
         modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion() });
         }
         }escribirEstados("No hay inscripcion para mostrar");
@@ -536,12 +576,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
         // TODO add your handling code here:
-        jcb_materias.setSelectedItem(null);
-        this.borraFilasTabla();
-        jtf_ingreseValor.setText("");
-        jcb_alumno.setSelectedItem(null);
-        jTextField_nota.setText("");
-        hacerFoco();
+        limpiar();
     }//GEN-LAST:event_jButton_limpiarActionPerformed
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
@@ -580,29 +615,60 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jcb_materiasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcb_materiasItemStateChanged
         // TODO add your handling code here:
+        jButton_buscar.setEnabled(true);
         
     }//GEN-LAST:event_jcb_materiasItemStateChanged
 
     private void jcb_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_alumnoActionPerformed
         // TODO add your handling code here:
+        
+        cargarMateriasxAlumno();
+        jcb_materias.setEnabled(true);
+        
     }//GEN-LAST:event_jcb_alumnoActionPerformed
 
     private void jchb_porComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porComboActionPerformed
         // TODO add your handling code here:
+        this.jl_ingreseDni.setVisible(false);
+        this.jl_IngreseId.setVisible(false);
+        this.jtf_ingreseValor.setEnabled(false);
+        jcb_alumno.setEnabled(true);
+        this.escribirEstados("Ha elegido buscar por ComboBox, Eliga un alumna de la lista desplegable");
+        jl_PorCombobox.setVisible(true);
+        jcb_materias.setSelectedItem(null);
+        this.borraFilasTabla();
+        jtf_ingreseValor.setText("");
+        jcb_alumno.setSelectedItem(null);
+        jFormattedTextField_nota.setText("");
+        hacerFoco();
+        
     }//GEN-LAST:event_jchb_porComboActionPerformed
+
+    private void jFormattedTextField_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField_notaActionPerformed
     
+    public void limpiar(){
+        jcb_materias.setSelectedItem(null);
+        this.borraFilasTabla();
+        jtf_ingreseValor.setText("");
+        jcb_alumno.setSelectedItem(null);
+        jFormattedTextField_nota.setText("");
+        hacerFoco();
+    }
     
     public void escribirEstados(String estado) {
-        int delay = 5000; // miliseg
-        ActionListener taskPerformer = (ActionEvent evt) -> {
-            jl_estadosYMensajes.setVisible(false);
-        };
-
-
-        Timer timer = new Timer (delay,taskPerformer );
-        /*timer.setRepeats(false);*/
-        timer.start();
         jl_estadosYMensajes.setText(estado);
+//        int delay = 5000; // miliseg
+//        ActionListener taskPerformer = (ActionEvent evt) -> {
+//            jl_estadosYMensajes.setVisible(false);
+//        };
+//
+//
+//        Timer timer = new Timer (delay,taskPerformer );
+//        timer.setRepeats(false);
+//        timer.start();
+//        
 
     }
     
@@ -645,6 +711,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton_buscar;
     private javax.swing.JButton jButton_guardar;
     private javax.swing.JButton jButton_salir;
+    private javax.swing.JFormattedTextField jFormattedTextField_nota;
     private javax.swing.JLabel jL_buscarMateria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -657,7 +724,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     public javax.swing.JTable jTable_cargaNotas;
-    private javax.swing.JTextField jTextField_nota;
     private javax.swing.JComboBox<Alumno> jcb_alumno;
     private javax.swing.JComboBox<Materia> jcb_materias;
     private javax.swing.JCheckBox jchb_porCombo;
@@ -665,6 +731,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jchb_porId;
     private javax.swing.JLabel jlIngreseApellido;
     private javax.swing.JLabel jl_IngreseId;
+    private javax.swing.JLabel jl_PorCombobox;
     private javax.swing.JLabel jl_buscarAlumno;
     private javax.swing.JLabel jl_estadosYMensajes;
     private javax.swing.JLabel jl_ingreseDni;

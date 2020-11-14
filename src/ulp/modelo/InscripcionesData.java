@@ -298,7 +298,38 @@ public class InscripcionesData {
 
         return materias;
     }
+public List<Materia> materias_alumno(Alumno alumno) {
+        Materia materia;
+        List<Materia> materias = new ArrayList<>();
 
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT materia.id_materia, nombre_materia FROM registro, materia, alumno WHERE registro.id_materia=materia.id_materia AND registro.id_alumno=alumno.id_alumno AND alumno.dni='" + alumno.getDni() + "';");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    materia = new Materia();
+                    materia.setId_materia(consulta.getInt("id_materia"));
+                    materia.setNombre_materia(consulta.getString("nombre_materia"));
+                    materias.add(materia);
+                }
+                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                System.out.println("Materias encontradas");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno");
+                System.out.println("No se encontraron materias");
+            }
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al encontrar materias");
+            System.out.println(ex.getMessage());
+        }
+
+        return materias;
+    }
 //########################## COLECCION NOTAS DE ALUMNO #########################
     public Map<Materia, Double> notas_alumno(int id) {
         Map<Materia, Double> notas = new TreeMap<>();
