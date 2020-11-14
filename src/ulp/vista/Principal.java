@@ -273,7 +273,6 @@ public class Principal extends javax.swing.JFrame {
         Dimension FrameSize = vcn.getSize();
         vcn.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         vcn.show();
-        vcn.hacerFoco();
     }//GEN-LAST:event_jmi_manipulacion_notasActionPerformed
 
     private void item_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_salirActionPerformed
