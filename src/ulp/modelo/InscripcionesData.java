@@ -147,7 +147,33 @@ public class InscripcionesData {
         return inscripcion;
     }
 
-    
+    public Inscripcion buscar_inscripcion(Alumno alumno, Materia materia) {
+    Inscripcion inscripcion = null;
+  
+
+        try {
+            Statement instruccion = c.createStatement();
+            try (ResultSet consulta = instruccion.executeQuery("SELECT * FROM registro WHERE id_alumno= " + alumno.getId_alumno() + " AND id_materia= " + materia.getId_materia() + ";")) {
+                if (consulta.next()) {
+                    inscripcion = new Inscripcion();
+                    
+                    inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
+                    inscripcion.getAlumno().setId_alumno(consulta.getInt("id_alumno"));
+                    inscripcion.getMateria().setId_materia(consulta.getInt("id_materia"));
+                    inscripcion.setCalificacion(consulta.getDouble("nota"));
+                                        
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo buscar Inscripcion");
+                    System.out.println("No se pudo buscar Inscripcion");
+                }
+            }
+            instruccion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar Inscripcion");
+            System.out.println(ex.getMessage());
+        }
+        return inscripcion;
+    }
     
 
 //#################### REGISTRAR NOTA ##########################################
@@ -170,7 +196,46 @@ public class InscripcionesData {
         }
 
     }
+public void registrar_nota(int id_inscripcion, double nota) {
 
+        try {
+            Statement statement = c.createStatement();
+            int celAfectadas = statement.executeUpdate("UPDATE registro SET nota= " + nota + " WHERE id_registro= " + id_inscripcion + " ;");
+
+            if (celAfectadas > 0) {
+                System.out.println("Se registró nota");
+                JOptionPane.showMessageDialog(null, "Se registró nota");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se registró nota");
+                System.out.println("No se registró nota");
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
+
+    
+    public void registrar_nota(Inscripcion inscripcion) {
+
+        try {
+            Statement statement = c.createStatement();
+            int celAfectadas = statement.executeUpdate("UPDATE registro SET nota=" + inscripcion.getCalificacion() + " WHERE id_registro="+ inscripcion.getId_inscripcion());
+
+            if (celAfectadas > 0) {
+                System.out.println("Se registró nota");
+                JOptionPane.showMessageDialog(null, "Se registró nota");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se registró nota");
+                System.out.println("No se registró nota");
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
     public void registrar_nota(String dni, String nombre_materia, double nota) {
 
         try {
@@ -283,11 +348,11 @@ public class InscripcionesData {
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
                     materias.add(materia);
                 }
-                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                JOptionPane.showMessageDialog(null, "Materias encontradas 1");
                 System.out.println("Materias encontradas");
 
             } else {
-                JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno");
+                JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno 2");
                 System.out.println("No se encontraron materias");
             }
             statement.close();
@@ -316,8 +381,8 @@ public class InscripcionesData {
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
                     materias.add(materia);
                 }
-                JOptionPane.showMessageDialog(null, "Materias encontradas");
-                System.out.println("Materias encontradas");
+//                JOptionPane.showMessageDialog(null, "Materias encontradas");
+//                System.out.println("Materias encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno");
@@ -352,7 +417,40 @@ public List<Materia> materias_alumno(Alumno alumno) {
                 System.out.println("Materias encontradas");
 
             } else {
-                JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno");
+                JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno 3");
+                System.out.println("No se encontraron materias");
+            }
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al encontrar materias");
+            System.out.println(ex.getMessage());
+        }
+
+        return materias;
+    }
+
+public List<Materia> materias_alumno_c_notas(Alumno alumno) {
+        Materia materia;
+        List<Materia> materias = new ArrayList<>();
+
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT registro.id_registro, materia.id_materia, nombre_materia registro.nota FROM registro, materia, alumno WHERE registro.id_materia=materia.id_materia AND registro.id_alumno=alumno.id_alumno AND alumno.dni='" + alumno.getDni() + "';");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    materia = new Materia();
+                    materia.setId_materia(consulta.getInt("id_materia"));
+                    materia.setNombre_materia(consulta.getString("nombre_materia"));
+                    materias.add(materia);
+                }
+//                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                System.out.println("Materias encontradas");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripciones de materias para ese alumno 3");
                 System.out.println("No se encontraron materias");
             }
             statement.close();
@@ -636,6 +734,44 @@ public List<Materia> materias_alumno(Alumno alumno) {
         }
 
         return inscripcion;
+    }
+    
+    public List<Inscripcion> inscripcionesAlumno(Alumno alumno) {
+        List<Inscripcion> registros = new ArrayList<>();
+        Inscripcion inscripcion;
+        Alumno a;
+        Materia m;
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT * FROM registro where id_alumno= "+ alumno.getId_alumno() +";");
+
+            if (consulta.next()) {
+                consulta.beforeFirst();
+                while (consulta.next()) {
+                    inscripcion = new Inscripcion(new Alumno(), new Materia());
+                    inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
+                    a = this.buscarAlumno(consulta.getInt("id_alumno"));
+                    m = this.buscarMateria(consulta.getInt("id_materia"));
+                    inscripcion.setCalificacion(consulta.getDouble("nota"));
+                    inscripcion.setAlumno(a);
+                    inscripcion.setMateria(m);
+                    registros.add(inscripcion);
+                }
+                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripciones");
+                System.out.println("Registro de inscripciones vacío");
+            }
+
+            statement.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudieron obtener las inscripciones");
+            System.out.println(ex.getMessage());
+        }
+
+        return registros;
     }
 
 

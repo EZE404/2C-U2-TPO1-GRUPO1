@@ -93,7 +93,7 @@ public class AlumnoData {
                     alumno.setFecha_n(consulta.getDate("fecha_n").toLocalDate());
                     alumno.setActivo(consulta.getBoolean("activo"));
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo buscar alumno");
+                    JOptionPane.showMessageDialog(null, "No se pudo buscar alumno por ");
                     System.out.println("No se pudo buscar alumno");
                 }
             }
