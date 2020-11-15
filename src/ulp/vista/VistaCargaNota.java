@@ -50,29 +50,35 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         modelo=new DefaultTableModel();     //Instancio un nuevo modelo
         
         this.jchb_porId.setSelected(true);
-        this.jlIngreseApellido.setVisible(true);
         this.jl_ingreseDni.setVisible(false);
-        this.jl_IngreseId.setVisible(true);
         this.jl_IngreseId.setLocation(new Point(20,3));
         this.jl_IngreseId.setLocation(new Point(20,3));
         this.jl_ingreseDni.setLocation(new Point(20,3));
         this.jtf_ingreseValor.setLocation(new Point(20,3));
-        jl_PorCombobox.setVisible(true);
+//        jcb_alumno.setSelectedItem(null);
+        jButton_buscar.setEnabled(false);
+
         jcb_alumno.setEnabled(false);
        
         
         armaCabeceraTabla();
         borraFilasTabla();
-//        cargarMateriasVacia();
-        cargarAlumnos();
-//        cargarMaterias();
+       
+       
+//        jcb_alumno.setSelectedItem(new Object[]{" "});
 
-        jcb_materias.setEnabled(false);
 
-        jButton_buscar.setEnabled(false);
+        cargarMateriasVacia();
         
-        
-        
+         int delay = 2000; // miliseg
+        ActionListener taskPerformer = (ActionEvent evt) -> {
+//             cargarAlumnos();
+        };
+
+
+        Timer timer = new Timer (delay,taskPerformer );
+        timer.setRepeats(false);
+        timer.start();
         
         
     }
@@ -105,6 +111,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
      
     public void cargarMateriasVacia(){
         Materia item = null;
+        jcb_materias.removeAllItems();
         jcb_materias.addItem(item);
     } 
     
@@ -129,12 +136,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     }
     
     public void cargarAlumnos(){
+        
+        jcb_alumno.removeAllItems();
         jcb_alumno.setSelectedItem(new Object[]{" "});
         List<Alumno> alumnos = alumno_data.ver_alumnos_activos();
         alumnos.forEach((item) -> {
             jcb_alumno.addItem(item);
         });
-        
+        jcb_alumno.setSelectedItem(null);
     }
     
    
@@ -509,13 +518,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jchb_porDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porDniActionPerformed
         // TODO add your handling code here:
+         limpiar();
 //        jl_PorCombobox.setVisible(false);
         this.jl_IngreseId.setVisible(false);
         this.jl_ingreseDni.setVisible(true);
         jtf_ingreseValor.setEnabled(true);
         jcb_alumno.setEnabled(false);
         this.escribirEstados("Ha elegido buscar por Dni, ingrese un numero valido");
-        limpiar();
+       
     }//GEN-LAST:event_jchb_porDniActionPerformed
 
     private void jButton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_salirActionPerformed
@@ -621,9 +631,17 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jcb_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_alumnoActionPerformed
         // TODO add your handling code here:
+        int delay = 100; // miliseg
+        ActionListener taskPerformer = (ActionEvent evt2) -> {
+             cargarMateriasxAlumno();
+            jcb_materias.setEnabled(true);
+        };
+
+
+        Timer timer = new Timer (delay,taskPerformer );
+        timer.setRepeats(false);
+        timer.start(); 
         
-        cargarMateriasxAlumno();
-        jcb_materias.setEnabled(true);
         
     }//GEN-LAST:event_jcb_alumnoActionPerformed
 
@@ -638,9 +656,10 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jcb_materias.setSelectedItem(null);
         this.borraFilasTabla();
         jtf_ingreseValor.setText("");
-        jcb_alumno.setSelectedItem(null);
         jFormattedTextField_nota.setText("");
-        hacerFoco();
+        cargarAlumnos();
+        jcb_alumno.setSelectedItem(null);
+        jcb_alumno.requestFocus();
         
     }//GEN-LAST:event_jchb_porComboActionPerformed
 
@@ -654,6 +673,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jtf_ingreseValor.setText("");
         jcb_alumno.setSelectedItem(null);
         jFormattedTextField_nota.setText("");
+        jButton_buscar.setEnabled(false);
         hacerFoco();
     }
     

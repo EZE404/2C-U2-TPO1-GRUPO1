@@ -314,7 +314,7 @@ public List<Materia> materias_alumno(Alumno alumno) {
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
                     materias.add(materia);
                 }
-                JOptionPane.showMessageDialog(null, "Materias encontradas");
+//                JOptionPane.showMessageDialog(null, "Materias encontradas");
                 System.out.println("Materias encontradas");
 
             } else {
