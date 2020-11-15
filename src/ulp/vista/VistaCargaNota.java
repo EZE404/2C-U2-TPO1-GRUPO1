@@ -25,19 +25,17 @@ import ulp.modelo.Conexion;
 import ulp.modelo.InscripcionesData;
 import ulp.modelo.MateriaData;
 
-
-
 /**
  *
  * @author Genaro
  */
 public class VistaCargaNota extends javax.swing.JInternalFrame {
+
     private Conexion conexion;
     private MateriaData materia_Data;
     private AlumnoData alumno_data;
     private InscripcionesData inscripcion_data;
     private DefaultTableModel modelo;       //Para la tabla
-    
 
     /**
      * Creates new form FormularioCargaNotas
@@ -48,26 +46,22 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         materia_Data = new MateriaData(conexion);
         alumno_data = new AlumnoData(conexion);
         inscripcion_data = new InscripcionesData(conexion);
-        modelo=new DefaultTableModel();     //Instancio un nuevo modelo
-        
+        modelo = new DefaultTableModel();     //Instancio un nuevo modelo
+
         this.jchb_porId.setSelected(true);
         this.jl_ingreseDni.setVisible(false);
-        this.jl_IngreseId.setLocation(new Point(20,3));
-        this.jl_IngreseId.setLocation(new Point(20,3));
-        this.jl_ingreseDni.setLocation(new Point(20,3));
-        this.jtf_ingreseValor.setLocation(new Point(20,3));
+        this.jl_IngreseId.setLocation(new Point(20, 3));
+        this.jl_IngreseId.setLocation(new Point(20, 3));
+        this.jl_ingreseDni.setLocation(new Point(20, 3));
+        this.jtf_ingreseValor.setLocation(new Point(20, 3));
         jButton_buscar.setEnabled(false);
         jcb_alumno.setEnabled(false);
         jcb_materias.setEnabled(false);
-       
-        
+
         armaCabeceraTabla();
         borraFilasTabla();
-       
-       
+
 //        jcb_alumno.setSelectedItem(new Object[]{" "});
-
-
 //        cargarMateriasVacia();
 //        
 //         int delay = 2000; // miliseg
@@ -80,35 +74,34 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 //        timer.setRepeats(false);
 //        timer.start();
 //        
-        
     }
-    
-    public void armaCabeceraTabla(){
-  
-           //Titulos de Columnas
-        ArrayList<Object> columnas=new ArrayList<Object>();
+
+    public void armaCabeceraTabla() {
+
+        //Titulos de Columnas
+        ArrayList<Object> columnas = new ArrayList<Object>();
         columnas.add("ID Inscripcion");
         columnas.add("ID Materia");
         columnas.add("Nombre Materia");
         columnas.add("Nota");
-       
-        for(Object it:columnas){
-        
+
+        for (Object it : columnas) {
+
             modelo.addColumn(it);
         }
         jTable_cargaNotas.setModel(modelo);
-  }
-    
-     public void borraFilasTabla(){
+    }
 
-        int a =jTable_cargaNotas.getRowCount()-1;
+    public void borraFilasTabla() {
 
-           for(int i=a;i>=0;i--){
-   
-                modelo.removeRow(i);
-           }
-}
-     
+        int a = jTable_cargaNotas.getRowCount() - 1;
+
+        for (int i = a; i >= 0; i--) {
+
+            modelo.removeRow(i);
+        }
+    }
+
 //    public void cargarMateriasVacia(){
 //        Materia item = null;
 //        jcb_materias.removeAllItems();
@@ -123,35 +116,45 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 //        });
 //        
 //    }
-    
-    public void cargarMateriasxAlumno(){
-        Alumno alumno = (Alumno)jcb_alumno.getSelectedItem();
-        if(alumno != null){
-        jcb_materias.setEnabled(true);
-        jcb_materias.removeAllItems();
-//        jcb_materias.setSelectedItem(new Object[]{" "});
-        List<Materia> materias = inscripcion_data.materias_alumno(alumno);
-        materias.forEach((item) -> {
-            jcb_materias.addItem(item);
-        });
+    public void cargarMateriasxAlumno() {
+
+        Alumno alumno = (Alumno) jcb_alumno.getSelectedItem();
+        if (alumno != null || jtf_ingreseValor.getText() != "") {
+            jcb_materias.setEnabled(true);
+            jcb_materias.removeAllItems();
+            if (jchb_porCombo.isSelected()) {
+                List<Materia> materias = inscripcion_data.materias_alumno(alumno);
+                materias.forEach((item) -> {
+                    jcb_materias.addItem(item);
+                });
+            } else {
+                List<Materia> materias = inscripcion_data.materias_alumno(Integer.parseInt(jtf_ingreseValor.getText()));
+                materias.forEach((item) -> {
+                    jcb_materias.addItem(item);
+                });
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo cargar materias porque no hay alumno seleccionado");
+            
         }
-        
     }
-    
-    public void cargarAlumnos(){
         
+    
+    
+    
+
+    public void cargarAlumnos() {
+
         jcb_alumno.removeAllItems();
 //        jcb_alumno.setSelectedItem(new Object[]{" "});
         List<Alumno> alumnos = alumno_data.ver_alumnos_activos();
         alumnos.forEach((item) -> {
             jcb_alumno.addItem(item);
         });
-        jcb_alumno.setSelectedItem(null);        
+        jcb_alumno.setSelectedItem(null);
     }
-    
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,8 +185,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jl_IngreseId = new javax.swing.JLabel();
         jtf_ingreseValor = new javax.swing.JTextField();
         jl_buscarAlumno = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel_nota = new javax.swing.JLabel();
         jFormattedTextField_nota = new javax.swing.JFormattedTextField();
@@ -192,6 +193,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jlIngreseApellido = new javax.swing.JLabel();
         jl_estadosYMensajes = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jl_numeroInscr = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -294,6 +297,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
             }
         });
 
+        jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPanel2FocusLost(evt);
+            }
+        });
+
         jcb_materias.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcb_materiasItemStateChanged(evt);
@@ -315,6 +324,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jl_IngreseId.setText("ID:");
 
         jtf_ingreseValor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtf_ingreseValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtf_ingreseValorFocusLost(evt);
+            }
+        });
         jtf_ingreseValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtf_ingreseValorActionPerformed(evt);
@@ -323,10 +337,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
         jl_buscarAlumno.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jl_buscarAlumno.setText("Buscar Alumno");
-
-        jLabel1.setText("Id Inscripcion:");
-
-        jLabel2.setText("Numero");
 
         jLabel_nota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel_nota.setText("Nota:");
@@ -363,6 +373,16 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jcb_alumno.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcb_alumnoItemStateChanged(evt);
+            }
+        });
+        jcb_alumno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcb_alumnoFocusLost(evt);
+            }
+        });
         jcb_alumno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jcb_alumnoMouseClicked(evt);
@@ -410,19 +430,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                                     .addComponent(jl_PorCombobox))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(118, 118, 118)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jl_buscarAlumno)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -438,25 +452,21 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                         .addComponent(jl_PorCombobox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcb_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jL_buscarMateria))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(21, 21, 21))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcb_materias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jL_buscarMateria))
+                .addContainerGap())
         );
 
         jl_estadosYMensajes.setText("Estados y mensajes");
 
         jLabel3.setText("Estado:");
+
+        jl_numeroInscr.setText("Numero");
+
+        jLabel1.setText("Id Inscripcion:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -475,13 +485,16 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(141, 141, 141)
                                 .addComponent(jl_titulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 24, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 17, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_numeroInscr, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -510,7 +523,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                         .addComponent(jl_titulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jl_numeroInscr))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -518,7 +535,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                     .addComponent(jButton_limpiar)
                     .addComponent(jButton_guardar)
                     .addComponent(jButton_salir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jl_estadosYMensajes))
@@ -530,14 +547,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jchb_porDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porDniActionPerformed
         // TODO add your handling code here:
-         limpiar();
+        limpiar();
 //        jl_PorCombobox.setVisible(false);
         this.jl_IngreseId.setVisible(false);
         this.jl_ingreseDni.setVisible(true);
         jtf_ingreseValor.setEnabled(true);
         jcb_alumno.setEnabled(false);
         this.escribirEstados("Ha elegido buscar por Dni, ingrese un numero valido");
-       
+
     }//GEN-LAST:event_jchb_porDniActionPerformed
 
     private void jButton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_salirActionPerformed
@@ -555,45 +572,50 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jcb_alumno.setEnabled(false);
         this.escribirEstados("Ha elegido buscar por Id, ingrese un numero valido");
         limpiar();
-        
+
     }//GEN-LAST:event_jchb_porIdActionPerformed
 
     private void jcb_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_materiasActionPerformed
         // TODO add your handling code here:
         escribirEstados("Materia seleccionada");
-      
+
     }//GEN-LAST:event_jcb_materiasActionPerformed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         // TODO add your handling code here:
-        
-        if(true){
-        borraFilasTabla();      //Borra los datos de la tabla
-        Alumno elAlumno = new Alumno();
-        if(jchb_porId.isSelected()){
-            elAlumno = alumno_data.buscar_alumno(Integer.parseInt(jtf_ingreseValor.getText())); 
-            jcb_alumno.setSelectedItem(elAlumno);
+
+        if (true) {
+            borraFilasTabla();      //Borra los datos de la tabla
+            Alumno elAlumno = new Alumno();
+            Materia laMateria = (Materia) jcb_materias.getSelectedItem();
             
-        } if (jchb_porId.isSelected()){
-            elAlumno = alumno_data.buscar_alumno(jtf_ingreseValor.getText());
-            jcb_alumno.setSelectedItem(elAlumno);
-        } else {
-            elAlumno = (Alumno)jcb_alumno.getSelectedItem();
+            
+            if (jchb_porId.isSelected()) {
+                elAlumno = alumno_data.buscar_alumno(Integer.parseInt(jtf_ingreseValor.getText()));
+                jcb_alumno.setSelectedItem(elAlumno);
+
+            }
+            if (jchb_porDni.isSelected()) {
+                elAlumno = alumno_data.buscar_alumno(jtf_ingreseValor.getText());
+                JOptionPane.showMessageDialog(this, "Busco x dni");
+                System.out.println(elAlumno);
+                jcb_alumno.setSelectedItem(elAlumno);
+            } else {
+                elAlumno = (Alumno) jcb_alumno.getSelectedItem();
+            }
+
+            Inscripcion laInscripcion = new Inscripcion();
+            Materia seleccionada = (Materia) jcb_materias.getSelectedItem();
+
+            laInscripcion = inscripcion_data.inscripcion_alumno_materia(elAlumno, laMateria);
+            if (laInscripcion != null) {
+
+                System.out.println(laInscripcion);
+
+                modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion()});
+            }
         }
-         
-             
-        Inscripcion laInscripcion = new Inscripcion();
-        Materia seleccionada = (Materia)jcb_materias.getSelectedItem();
-        
-        laInscripcion = inscripcion_data.inscripcion_alumno_materia(elAlumno.getId_alumno(), seleccionada.getId_materia());
-        if(laInscripcion != null){
-        
-        System.out.println(laInscripcion);
-        
-        
-        modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion() });
-        }
-        }escribirEstados("No hay inscripcion para mostrar");
+        escribirEstados("No hay inscripcion para mostrar");
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
@@ -603,9 +625,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
         // TODO add your handling code here:
-        Alumno elAlumno = new Alumno();
-        Materia laMateria = new Materia();
+        Inscripcion inscripcion;
+//        Alumno elAlumno = new Alumno();
+//        Materia laMateria = new Materia();
+        inscripcion = inscripcion_data.buscar_inscripcion(Integer.parseInt(jl_numeroInscr.getText()));
 //        inscripcion_data.registrar_nota(jtf_ingreseValor.getText(), jcb_materias.getSelectedObjet());
+        System.out.println(inscripcion);
+
 //        
 //        if(true){
 //            
@@ -614,46 +640,51 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jtf_ingreseValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_ingreseValorActionPerformed
         // TODO add your handling code here:
-        
-        jtf_ingreseValor.getDocument().addDocumentListener(new DocumentListener() 
-        { 
+
+        jtf_ingreseValor.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void changedUpdate(DocumentEvent e){
-                changed(); 
-            } 
-            @Override
-            public void removeUpdate(DocumentEvent e){ 
-                changed(); 
-            } 
-            @Override
-            public void insertUpdate(DocumentEvent e){ 
-                changed(); 
+            public void changedUpdate(DocumentEvent e) {
+                changed();
             }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changed();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changed();
+            }
+
             public void changed() {
-            if (jtf_ingreseValor.getText().equals("")){
-                jButton_buscar.setEnabled(false); 
-            } else { jButton_buscar.setEnabled(true); } } }); 
+                if (jtf_ingreseValor.getText().equals("")) {
+                    jButton_buscar.setEnabled(false);
+                } else {
+                    jButton_buscar.setEnabled(true);
+                }
+            }
+        });
     }//GEN-LAST:event_jtf_ingreseValorActionPerformed
 
     private void jcb_materiasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcb_materiasItemStateChanged
         // TODO add your handling code here:
         jButton_buscar.setEnabled(true);
-        
+
     }//GEN-LAST:event_jcb_materiasItemStateChanged
 
     private void jcb_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_alumnoActionPerformed
         // TODO add your handling code here:
 //        int delay = 100; // miliseg
 //        ActionListener taskPerformer = (ActionEvent evt2) -> {
-             
-            
+
 //        };
 //
 //
 //        Timer timer = new Timer (delay,taskPerformer );
 //        timer.setRepeats(false);
 //        timer.start(); 
-        
+
     }//GEN-LAST:event_jcb_alumnoActionPerformed
 
     private void jchb_porComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porComboActionPerformed
@@ -671,7 +702,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         cargarAlumnos();
 //        jcb_alumno.setSelectedItem(null);
         jcb_alumno.requestFocus();
-        
+
     }//GEN-LAST:event_jchb_porComboActionPerformed
 
     private void jFormattedTextField_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaActionPerformed
@@ -680,32 +711,61 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jcb_alumnoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_alumnoMouseEntered
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jcb_alumnoMouseEntered
 
     private void jcb_alumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_alumnoMouseClicked
         // TODO add your handling code here:
-         Alumno alumno = (Alumno)jcb_alumno.getSelectedItem();
-        if(alumno != null){
-            
+
+
+    }//GEN-LAST:event_jcb_alumnoMouseClicked
+
+    private void jcb_alumnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcb_alumnoItemStateChanged
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jcb_alumnoItemStateChanged
+
+    private void jcb_alumnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcb_alumnoFocusLost
+        // TODO add your handling code here:
+        Alumno alumno = (Alumno) jcb_alumno.getSelectedItem();
+        if (alumno != null) {
+
             cargarMateriasxAlumno();
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "No selecciono alumno");
         }
-        
-    }//GEN-LAST:event_jcb_alumnoMouseClicked
-    
-    public void limpiar(){
+    }//GEN-LAST:event_jcb_alumnoFocusLost
+
+    private void jPanel2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusLost
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jPanel2FocusLost
+
+    private void jtf_ingreseValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtf_ingreseValorFocusLost
+        // TODO add your handling code here:
+        String alumno = jtf_ingreseValor.getText();
+        if (alumno != "") {
+
+            cargarMateriasxAlumno();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No selecciono alumno");
+        }
+    }//GEN-LAST:event_jtf_ingreseValorFocusLost
+
+    public void limpiar() {
         jcb_materias.setSelectedItem(null);
         this.borraFilasTabla();
         jtf_ingreseValor.setText("");
         jcb_alumno.setSelectedItem(null);
         jFormattedTextField_nota.setText("");
         jButton_buscar.setEnabled(false);
+        jcb_materias.setEnabled(false);
         hacerFoco();
     }
-    
+
     public void escribirEstados(String estado) {
         jl_estadosYMensajes.setText(estado);
 //        int delay = 5000; // miliseg
@@ -720,12 +780,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 //        
 
     }
-    
-    public void hacerFoco(){
+
+    public void hacerFoco() {
         jtf_ingreseValor.requestFocus();
     }
-    
-       
+
 //    public boolean chekaDatosIngresados(){
 //        boolean esValido = false;
 //        if((jtf_ingreseValor.getText().isEmpty()) && ((jcb_materias.getSelectedObjects())==null)){
@@ -763,7 +822,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jFormattedTextField_nota;
     private javax.swing.JLabel jL_buscarMateria;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_nota;
     private javax.swing.JPanel jPanel1;
@@ -784,6 +842,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jl_buscarAlumno;
     private javax.swing.JLabel jl_estadosYMensajes;
     private javax.swing.JLabel jl_ingreseDni;
+    private javax.swing.JLabel jl_numeroInscr;
     private javax.swing.JLabel jl_titulo;
     private javax.swing.JTextField jtf_ingreseValor;
     // End of variables declaration//GEN-END:variables

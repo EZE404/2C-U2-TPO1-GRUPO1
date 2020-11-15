@@ -115,6 +115,40 @@ public class InscripcionesData {
             JOptionPane.showMessageDialog(null, "No se pudo borrar inscripción. SQLException");
         }
     }
+    
+    //#################### BUSCAR INSCRIPCION ##################################
+    public Inscripcion buscar_inscripcion(int id_inscripcion) {
+    Inscripcion inscripcion = null;
+    Alumno alumno;
+    Materia materia;
+
+        try {
+            Statement instruccion = c.createStatement();
+            try (ResultSet consulta = instruccion.executeQuery("SELECT * FROM registro WHERE id_registro=" + id_inscripcion + ";")) {
+                if (consulta.next()) {
+                    inscripcion = new Inscripcion();
+                    alumno = new Alumno();
+                    materia = new Materia();
+                    inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
+                    inscripcion.getAlumno().setId_alumno(consulta.getInt("id_alumno"));
+                    inscripcion.getMateria().setId_materia(consulta.getInt("id_materia"));
+                    inscripcion.setCalificacion(consulta.getDouble("nota"));
+                                        
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo buscar Inscripsion");
+                    System.out.println("No se pudo buscar Inscripcion");
+                }
+            }
+            instruccion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar Inscripcion");
+            System.out.println(ex.getMessage());
+        }
+        return inscripcion;
+    }
+
+    
+    
 
 //#################### REGISTRAR NOTA ##########################################
     public void registrar_nota(int id_alumno, int id_materia, double nota) {
@@ -572,4 +606,39 @@ public List<Materia> materias_alumno(Alumno alumno) {
 
         return inscripcion;
     }
+    
+    public Inscripcion inscripcion_alumno_materia(Alumno alumno, Materia materia) {
+        Inscripcion inscripcion = null;
+
+        try {
+            Statement statement = c.createStatement();
+            ResultSet consulta = statement.executeQuery("SELECT * FROM registro WHERE registro.id_alumno=" + alumno.getId_alumno() + " AND registro.id_materia=" + materia.getId_materia() + ";");
+
+            if (consulta.next()) {
+                inscripcion = new Inscripcion();
+                inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
+                inscripcion.setCalificacion(consulta.getDouble("nota"));
+                alumno = this.buscarAlumno(consulta.getInt("id_alumno"));
+                materia = this.buscarMateria(consulta.getInt("id_materia"));
+
+                JOptionPane.showMessageDialog(null, "Inscripción encontrada");
+                System.out.println("Inscripción encontrada");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay inscripción para este alumno en esta materia");
+                System.out.println("No hay inscripción para este alumno en esta materia");
+            }
+
+            statement.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al encontrar inscripción");
+            System.out.println("Error al encontrar inscripción: "+ex.getMessage());
+        }
+
+        return inscripcion;
+    }
+
+
 }
+
+
