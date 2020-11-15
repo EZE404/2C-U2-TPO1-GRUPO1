@@ -6,6 +6,7 @@
 package ulp.vista;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.logging.Level;
@@ -376,7 +377,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
     private void jb_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_guardarActionPerformed
         alumno=new Alumno();
         LocalDate hoy;
-        hoy=LocalDate.ofInstant(cajaFechaN.getDate().toInstant(), ZoneId.systemDefault());
+        hoy=LocalDateTime.ofInstant(cajaFechaN.getDate().toInstant(), ZoneId.systemDefault()).toLocalDate();
         alumno.setNombre(jtf_nombre.getText());
         alumno.setApellido(jtf_apellido.getText());
         alumno.setDni(jtf_dni.getText());
@@ -399,7 +400,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
     private void jb_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_actualizarActionPerformed
          alumno=new Alumno();
         LocalDate hoy;
-        hoy=LocalDate.ofInstant(cajaFechaN.getDate().toInstant(), ZoneId.systemDefault());
+        hoy=LocalDateTime.ofInstant(cajaFechaN.getDate().toInstant(), ZoneId.systemDefault()).toLocalDate();
         alumno.setNombre(jtf_nombre.getText());
         alumno.setApellido(jtf_apellido.getText());
         alumno.setDni(jtf_dni.getText());

@@ -189,36 +189,5 @@ public class MateriaData {
 
         return materias;
     }
-//###################### MATERIAS QUE NO CURSA UN ALUMNO #######################
 
-    public List<Materia> obtener_materias_alumno_nocursa(int id_alumno) {
-        List<Materia> materias = new ArrayList<>();
-        Materia materia;
-        try {
-            Statement statement = c.createStatement();
-            ResultSet consulta = statement.executeQuery("SELECT * FROM materia WHERE id_materia NOT IN (SELECT id_materia FROM registro WHERE materia.id_materia=registro.id_materia AND id_alumno="+id_alumno+");");
-
-            if (consulta.next()) {
-                consulta.beforeFirst();
-                while (consulta.next()) {
-                materia = new Materia();
-                materia.setId_materia(consulta.getInt("id_materia"));
-                materia.setNombre_materia(consulta.getString("nombre_materia"));
-                materias.add(materia);
-                }
-                System.out.println("Se encontraron materias");
-                JOptionPane.showMessageDialog(null, "Se encontraron materias");
-            } else {
-                System.out.println("No se encontraron materias");
-                JOptionPane.showMessageDialog(null, "No se encontraorn materias");
-            }
-
-            statement.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudieron obtener las materias");
-            System.out.println("No se pudieron obtener las materias: "+ex.getMessage());
-        }
-
-        return materias;
-    }
 }

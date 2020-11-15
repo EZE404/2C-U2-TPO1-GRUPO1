@@ -5,19 +5,66 @@
  */
 package ulp.vista;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import ulp.modelo.Conexion;
+import ulp.entidades.*;
+import ulp.modelo.MateriaData;
+
 /**
  *
  * @author MArio
  */
 public class MateriaBaja extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form MateriaBaja
-     */
+    private MateriaData md;
+    private Conexion conexion;
+    private DefaultTableModel modelo_tabla;
+    
     public MateriaBaja() {
         initComponents();
+        
+        try {
+            conexion = new Conexion();
+            md = new MateriaData(conexion);
+            modelo_tabla = new DefaultTableModel();
+            armaCabeceraTabla();
+            cargaMaterias();
+            //jb_borrar_materia.setEnabled(false);
+            
+        } catch (Exception e) {
+        }
     }
 
+    private void armaCabeceraTabla() {
+        //Titulos de Columnas
+        ArrayList<Object> columnas = new ArrayList<>();
+        columnas.add("ID");
+        columnas.add("Nombre");
+        columnas.forEach((it) -> {
+            modelo_tabla.addColumn(it);
+        });
+        jt_materias.setModel(modelo_tabla);
+    }
+    
+    private void borraFilasTabla() {
+        int a = modelo_tabla.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            modelo_tabla.removeRow(i);
+        }
+    }
+    
+    private void cargaMaterias() {
+        this.borraFilasTabla();
+        List<Materia> lista = md.obtener_materias();
+        lista.forEach((m) -> {
+            modelo_tabla.addRow(new Object[]{m.getId_materia(), m.getNombre_materia()});
+        });
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +74,128 @@ public class MateriaBaja extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jb_borrar_materia = new javax.swing.JButton();
+        jb_actualizar = new javax.swing.JButton();
+        jb_salir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jt_materias = new javax.swing.JTable();
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("BAJA DE MATERIAS");
+
+        jb_borrar_materia.setText("BORRAR MATERIA");
+        jb_borrar_materia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_borrar_materiaActionPerformed(evt);
+            }
+        });
+
+        jb_actualizar.setText("ACTUALIZAR");
+        jb_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_actualizarActionPerformed(evt);
+            }
+        });
+
+        jb_salir.setText("SALIR");
+        jb_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_salirActionPerformed(evt);
+            }
+        });
+
+        jt_materias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "null"
+            }
+        ));
+        jScrollPane2.setViewportView(jt_materias);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(jb_actualizar)
+                .addGap(95, 95, 95)
+                .addComponent(jb_borrar_materia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jb_borrar_materia)
+                    .addComponent(jb_actualizar)
+                    .addComponent(jb_salir))
+                .addGap(57, 57, 57))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jb_borrar_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_borrar_materiaActionPerformed
+        // TODO add your handling code here:
+        int filaSleccionada = jt_materias.getSelectedRow();
+        if (filaSleccionada != -1) {
+
+            int idMateria = (Integer) modelo_tabla.getValueAt(filaSleccionada, 0);
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea borrar?", "Borrar Materia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(this, respuesta);
+            if (respuesta == 0) {
+                md.borrar_materia(idMateria);
+                this.cargaMaterias();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una materia de la lista");
+            jt_materias.requestFocus();
+        }
+
+        //jb_borrar_materia.setEnabled(false);
+
+    }//GEN-LAST:event_jb_borrar_materiaActionPerformed
+
+    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jb_salirActionPerformed
+
+    private void jb_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_actualizarActionPerformed
+        // TODO add your handling code here:
+        this.cargaMaterias();
+    }//GEN-LAST:event_jb_actualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jb_actualizar;
+    private javax.swing.JButton jb_borrar_materia;
+    private javax.swing.JButton jb_salir;
+    private javax.swing.JTable jt_materias;
     // End of variables declaration//GEN-END:variables
 }

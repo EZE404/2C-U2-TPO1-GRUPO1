@@ -5,17 +5,34 @@
  */
 package ulp.vista;
 
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+import ulp.entidades.Alumno;
+import ulp.modelo.AlumnoData;
+import ulp.modelo.Conexion;
+
+
 /**
  *
  * @author MArio
  */
 public class AlumnoBaja extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AlumnoBaja
-     */
+    private AlumnoData ad;
+    private Conexion conexion;
+    
     public AlumnoBaja() {
         initComponents();
+        try {
+            conexion = new Conexion();
+            ad = new AlumnoData(conexion);
+            jtf_dni.requestFocus();
+            jb_limpiar.setEnabled(false);
+            jb_baja_alumno.setEnabled(false);
+        } catch (Exception e) {
+        }
+        jrb_por_dni.setSelected(true);
+        jl_buscar.setText("Ingrese DNI");
     }
 
     /**
@@ -27,21 +44,334 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bg_buscar = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        jtf_dni = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jtf_id_alumno = new javax.swing.JTextField();
+        jb_baja_alumno = new javax.swing.JButton();
+        jb_buscar_alumno = new javax.swing.JButton();
+        jtf_nombre_alumno = new javax.swing.JTextField();
+        jtf_apellido_alumno = new javax.swing.JTextField();
+        jtf_fecha_n = new javax.swing.JTextField();
+        jtf_activo = new javax.swing.JTextField();
+        jb_limpiar = new javax.swing.JButton();
+        jb_salir = new javax.swing.JButton();
+        jrb_por_dni = new javax.swing.JRadioButton();
+        jrb_por_id = new javax.swing.JRadioButton();
+        jl_aviso_dni = new javax.swing.JLabel();
+        jl_buscar = new javax.swing.JLabel();
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("BAJA ALUMNO");
+
+        jtf_dni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtf_dniActionPerformed(evt);
+            }
+        });
+        jtf_dni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtf_dniKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setText("NOMBRE");
+
+        jLabel3.setText("APELLIDO");
+
+        jLabel4.setText("FECHA DE NACIMIENTO");
+
+        jLabel6.setText("ACTIVO");
+
+        jLabel7.setText("ID ALUMNO");
+
+        jtf_id_alumno.setEditable(false);
+
+        jb_baja_alumno.setText("DAR DE BAJA");
+        jb_baja_alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_baja_alumnoActionPerformed(evt);
+            }
+        });
+
+        jb_buscar_alumno.setText("BUSCAR");
+        jb_buscar_alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_buscar_alumnoActionPerformed(evt);
+            }
+        });
+
+        jtf_nombre_alumno.setEditable(false);
+
+        jtf_apellido_alumno.setEditable(false);
+
+        jtf_fecha_n.setEditable(false);
+
+        jtf_activo.setEditable(false);
+
+        jb_limpiar.setText("LIMPIAR");
+        jb_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarActionPerformed(evt);
+            }
+        });
+
+        jb_salir.setText("SALIR");
+        jb_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_salirActionPerformed(evt);
+            }
+        });
+
+        bg_buscar.add(jrb_por_dni);
+        jrb_por_dni.setText("Buscar por DNI");
+        jrb_por_dni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_por_dniActionPerformed(evt);
+            }
+        });
+
+        bg_buscar.add(jrb_por_id);
+        jrb_por_id.setText("Buscar por ID");
+        jrb_por_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_por_idActionPerformed(evt);
+            }
+        });
+
+        jl_buscar.setText("Ingrese DNI");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jb_limpiar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel7)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtf_id_alumno)
+                                    .addComponent(jtf_activo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jb_baja_alumno)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jl_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jl_aviso_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jtf_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jb_buscar_alumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jrb_por_id, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jrb_por_dni))))
+                                .addGap(68, 68, 68)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jtf_apellido_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtf_fecha_n, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtf_nombre_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(265, 265, 265)
+                        .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(jLabel1)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1)
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jrb_por_id)
+                            .addComponent(jrb_por_dni))
+                        .addGap(6, 6, 6)
+                        .addComponent(jl_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtf_dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jb_buscar_alumno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jl_aviso_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jtf_nombre_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtf_apellido_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtf_fecha_n, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jtf_activo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jtf_id_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jb_limpiar)
+                            .addComponent(jb_baja_alumno))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jb_baja_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_baja_alumnoActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea borrar?", "Borrar Materia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (respuesta==0) {
+        ad.borrar_alumno(Integer.parseInt(jtf_id_alumno.getText()));
+        jtf_dni.setText("");
+        jtf_nombre_alumno.setText("");
+        jtf_apellido_alumno.setText("");
+        jtf_fecha_n.setText("");
+        jtf_id_alumno.setText("");
+        jtf_activo.setText("");
+        jtf_dni.requestFocus();
+        jb_limpiar.setEnabled(false);
+        jb_baja_alumno.setEnabled(false);
+        }
+        
+        
+        
+    }//GEN-LAST:event_jb_baja_alumnoActionPerformed
+
+    private void jb_buscar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_buscar_alumnoActionPerformed
+        // TODO add your handling code here:
+        if (jrb_por_dni.isSelected()) {
+            String dni = jtf_dni.getText();
+            Alumno alumno = ad.buscar_alumno(dni);
+            if (alumno != null) {
+                jtf_nombre_alumno.setText(alumno.getNombre());
+                jtf_apellido_alumno.setText(alumno.getApellido());
+                jtf_fecha_n.setText(alumno.getFecha_n().format(DateTimeFormatter.ISO_DATE));
+                if (alumno.isActivo()) {
+                    jtf_activo.setText("Sí");
+                } else {
+                    jtf_activo.setText("No");
+                }
+                jtf_id_alumno.setText(alumno.getId_alumno() + "");
+                jb_baja_alumno.setEnabled(true);
+
+            }
+            jb_limpiar.setEnabled(true);
+        } else if (jrb_por_id.isSelected()) {
+            int id_alumno = Integer.parseInt(jtf_dni.getText());
+            Alumno alumno = ad.buscar_alumno(id_alumno);
+            if (alumno != null) {
+                jtf_nombre_alumno.setText(alumno.getNombre());
+                jtf_apellido_alumno.setText(alumno.getApellido());
+                jtf_fecha_n.setText(alumno.getFecha_n().format(DateTimeFormatter.ISO_DATE));
+                if (alumno.isActivo()) {
+                    jtf_activo.setText("Sí");
+                } else {
+                    jtf_activo.setText("No");
+                }
+                jtf_id_alumno.setText(alumno.getId_alumno() + "");
+                jb_baja_alumno.setEnabled(true);
+
+            }
+            jb_limpiar.setEnabled(true);
+
+        }
+    }//GEN-LAST:event_jb_buscar_alumnoActionPerformed
+
+    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jb_salirActionPerformed
+
+    private void jb_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarActionPerformed
+        // TODO add your handling code here:
+        jtf_dni.setText("");
+        jtf_nombre_alumno.setText("");
+        jtf_apellido_alumno.setText("");
+        jtf_fecha_n.setText("");
+        jtf_id_alumno.setText("");
+        jtf_activo.setText("");
+        jtf_dni.requestFocus();
+        jb_baja_alumno.setEnabled(false);
+        jb_limpiar.setEnabled(false);
+        
+    }//GEN-LAST:event_jb_limpiarActionPerformed
+
+    private void jtf_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_dniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtf_dniActionPerformed
+
+    private void jrb_por_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_idActionPerformed
+        // TODO add your handling code here:
+        jl_buscar.setText("Ingrese ID");
+    }//GEN-LAST:event_jrb_por_idActionPerformed
+
+    private void jtf_dniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_dniKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if (!(((caracter < '0') || (caracter > '9')) && (caracter != '\b'))) {
+            jl_aviso_dni.setText("");
+        } else {
+            jl_aviso_dni.setText("Solo números");
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtf_dniKeyTyped
+
+    private void jrb_por_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_dniActionPerformed
+        // TODO add your handling code here:
+        jl_buscar.setText("Ingrese DNI");
+    }//GEN-LAST:event_jrb_por_dniActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bg_buscar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton jb_baja_alumno;
+    private javax.swing.JButton jb_buscar_alumno;
+    private javax.swing.JButton jb_limpiar;
+    private javax.swing.JButton jb_salir;
+    private javax.swing.JLabel jl_aviso_dni;
+    private javax.swing.JLabel jl_buscar;
+    private javax.swing.JRadioButton jrb_por_dni;
+    private javax.swing.JRadioButton jrb_por_id;
+    private javax.swing.JTextField jtf_activo;
+    private javax.swing.JTextField jtf_apellido_alumno;
+    private javax.swing.JTextField jtf_dni;
+    private javax.swing.JTextField jtf_fecha_n;
+    private javax.swing.JTextField jtf_id_alumno;
+    private javax.swing.JTextField jtf_nombre_alumno;
     // End of variables declaration//GEN-END:variables
 }
