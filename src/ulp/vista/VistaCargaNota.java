@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -55,10 +56,9 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         this.jl_IngreseId.setLocation(new Point(20,3));
         this.jl_ingreseDni.setLocation(new Point(20,3));
         this.jtf_ingreseValor.setLocation(new Point(20,3));
-//        jcb_alumno.setSelectedItem(null);
         jButton_buscar.setEnabled(false);
-
         jcb_alumno.setEnabled(false);
+        jcb_materias.setEnabled(false);
        
         
         armaCabeceraTabla();
@@ -68,18 +68,18 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 //        jcb_alumno.setSelectedItem(new Object[]{" "});
 
 
-        cargarMateriasVacia();
-        
-         int delay = 2000; // miliseg
-        ActionListener taskPerformer = (ActionEvent evt) -> {
-//             cargarAlumnos();
-        };
-
-
-        Timer timer = new Timer (delay,taskPerformer );
-        timer.setRepeats(false);
-        timer.start();
-        
+//        cargarMateriasVacia();
+//        
+//         int delay = 2000; // miliseg
+//        ActionListener taskPerformer = (ActionEvent evt) -> {
+////             cargarAlumnos();
+//        };
+//
+//
+//        Timer timer = new Timer (delay,taskPerformer );
+//        timer.setRepeats(false);
+//        timer.start();
+//        
         
     }
     
@@ -109,41 +109,46 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
            }
 }
      
-    public void cargarMateriasVacia(){
-        Materia item = null;
-        jcb_materias.removeAllItems();
-        jcb_materias.addItem(item);
-    } 
-    
-    public void cargarMaterias(){
-        jcb_materias.setSelectedItem(new Object[]{" "});
-        List<Materia> materias = materia_Data.obtener_materias();
-        materias.forEach((item) -> {
-            jcb_materias.addItem(item);
-        });
-        
-    }
+//    public void cargarMateriasVacia(){
+//        Materia item = null;
+//        jcb_materias.removeAllItems();
+//        jcb_materias.addItem(item);
+//    } 
+//    
+//    public void cargarMaterias(){
+//        jcb_materias.setSelectedItem(new Object[]{" "});
+//        List<Materia> materias = materia_Data.obtener_materias();
+//        materias.forEach((item) -> {
+//            jcb_materias.addItem(item);
+//        });
+//        
+//    }
     
     public void cargarMateriasxAlumno(){
-        
+        Alumno alumno = (Alumno)jcb_alumno.getSelectedItem();
+        if(alumno != null){
+        jcb_materias.setEnabled(true);
         jcb_materias.removeAllItems();
-        jcb_materias.setSelectedItem(new Object[]{" "});
-        List<Materia> materias = inscripcion_data.materias_alumno((Alumno)jcb_alumno.getSelectedItem());
+//        jcb_materias.setSelectedItem(new Object[]{" "});
+        List<Materia> materias = inscripcion_data.materias_alumno(alumno);
         materias.forEach((item) -> {
             jcb_materias.addItem(item);
         });
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo cargar materias porque no hay alumno seleccionado");
+        }
         
     }
     
     public void cargarAlumnos(){
         
         jcb_alumno.removeAllItems();
-        jcb_alumno.setSelectedItem(new Object[]{" "});
+//        jcb_alumno.setSelectedItem(new Object[]{" "});
         List<Alumno> alumnos = alumno_data.ver_alumnos_activos();
         alumnos.forEach((item) -> {
             jcb_alumno.addItem(item);
         });
-        jcb_alumno.setSelectedItem(null);
+        jcb_alumno.setSelectedItem(null);        
     }
     
    
@@ -631,17 +636,24 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jcb_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_alumnoActionPerformed
         // TODO add your handling code here:
-        int delay = 100; // miliseg
-        ActionListener taskPerformer = (ActionEvent evt2) -> {
-             cargarMateriasxAlumno();
-            jcb_materias.setEnabled(true);
-        };
-
-
-        Timer timer = new Timer (delay,taskPerformer );
-        timer.setRepeats(false);
-        timer.start(); 
-        
+//        int delay = 100; // miliseg
+//        ActionListener taskPerformer = (ActionEvent evt2) -> {
+             
+            
+//        };
+//
+//
+//        Timer timer = new Timer (delay,taskPerformer );
+//        timer.setRepeats(false);
+//        timer.start(); 
+        Alumno alumno = (Alumno)jcb_alumno.getSelectedItem();
+        if(alumno != null){
+            
+            cargarMateriasxAlumno();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "No selecciono alumno");
+        }
         
     }//GEN-LAST:event_jcb_alumnoActionPerformed
 
@@ -653,12 +665,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jcb_alumno.setEnabled(true);
         this.escribirEstados("Ha elegido buscar por ComboBox, Eliga un alumna de la lista desplegable");
         jl_PorCombobox.setVisible(true);
-        jcb_materias.setSelectedItem(null);
+//        jcb_materias.setSelectedItem(null);
         this.borraFilasTabla();
         jtf_ingreseValor.setText("");
         jFormattedTextField_nota.setText("");
         cargarAlumnos();
-        jcb_alumno.setSelectedItem(null);
+//        jcb_alumno.setSelectedItem(null);
         jcb_alumno.requestFocus();
         
     }//GEN-LAST:event_jchb_porComboActionPerformed
