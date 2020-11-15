@@ -332,7 +332,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jLabel_nota.setText("Nota:");
 
         jFormattedTextField_nota.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##,##"))));
-        jFormattedTextField_nota.setText("10.50");
         jFormattedTextField_nota.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jFormattedTextField_nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -364,6 +363,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jcb_alumno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcb_alumnoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jcb_alumnoMouseEntered(evt);
+            }
+        });
         jcb_alumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcb_alumnoActionPerformed(evt);
@@ -646,14 +653,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 //        Timer timer = new Timer (delay,taskPerformer );
 //        timer.setRepeats(false);
 //        timer.start(); 
-        Alumno alumno = (Alumno)jcb_alumno.getSelectedItem();
-        if(alumno != null){
-            
-            cargarMateriasxAlumno();
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "No selecciono alumno");
-        }
         
     }//GEN-LAST:event_jcb_alumnoActionPerformed
 
@@ -678,6 +677,24 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private void jFormattedTextField_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField_notaActionPerformed
+
+    private void jcb_alumnoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_alumnoMouseEntered
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jcb_alumnoMouseEntered
+
+    private void jcb_alumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_alumnoMouseClicked
+        // TODO add your handling code here:
+         Alumno alumno = (Alumno)jcb_alumno.getSelectedItem();
+        if(alumno != null){
+            
+            cargarMateriasxAlumno();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "No selecciono alumno");
+        }
+        
+    }//GEN-LAST:event_jcb_alumnoMouseClicked
     
     public void limpiar(){
         jcb_materias.setSelectedItem(null);
