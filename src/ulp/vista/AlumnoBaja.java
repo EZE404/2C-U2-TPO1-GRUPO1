@@ -170,16 +170,17 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jb_baja_alumno)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jl_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jl_aviso_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jtf_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jb_buscar_alumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jrb_por_id, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jrb_por_dni))))
+                                            .addComponent(jrb_por_dni))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jl_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                                                .addComponent(jl_aviso_dni, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jtf_dni, javax.swing.GroupLayout.Alignment.LEADING))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jb_buscar_alumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(68, 68, 68)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
@@ -189,10 +190,8 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jtf_apellido_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtf_fecha_n, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtf_nombre_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(265, 265, 265)
-                        .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jtf_nombre_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(217, 217, 217)
                         .addComponent(jLabel1)))
@@ -203,15 +202,15 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel1)
-                .addGap(52, 52, 52)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jrb_por_id)
                             .addComponent(jrb_por_dni))
-                        .addGap(6, 6, 6)
+                        .addGap(30, 30, 30)
                         .addComponent(jl_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtf_dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jb_buscar_alumno))
@@ -239,16 +238,16 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
                             .addComponent(jtf_id_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jb_limpiar)
                             .addComponent(jb_baja_alumno))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addGap(54, 54, 54))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_baja_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_baja_alumnoActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea borrar?", "Borrar Materia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea borrar?", "Borrar Alumno", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (respuesta==0) {
         ad.borrar_alumno(Integer.parseInt(jtf_id_alumno.getText()));
         jtf_dni.setText("");
@@ -268,6 +267,10 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
 
     private void jb_buscar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_buscar_alumnoActionPerformed
         // TODO add your handling code here:
+        if ("".equals(jtf_dni.getText())) {
+            jl_aviso_dni.setText("Ingrese dato");
+            jtf_dni.requestFocus();
+        } else {
         if (jrb_por_dni.isSelected()) {
             String dni = jtf_dni.getText();
             Alumno alumno = ad.buscar_alumno(dni);
@@ -286,6 +289,7 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
             }
             jb_limpiar.setEnabled(true);
         } else if (jrb_por_id.isSelected()) {
+            if (jtf_dni.getText().length()<=5) {
             int id_alumno = Integer.parseInt(jtf_dni.getText());
             Alumno alumno = ad.buscar_alumno(id_alumno);
             if (alumno != null) {
@@ -302,7 +306,11 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
 
             }
             jb_limpiar.setEnabled(true);
-
+            } else {
+                jl_aviso_dni.setText("Max 5 dígitos");
+                jtf_dni.requestFocus();
+            }
+        }
         }
     }//GEN-LAST:event_jb_buscar_alumnoActionPerformed
 
@@ -327,11 +335,13 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
 
     private void jtf_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_dniActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jtf_dniActionPerformed
 
     private void jrb_por_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_idActionPerformed
         // TODO add your handling code here:
         jl_buscar.setText("Ingrese ID");
+        //jtf_dni.setText("Ingrese ID");
     }//GEN-LAST:event_jrb_por_idActionPerformed
 
     private void jtf_dniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_dniKeyTyped
@@ -343,11 +353,13 @@ public class AlumnoBaja extends javax.swing.JInternalFrame {
             jl_aviso_dni.setText("Solo números");
             evt.consume();
         }
+        
     }//GEN-LAST:event_jtf_dniKeyTyped
 
     private void jrb_por_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_dniActionPerformed
         // TODO add your handling code here:
         jl_buscar.setText("Ingrese DNI");
+        //jtf_dni.setText("Ingrese DNI");
     }//GEN-LAST:event_jrb_por_dniActionPerformed
 
 

@@ -47,17 +47,19 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jb_baja_alumno" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jl_buscar" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <Component id="jl_aviso_dni" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jtf_dni" min="-2" pref="107" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jb_buscar_alumno" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <Component id="jrb_por_id" min="-2" pref="97" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jrb_por_dni" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="jl_buscar" pref="107" max="32767" attributes="0"/>
+                                              <Component id="jl_aviso_dni" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jtf_dni" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jb_buscar_alumno" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -74,11 +76,8 @@
                                   <Component id="jtf_nombre_alumno" alignment="1" min="-2" pref="132" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="jb_salir" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="265" max="-2" attributes="0"/>
-                      <Component id="jb_salir" min="-2" pref="92" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
@@ -94,16 +93,16 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jrb_por_id" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jrb_por_dni" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jl_buscar" min="-2" pref="15" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jtf_dni" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jb_buscar_alumno" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -140,9 +139,9 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="97" max="32767" attributes="0"/>
+              <EmptySpace pref="93" max="32767" attributes="0"/>
               <Component id="jb_salir" min="-2" pref="41" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
