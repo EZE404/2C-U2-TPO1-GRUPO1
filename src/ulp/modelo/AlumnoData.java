@@ -44,7 +44,7 @@ public class AlumnoData {
 
             instruccion.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar Alumno");
+            //JOptionPane.showMessageDialog(null, "Error al guardar Alumno");
             System.out.println(ex.getMessage());
         }
     }
@@ -195,7 +195,7 @@ public class AlumnoData {
                 alumno.setActivo(consulta.getBoolean("activo"));
                 alumnos.add(alumno);
             }
-                JOptionPane.showMessageDialog(null, "Se encontraron alumnos");
+                //JOptionPane.showMessageDialog(null, "Se encontraron alumnos");
                 System.out.println("Se encontraron alumnos");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontraron alumnos");
