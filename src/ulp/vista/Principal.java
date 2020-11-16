@@ -49,6 +49,7 @@ public class Principal extends javax.swing.JFrame {
         jmi_manipulacion_notas = new javax.swing.JMenuItem();
         menu_consultas = new javax.swing.JMenu();
         jmi_listado_alumno = new javax.swing.JMenuItem();
+        jmi_cons_m_x_a = new javax.swing.JMenuItem();
 
         jMenu4.setText("jMenu4");
 
@@ -92,7 +93,7 @@ public class Principal extends javax.swing.JFrame {
         menu_alumnos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         menu_alumnos.setHideActionText(true);
 
-        item_formulario_alunno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        item_formulario_alunno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         item_formulario_alunno.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         item_formulario_alunno.setText("Alta Alumno");
         item_formulario_alunno.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +124,7 @@ public class Principal extends javax.swing.JFrame {
         menu_materias.setText("Materias");
         menu_materias.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        item_formulario_materia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        item_formulario_materia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         item_formulario_materia.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         item_formulario_materia.setText("Alta Materias");
         item_formulario_materia.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +155,7 @@ public class Principal extends javax.swing.JFrame {
         menu_inscripcion.setText("Inscipciones");
         menu_inscripcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jmi_manejo_inscripcion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jmi_manejo_inscripcion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jmi_manejo_inscripcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jmi_manejo_inscripcion.setText("Manejo de Inscripciones");
         jmi_manejo_inscripcion.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +170,7 @@ public class Principal extends javax.swing.JFrame {
         menu_cargar_notas.setText("Carga de Notas");
         menu_cargar_notas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jmi_manipulacion_notas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jmi_manipulacion_notas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jmi_manipulacion_notas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jmi_manipulacion_notas.setText("Manipulacion de Notas");
         jmi_manipulacion_notas.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +185,7 @@ public class Principal extends javax.swing.JFrame {
         menu_consultas.setText("Consultas");
         menu_consultas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jmi_listado_alumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jmi_listado_alumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jmi_listado_alumno.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jmi_listado_alumno.setText("Listado de Alumnos x Materia");
         jmi_listado_alumno.addActionListener(new java.awt.event.ActionListener() {
@@ -193,6 +194,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         menu_consultas.add(jmi_listado_alumno);
+
+        jmi_cons_m_x_a.setText("Materias de un Alumno");
+        jmi_cons_m_x_a.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_cons_m_x_aActionPerformed(evt);
+            }
+        });
+        menu_consultas.add(jmi_cons_m_x_a);
 
         jMenuBar1.add(menu_consultas);
 
@@ -240,15 +249,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_formulario_alunnoActionPerformed
 
     private void jmi_listado_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_listado_alumnoActionPerformed
-//        escritorio.removeAll();
-//        escritorio.repaint();
-//        vistaConsulta vc=new vistaConsulta();
-//        vc.setVisible(true);
-//        escritorio.add(vc);
-//        Dimension desktopSize = escritorio.getSize();
-//        Dimension FrameSize = vc.getSize();
-//        vc.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-//        vc.show();
+        escritorio.removeAll();
+        escritorio.repaint();
+        ConsultaAlumnosPorMateria am=new ConsultaAlumnosPorMateria();
+        am.setVisible(true);
+        escritorio.add(am);
+        Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = am.getSize();
+        am.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        am.show();
     }//GEN-LAST:event_jmi_listado_alumnoActionPerformed
 
     private void jmi_manejo_inscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_manejo_inscripcionActionPerformed
@@ -320,6 +329,19 @@ public class Principal extends javax.swing.JFrame {
         vas.show();
     }//GEN-LAST:event_jmi_baja_materiaActionPerformed
 
+    private void jmi_cons_m_x_aActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cons_m_x_aActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ConsultaMateriasPorAlumno ma=new ConsultaMateriasPorAlumno();
+        ma.setVisible(true);
+        escritorio.add(ma);
+        Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = ma.getSize();
+        ma.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        ma.show();
+    }//GEN-LAST:event_jmi_cons_m_x_aActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -367,6 +389,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_actualizar_materia;
     private javax.swing.JMenuItem jmi_baja_alumno;
     private javax.swing.JMenuItem jmi_baja_materia;
+    private javax.swing.JMenuItem jmi_cons_m_x_a;
     private javax.swing.JMenuItem jmi_listado_alumno;
     private javax.swing.JMenuItem jmi_manejo_inscripcion;
     private javax.swing.JMenuItem jmi_manipulacion_notas;
