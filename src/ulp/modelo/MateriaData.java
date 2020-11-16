@@ -54,7 +54,7 @@ public class MateriaData {
                     materia = new Materia();
                     materia.setId_materia(consulta.getInt("id_materia"));
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
-                    JOptionPane.showMessageDialog(null, "Materia encontrada");
+                    //JOptionPane.showMessageDialog(null, "Materia encontrada");
                     System.out.println("Materia encontrada");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró tal materia");
@@ -81,7 +81,7 @@ public class MateriaData {
                     materia.setId_materia(consulta.getInt("id_materia"));
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
                     JOptionPane.showMessageDialog(null, "Materia encontrada");
-                    System.out.println("Materia encontrada");
+                    //System.out.println("Materia encontrada");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró tal materia");
                 }
@@ -105,7 +105,7 @@ public class MateriaData {
                     materia = new Materia();
                     materia.setId_materia(consulta.getInt("id_materia"));
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
-                    JOptionPane.showMessageDialog(null, "Materia encontrada");
+                   // JOptionPane.showMessageDialog(null, "Materia encontrada");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró tal materia");
                     System.out.println("No se encontró tal materia");
@@ -175,7 +175,7 @@ public class MateriaData {
                 materias.add(materia);
                 }
                 System.out.println("Se encontraron materias");
-                JOptionPane.showMessageDialog(null, "Se encontraron materias");
+                //JOptionPane.showMessageDialog(null, "Se encontraron materias");
             } else {
                 System.out.println("No se encontraron materias");
                 JOptionPane.showMessageDialog(null, "No se encontraorn materias");
@@ -206,7 +206,7 @@ public class MateriaData {
                 materia.setNombre_materia(consulta.getString("nombre_materia"));
                 materias.add(materia);
                 }
-                System.out.println("Se encontraron materias");
+                //System.out.println("Se encontraron materias");
                 JOptionPane.showMessageDialog(null, "Se encontraron materias");
             } else {
                 System.out.println("No se encontraron materias");

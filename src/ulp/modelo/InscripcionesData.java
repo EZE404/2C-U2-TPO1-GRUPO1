@@ -45,7 +45,7 @@ public class InscripcionesData {
             }
             // CARGANDO ID GENERADA EN TABLA AL ALUMNO EN JAVA
             if (llaves.next()) {
-                inscripcion.getAlumno().setId_alumno(llaves.getInt(1));
+                inscripcion.setId_inscripcion(llaves.getInt(1));
             }
             instruccion.close();
         } catch (SQLException e) {
@@ -125,7 +125,7 @@ public class InscripcionesData {
 
             if (celAfectadas > 0) {
                 System.out.println("Se registró nota");
-                JOptionPane.showMessageDialog(null, "Se registró nota");
+                //JOptionPane.showMessageDialog(null, "Se registró nota");
             } else {
                 JOptionPane.showMessageDialog(null, "No se registró nota");
                 System.out.println("No se registró nota");
@@ -145,7 +145,7 @@ public class InscripcionesData {
 
             if (celAfectadas > 0) {
                 System.out.println("Se registró nota");
-                JOptionPane.showMessageDialog(null, "Se registró nota");
+                //JOptionPane.showMessageDialog(null, "Se registró nota");
             } else {
                 JOptionPane.showMessageDialog(null, "No se registró nota");
                 System.out.println("No se registró nota");
@@ -178,7 +178,7 @@ public class InscripcionesData {
                     alumno.setActivo(consulta.getBoolean("activo"));
                     alumnos.add(alumno);
                 }
-                JOptionPane.showMessageDialog(null, "Se encontraron alumnos en la materia con id " + id_materia);
+                //JOptionPane.showMessageDialog(null, "Se encontraron alumnos en la materia con id " + id_materia);
                 System.out.println("Se encontraron alumnos en la materia con id " + id_materia);
             } else {
                 JOptionPane.showMessageDialog(null, "No hay alumnos inscriptos para la materia con id " + id_materia);
@@ -215,7 +215,7 @@ public class InscripcionesData {
                     alumno.setActivo(consulta.getBoolean("activo"));
                     alumnos.add(alumno);
                 }
-                JOptionPane.showMessageDialog(null, "Se encontraron alumnos en la materia " + nombre_materia);
+                //JOptionPane.showMessageDialog(null, "Se encontraron alumnos en la materia " + nombre_materia);
                 System.out.println("Se encontraron alumnos en la materia " + nombre_materia);
             } else {
                 JOptionPane.showMessageDialog(null, "No hay alumnos inscriptos para la materia " + nombre_materia);
@@ -249,7 +249,7 @@ public class InscripcionesData {
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
                     materias.add(materia);
                 }
-                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                //JOptionPane.showMessageDialog(null, "Materias encontradas");
                 System.out.println("Materias encontradas");
 
             } else {
@@ -282,7 +282,7 @@ public class InscripcionesData {
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
                     materias.add(materia);
                 }
-                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                //JOptionPane.showMessageDialog(null, "Materias encontradas");
                 System.out.println("Materias encontradas");
 
             } else {
@@ -318,7 +318,7 @@ public class InscripcionesData {
                     nota = (Double) consulta.getDouble("nota");
                     notas.put(materia, nota);
                 }
-                JOptionPane.showMessageDialog(null, "Notas encontradas");
+                //JOptionPane.showMessageDialog(null, "Notas encontradas");
                 System.out.println("Notas encontradas");
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones para ese alumno");
@@ -352,7 +352,7 @@ public class InscripcionesData {
                     nota = (Double) consulta.getDouble("nota");
                     notas.put(materia, nota);
                 }
-                JOptionPane.showMessageDialog(null, "Notas encontradas");
+                //JOptionPane.showMessageDialog(null, "Notas encontradas");
                 System.out.println("Notas encontradas");
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones para ese alumno");
@@ -390,7 +390,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(m);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");
@@ -430,7 +430,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(m);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");
@@ -470,7 +470,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(m);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");
@@ -525,7 +525,7 @@ public class InscripcionesData {
                 alumno = this.buscarAlumno(consulta.getInt("id_alumno"));
                 materia = this.buscarMateria(consulta.getInt("id_materia"));
 
-                JOptionPane.showMessageDialog(null, "Inscripción encontrada");
+                //JOptionPane.showMessageDialog(null, "Inscripción encontrada");
                 System.out.println("Inscripción encontrada");
 
             } else {
