@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -97,33 +98,17 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     public void cargarMateriasxAlumno() {
 
         Alumno alumno= null;
-        if (jchb_porCombo.isSelected()) {
-            alumno = (Alumno) jcb_alumno.getSelectedItem();
-        }
-        else if (jchb_porDni.isSelected()) {
-            alumno = (Alumno) alumno_data.buscar_alumno(jtf_ingreseValor.getText());
-        } else {
-          try{
-            alumno = (Alumno) alumno_data.buscar_alumno(Integer.parseInt(jtf_ingreseValor.getText()));
-          } catch (NumberFormatException e){
-              System.out.println("No se puede convertir a numero");
-          }
-        }
+        int numero = 0;
+        
+        alumno= alumno_data.buscar_alumno(Integer.parseInt(jl_idAlumno.getText()));
         
         System.out.println(alumno);
 
         if (alumno != null) {
             jcb_materias.setEnabled(true);
             jcb_materias.removeAllItems();
-            if (jchb_porCombo.isSelected()) {
-                List<Materia> materias = inscripcion_data.materias_alumno(alumno);
-                materias.forEach((item) -> {
-                    jcb_materias.addItem(item);
-                });
-            }
-            if (jchb_porId.isSelected()) {
-                int numero = 0;
-                try {
+            
+               try {
                     numero = Integer.parseInt(jtf_ingreseValor.getText());
                 } catch (NumberFormatException e) {
                     System.out.println("No se puede convertir a numero");
@@ -132,15 +117,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 List<Materia> materias = inscripcion_data.materias_alumno(numero);
                 materias.forEach((item) -> {
                     jcb_materias.addItem(item);
-                });
-            } else {
-                System.out.println(jtf_ingreseValor.getText());
-                List<Materia> materias = inscripcion_data.materias_alumno(jtf_ingreseValor.getText());
-                materias.forEach((item) -> {
-                    jcb_materias.addItem(item);
-                });
-
-            }
+                 });
+            
         } 
     }
     public void cargarAlumnos() {
@@ -155,33 +133,45 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     }
     
     public void mostrarInscripciones(Alumno elAlumno){
+        if(elAlumno !=null){
         Inscripcion laInscripcion;
         Materia seleccionada;
-        cargarMateriasxAlumno();
+        seleccionada = (Materia)jcb_materias.getSelectedItem();
+        //laInscripcion = (Inscripcion) inscripcion_data.inscripcionesAlumno(elAlumno);  
+        System.out.println("llego");
+        ArrayList listaRegistros = (ArrayList)inscripcion_data.inscripcionesAlumno(elAlumno);
+        for (Iterator it = listaRegistros.iterator(); it.hasNext();) {
+            Inscripcion i = (Inscripcion) it.next();
+            modelo.addRow(new Object[]{i.getId_inscripcion(), i.getMateria().getId_materia(), i.getMateria().getNombre_materia(), i.getCalificacion()});
+            System.out.println("entro");
+        }
+//        cargarMateriasxAlumno();
         jcb_materias.requestFocus();
         
+        }
+        
             
             
         
-        if (jcb_materias.getItemCount() > 0) {
-
-            jcb_materias.setSelectedIndex(0);
-
-            seleccionada = (Materia) jcb_materias.getSelectedItem();
-
-            laInscripcion = inscripcion_data.inscripcion_alumno_materia(elAlumno, seleccionada);
-            if (laInscripcion != null) {
-
-                System.out.println(laInscripcion);
-                jl_numeroInscr.setText(String.valueOf(laInscripcion.getId_inscripcion()));
-                modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion()});
-                jFormattedTextField_nota.setEditable(true);
-                jFormattedTextField_nota.requestFocus();
-                escribirEstados("Ingrese la nota para cargar o actualizar");
-            }
-        } else {
-            escribirEstados("No hay inscripciones para mostrar");
-        }
+//        if (jcb_materias.getItemCount() > 0) {
+//
+//            jcb_materias.setSelectedIndex(0);
+//
+//            seleccionada = (Materia) jcb_materias.getSelectedItem();
+//
+//            laInscripcion = inscripcion_data.inscripcion_alumno_materia(elAlumno, seleccionada);
+//            if (laInscripcion != null) {
+//
+//                System.out.println(laInscripcion);
+//                jl_numeroInscr.setText(String.valueOf(laInscripcion.getId_inscripcion()));
+//                modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion()});
+//                jFormattedTextField_nota.setEditable(true);
+//                jFormattedTextField_nota.requestFocus();
+//                escribirEstados("Ingrese la nota para cargar o actualizar");
+//            }
+//        } else {
+//            escribirEstados("No hay inscripciones para mostrar");
+//        }
     }
 
              
@@ -627,6 +617,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
         // TODO add your handling code here:
+        Alumno alumno=null;
         limpiar();
     }//GEN-LAST:event_jButton_limpiarActionPerformed
 
@@ -713,13 +704,16 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcb_alumnoItemStateChanged
 
     public void limpiar() {
-        this.borraFilasTabla();
+        
         jtf_ingreseValor.setText("");
         jtf_ingreseValor.setText("");
         jFormattedTextField_nota.setText("");
         jcb_materias.setSelectedItem(null);
         jcb_alumno.setSelectedItem(null);
         jcb_materias.setEnabled(false);
+        jl_idAlumno.setText("");
+        jl_nombreAlumno.setText("");
+        borraFilasTabla();
                
         hacerFoco();
     }
