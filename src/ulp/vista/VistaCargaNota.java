@@ -153,25 +153,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
             
             
         
-//        if (jcb_materias.getItemCount() > 0) {
-//
-//            jcb_materias.setSelectedIndex(0);
-//
-//            seleccionada = (Materia) jcb_materias.getSelectedItem();
-//
-//            laInscripcion = inscripcion_data.inscripcion_alumno_materia(elAlumno, seleccionada);
-//            if (laInscripcion != null) {
-//
-//                System.out.println(laInscripcion);
-//                jl_numeroInscr.setText(String.valueOf(laInscripcion.getId_inscripcion()));
-//                modelo.addRow(new Object[]{laInscripcion.getId_inscripcion(), seleccionada.getId_materia(), seleccionada.getNombre_materia(), laInscripcion.getCalificacion()});
-//                jFormattedTextField_nota.setEditable(true);
-//                jFormattedTextField_nota.requestFocus();
-//                escribirEstados("Ingrese la nota para cargar o actualizar");
-//            }
-//        } else {
-//            escribirEstados("No hay inscripciones para mostrar");
-//        }
+
     }
 
              
@@ -705,7 +687,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     public void limpiar() {
         
-        jtf_ingreseValor.setText("");
         jtf_ingreseValor.setText("");
         jFormattedTextField_nota.setText("");
         jcb_materias.setSelectedItem(null);
