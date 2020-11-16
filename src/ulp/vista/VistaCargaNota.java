@@ -145,7 +145,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
             modelo.addRow(new Object[]{i.getId_inscripcion(), i.getMateria().getId_materia(), i.getMateria().getNombre_materia(), i.getCalificacion()});
             System.out.println("entro");
         }
-//        cargarMateriasxAlumno();
+        
         jcb_materias.requestFocus();
         
         }
@@ -418,7 +418,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jcb_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                         .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))))
         );
@@ -450,10 +450,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 59, 475, -1));
 
-        jL_buscarMateria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jL_buscarMateria.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jL_buscarMateria.setText("Elegir Materia");
         getContentPane().add(jL_buscarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 381, -1, -1));
 
+        jcb_materias.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jcb_materias.setNextFocusableComponent(jButton_buscar);
         jcb_materias.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -465,7 +466,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jcb_materiasActionPerformed(evt);
             }
         });
-        getContentPane().add(jcb_materias, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 379, 122, -1));
+        getContentPane().add(jcb_materias, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 190, -1));
 
         jLabel_nota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel_nota.setText("Nota:");
@@ -591,6 +592,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jl_idAlumno.setText(String.valueOf(elAlumno.getId_alumno()));
                 jl_nombreAlumno.setVisible(true);
                 mostrarInscripciones(elAlumno);
+//                cargarMateriasxAlumno();
             } else {
                 escribirEstados("No existe ese alumno");
             }
