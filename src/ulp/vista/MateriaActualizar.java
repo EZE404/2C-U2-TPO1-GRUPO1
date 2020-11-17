@@ -43,7 +43,7 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
     /**
      * Creates new form MateriaActualizar
      */
-        public void cargarMaterias(){
+        private void cargarMaterias(){
         materias=materia_data.obtener_materias();
         for (Materia m:materias) {
         modelo.addRow(new Object[]{m.getId_materia(),m.getNombre_materia()});
@@ -51,7 +51,7 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
     
     }
         private void armarCabeceraTabla(){
-       ArrayList<Object> columnas=new ArrayList<Object>();   
+       ArrayList<Object> columnas=new ArrayList<>();   
        columnas.add("ID");
        columnas.add("Nombre");
        for(Object it:columnas){
@@ -59,13 +59,13 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
        }
        jt_materias.setModel(modelo);
 }
-        public void borrarFilasTabla(){
+        private void borrarFilasTabla(){
        int a=jt_materias.getRowCount()-1;
        for(int i=a;i>=0;i--){
            modelo.removeRow(i);
        }
     }
-    public void Limpiar(){
+    private void Limpiar(){
         jtf_nombre.setText("");
     }
     public MateriaActualizar() {
@@ -81,7 +81,7 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
         materias=new ArrayList<>();
         this.armarCabeceraTabla();
         this.cargarMaterias();
-        getContentPane().setBackground(Color.ORANGE);
+        //getContentPane().setBackground(Color.ORANGE);
         jb_actualizar.setEnabled(false);
         } catch (Exception e) {
         }
@@ -105,9 +105,10 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
         jt_materias = new javax.swing.JTable();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(11, 0), new java.awt.Dimension(11, 0), new java.awt.Dimension(11, 32767));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setEnabled(false);
-        setOpaque(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jb_actualizar.setText("Actualizar");
@@ -144,7 +145,7 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
                 jb_salirActionPerformed(evt);
             }
         });
-        getContentPane().add(jb_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 413, -1, -1));
+        getContentPane().add(jb_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, -1, -1));
 
         jt_materias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -200,9 +201,11 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jt_materias);
         jt_materias.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 194, -1, 207));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 530, 220));
         getContentPane().add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, 30, 20));
         getContentPane().add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, 30, 30));
+        getContentPane().add(filler3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 460, 50, 30));
+        getContentPane().add(filler4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, 60, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -267,6 +270,8 @@ private void alumnoLineaSelecionada(JTable tb){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;

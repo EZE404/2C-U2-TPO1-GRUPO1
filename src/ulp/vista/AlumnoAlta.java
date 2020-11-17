@@ -141,24 +141,24 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setText("N° de Legajo");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 60, -1, -1));
+        jLabel3.setText("Legajo");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Nombre");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 107, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Apellido");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 149, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("DNI");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 201, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Fecha N.");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 249, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
         cajaFechaN.setForeground(new java.awt.Color(60, 63, 65));
         cajaFechaN.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -167,12 +167,12 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
                 cajaFechaNKeyTyped(evt);
             }
         });
-        getContentPane().add(cajaFechaN, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 249, 177, -1));
+        getContentPane().add(cajaFechaN, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 110, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setText("Activo");
         jLabel10.setToolTipText("");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 299, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 60, -1));
 
         jcb_activo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jcb_activo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "    ", "Si", "No" }));
@@ -186,7 +186,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
                 jcb_activoKeyTyped(evt);
             }
         });
-        getContentPane().add(jcb_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 299, 65, -1));
+        getContentPane().add(jcb_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 65, 20));
 
         jtf_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,14 +198,14 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
                 jtf_nombreKeyTyped(evt);
             }
         });
-        getContentPane().add(jtf_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 105, 116, -1));
+        getContentPane().add(jtf_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 110, -1));
 
         jtf_apellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtf_apellidoKeyTyped(evt);
             }
         });
-        getContentPane().add(jtf_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 147, 117, -1));
+        getContentPane().add(jtf_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 110, -1));
 
         jtf_dni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,10 +217,10 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
                 jtf_dniKeyTyped(evt);
             }
         });
-        getContentPane().add(jtf_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 199, 100, -1));
+        getContentPane().add(jtf_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 110, -1));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 45, 48));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 20, 48));
 
         jb_guardar.setText("Guardar");
         jb_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +228,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
                 jb_guardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jb_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 160, 36));
+        getContentPane().add(jb_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 150, 36));
 
         cajaSalida.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         cajaSalida.setForeground(new java.awt.Color(153, 0, 0));
@@ -251,7 +251,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
                 jb_limpiarActionPerformed(evt);
             }
         });
-        getContentPane().add(jb_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
+        getContentPane().add(jb_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, -1, -1));
 
         jtf_id.setEnabled(false);
         jtf_id.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +264,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
                 jtf_idKeyTyped(evt);
             }
         });
-        getContentPane().add(jtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 58, 58, -1));
+        getContentPane().add(jtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 58, -1));
 
         jl_aviso_nombre.setForeground(new java.awt.Color(204, 0, 0));
         jl_aviso_nombre.setText(" ");
@@ -289,7 +289,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
         getContentPane().add(jl_aviso_activo, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 334, 71, -1));
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 45, 48));
+        getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 20, 48));
         getContentPane().add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 50, 40));
         getContentPane().add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 70, 20));
 

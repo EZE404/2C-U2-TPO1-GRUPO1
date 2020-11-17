@@ -78,7 +78,6 @@ public class Principal extends javax.swing.JFrame {
         menu_archivo.setText("Archivo");
         menu_archivo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        item_salir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         item_salir.setText("Salir");
         item_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,8 +92,6 @@ public class Principal extends javax.swing.JFrame {
         menu_alumnos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         menu_alumnos.setHideActionText(true);
 
-        item_formulario_alunno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        item_formulario_alunno.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         item_formulario_alunno.setText("Alta Alumno");
         item_formulario_alunno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,8 +121,6 @@ public class Principal extends javax.swing.JFrame {
         menu_materias.setText("Materias");
         menu_materias.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        item_formulario_materia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        item_formulario_materia.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         item_formulario_materia.setText("Alta Materias");
         item_formulario_materia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,8 +150,6 @@ public class Principal extends javax.swing.JFrame {
         menu_inscripcion.setText("Inscipciones");
         menu_inscripcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jmi_manejo_inscripcion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        jmi_manejo_inscripcion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jmi_manejo_inscripcion.setText("Manejo de Inscripciones");
         jmi_manejo_inscripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,8 +163,6 @@ public class Principal extends javax.swing.JFrame {
         menu_cargar_notas.setText("Carga de Notas");
         menu_cargar_notas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jmi_manipulacion_notas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jmi_manipulacion_notas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jmi_manipulacion_notas.setText("Manipulacion de Notas");
         jmi_manipulacion_notas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,8 +176,6 @@ public class Principal extends javax.swing.JFrame {
         menu_consultas.setText("Consultas");
         menu_consultas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jmi_listado_alumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        jmi_listado_alumno.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jmi_listado_alumno.setText("Listado de Alumnos x Materia");
         jmi_listado_alumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

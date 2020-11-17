@@ -32,7 +32,7 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
     /**
      * Creates new form MateriaAlta
      */
-    public void Limpiar(){
+    private void Limpiar(){
         jtf_id.setText("");
         jtf_nombre.setText("");
 
@@ -55,7 +55,7 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
     }
-    public void cargarMaterias(){
+    private void cargarMaterias(){
         materias=materia_data.obtener_materias();
         for (Materia m:materias) {
         modelo.addRow(new Object[]{m.getId_materia(),m.getNombre_materia()});
@@ -65,7 +65,7 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
             
             
     private void armarCabeceraTabla(){
-       ArrayList<Object> columnas=new ArrayList<Object>();   
+       ArrayList<Object> columnas=new ArrayList<>();   
        columnas.add("ID");
        columnas.add("Nombre");
        for(Object it:columnas){
@@ -74,7 +74,7 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
        jt_materia.setModel(modelo);
 }
     
-    public void borrarFilasTabla(){
+    private void borrarFilasTabla(){
        int a=jt_materia.getRowCount()-1;
        for(int i=a;i>=0;i--){
            modelo.removeRow(i);
@@ -130,18 +130,18 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
                 jb_guardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jb_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 75, 147, -1));
+        getContentPane().add(jb_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 147, 40));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("ID Materia");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 77, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Nombre Materia");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 123, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 122, -1, 20));
 
         jtf_id.setEnabled(false);
-        getContentPane().add(jtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 75, 74, -1));
+        getContentPane().add(jtf_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 74, -1));
 
         jtf_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +153,7 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
                 jtf_nombreKeyTyped(evt);
             }
         });
-        getContentPane().add(jtf_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 121, 185, -1));
+        getContentPane().add(jtf_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 121, 160, -1));
 
         cajaSalida.setBackground(new java.awt.Color(0, 0, 255));
         cajaSalida.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
@@ -166,7 +166,7 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
                 jb_salirActionPerformed(evt);
             }
         });
-        getContentPane().add(jb_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, -1, -1));
+        getContentPane().add(jb_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, -1, -1));
 
         jLabel4.setText("Estado:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 151, -1, -1));
@@ -208,7 +208,7 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jt_materia);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 202, -1, 209));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 202, 520, 209));
         getContentPane().add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 450, 30, 40));
         getContentPane().add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, 40, 20));
 

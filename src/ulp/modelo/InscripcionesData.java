@@ -464,7 +464,7 @@ public class InscripcionesData {
                 //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
-                JOptionPane.showMessageDialog(null, "No hay inscripciones");
+                JOptionPane.showMessageDialog(null, "No hay inscripciones para esta materia");
                 System.out.println("Registro de inscripciones vacío");
             }
 

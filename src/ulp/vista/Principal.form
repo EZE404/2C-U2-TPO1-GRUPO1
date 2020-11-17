@@ -36,9 +36,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="item_salir">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
@@ -58,12 +55,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="item_formulario_alunno">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+A"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Alta Alumno"/>
               </Properties>
               <Events>
@@ -98,12 +89,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="item_formulario_materia">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+M"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Alta Materias"/>
               </Properties>
               <Events>
@@ -138,12 +123,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmi_manejo_inscripcion">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+I"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Manejo de Inscripciones"/>
               </Properties>
               <Events>
@@ -162,12 +141,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmi_manipulacion_notas">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+Alt+N"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Manipulacion de Notas"/>
               </Properties>
               <Events>
@@ -186,12 +159,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmi_listado_alumno">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+L"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Listado de Alumnos x Materia"/>
               </Properties>
               <Events>

@@ -78,7 +78,6 @@ public class ConsultaAlumnosPorMateria extends javax.swing.JInternalFrame {
         for (Materia item: materias) {
             jcb_materias.addItem(item);
         }
-        
     }
     
     private void cargarTablaAlumnos() {
