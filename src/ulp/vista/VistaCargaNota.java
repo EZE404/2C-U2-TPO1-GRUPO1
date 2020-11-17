@@ -37,6 +37,24 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private AlumnoData alumno_data;
     private InscripcionesData inscripcion_data;
     private DefaultTableModel modelo;       //Para la tabla
+    private Alumno alumnoAux;
+    private Materia materiaAux;
+
+    public Materia getMateria() {
+        return materiaAux;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materiaAux = materia;
+    }
+
+    public Alumno getAlumno() {
+        return alumnoAux;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumnoAux = alumno;
+    }
 
     /**
      * Creates new form FormularioCargaNotas
@@ -59,67 +77,37 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jcb_alumno.setEnabled(false);
         jcb_materias.setEnabled(false);
         jButton_guardar.setEnabled(false);
-        jFormattedTextField_nota.setEditable(false);
+        jFormattedTextField_nota.setEditable(true);
         jl_nombreAlumno.setVisible(true);
+        limpiar();
+        
 
-        armaCabeceraTabla();
-        borraFilasTabla();
+
+
+    }
+    
+    
+
+    public void limpiarInscripcion() {
+        jl_nombreMateria.setText("");
+        jl_iDmateria.setText("");
+        jl_numeroInscr.setText("");
+        jFormattedTextField_nota.setText("");
+        jFormattedTextField_nota.setEnabled(false);
+
+    }
+
+
+    public void cargarMateriasxAlumno(Alumno alumno) {
+        
        
-
-    }
-
-    public void armaCabeceraTabla() {
-
-        //Titulos de Columnas
-        ArrayList<Object> columnas = new ArrayList<Object>();
-        columnas.add("Id Inscripcion");
-        columnas.add("Id Materia");
-        columnas.add("Nombre Materia");
-        columnas.add("Nota");
-
-        for (Object it : columnas) {
-
-            modelo.addColumn(it);
-        }
-        jTable_cargaNotas.setModel(modelo);
-    }
-
-    public void borraFilasTabla() {
-
-        int a = jTable_cargaNotas.getRowCount() - 1;
-
-        for (int i = a; i >= 0; i--) {
-
-            modelo.removeRow(i);
-        }
-    }
-
-//  
-    public void cargarMateriasxAlumno() {
-
-        Alumno alumno= null;
-        int numero = 0;
         
-        alumno= alumno_data.buscar_alumno(Integer.parseInt(jl_idAlumno.getText()));
+        List<Materia> materias = inscripcion_data.materias_alumno(alumno.getId_alumno());
+        for (Materia item: materias) {
+            jcb_materias.addItem(item);
+        }
         
-        System.out.println(alumno);
-
-        if (alumno != null) {
-            jcb_materias.setEnabled(true);
-            jcb_materias.removeAllItems();
-            
-               try {
-                    numero = Integer.parseInt(jtf_ingreseValor.getText());
-                } catch (NumberFormatException e) {
-                    System.out.println("No se puede convertir a numero");
-                }
-
-                List<Materia> materias = inscripcion_data.materias_alumno(numero);
-                materias.forEach((item) -> {
-                    jcb_materias.addItem(item);
-                 });
-            
-        } 
+        
     }
     public void cargarAlumnos() {
 
@@ -129,31 +117,26 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         alumnos.forEach((item) -> {
             jcb_alumno.addItem(item);
         });
-////        jcb_alumno.setSelectedItem(null);
+//        jcb_alumno.setSelectedItem(null);
     }
     
-    public void mostrarInscripciones(Alumno elAlumno){
-        if(elAlumno !=null){
-        Inscripcion laInscripcion;
-        Materia seleccionada;
-        seleccionada = (Materia)jcb_materias.getSelectedItem();
-        //laInscripcion = (Inscripcion) inscripcion_data.inscripcionesAlumno(elAlumno);  
-        System.out.println("llego");
-        ArrayList listaRegistros = (ArrayList)inscripcion_data.inscripcionesAlumno(elAlumno);
-        for (Iterator it = listaRegistros.iterator(); it.hasNext();) {
-            Inscripcion i = (Inscripcion) it.next();
-            modelo.addRow(new Object[]{i.getId_inscripcion(), i.getMateria().getId_materia(), i.getMateria().getNombre_materia(), i.getCalificacion()});
-            System.out.println("entro");
-        }
+    public void mostrarInscripciones(){
+        Materia materia;
+        materia = getMateria();
+        Alumno alumno;
+        alumno = getAlumno();
+        System.out.println(alumno);
+        System.out.println(materia);
         
-        jcb_materias.requestFocus();
+        Inscripcion inscripcion;
+        inscripcion = (Inscripcion)inscripcion_data.buscar_inscripcion(alumno, materia);
+        System.out.println(inscripcion);
         
-        }
+        jl_numeroInscr.setText(String.valueOf(inscripcion.getId_inscripcion()));
+        jl_iDmateria.setText(String.valueOf(String.valueOf(materia.getId_materia())));
+        jl_nombreMateria.setText(materia.getNombre_materia());
+        jFormattedTextField_nota.setText(String.valueOf(inscripcion.getCalificacion()));
         
-            
-            
-        
-
     }
 
              
@@ -174,13 +157,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jl_titulo = new javax.swing.JLabel();
         jButton_salir = new javax.swing.JButton();
         jButton_guardar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable_cargaNotas = new javax.swing.JTable();
         javax.swing.JButton jButton_limpiar = new javax.swing.JButton();
-        jl_estadosYMensajes = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jl_numeroInscr = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jl_buscarAlumno = new javax.swing.JLabel();
         jlIngreseApellido = new javax.swing.JLabel();
@@ -201,6 +178,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jFormattedTextField_nota = new javax.swing.JFormattedTextField();
         jl_nombreAlumno = new javax.swing.JLabel();
         jl_idAlumno = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jb_buscInscri = new javax.swing.JButton();
+        jl_numeroInscr = new javax.swing.JTextField();
+        jl_nombreMateria = new javax.swing.JTextField();
+        jl_iDmateria = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -224,11 +208,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
         setResizable(false);
         setTitle("Carga de Notas");
+        setPreferredSize(new java.awt.Dimension(565, 625));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jl_titulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jl_titulo.setText("Carga de Notas de Alumno");
-        getContentPane().add(jl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 23, -1, -1));
+        getContentPane().add(jl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         jButton_salir.setText("Salir");
         jButton_salir.addActionListener(new java.awt.event.ActionListener() {
@@ -236,7 +221,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jButton_salirActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 611, -1, -1));
+        getContentPane().add(jButton_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
 
         jButton_guardar.setText("Guardar Nota");
         jButton_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -244,15 +229,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jButton_guardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 611, -1, -1));
-
-        jTable_cargaNotas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jTable_cargaNotas.setAutoscrolls(false);
-        jTable_cargaNotas.setEnabled(false);
-        jTable_cargaNotas.setRowHeight(30);
-        jScrollPane2.setViewportView(jTable_cargaNotas);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 428, 592, 176));
+        getContentPane().add(jButton_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, -1, -1));
 
         jButton_limpiar.setText("Limpiar");
         jButton_limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -260,19 +237,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jButton_limpiarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(329, 611, -1, -1));
-
-        jl_estadosYMensajes.setText("Estados y mensajes");
-        getContentPane().add(jl_estadosYMensajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 644, 419, -1));
-
-        jLabel3.setText("Estado:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 644, -1, -1));
-
-        jl_numeroInscr.setText("Numero");
-        getContentPane().add(jl_numeroInscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(583, 404, 47, -1));
-
-        jLabel1.setText("Id Inscripcion:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(463, 404, -1, -1));
+        getContentPane().add(jButton_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 520, -1, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -301,6 +266,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jtf_ingreseValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtf_ingreseValorActionPerformed(evt);
+            }
+        });
+        jtf_ingreseValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtf_ingreseValorKeyTyped(evt);
             }
         });
 
@@ -380,7 +350,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addComponent(jchb_porDni)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jchb_porCombo)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton_buscar.setText("Buscar");
@@ -400,21 +370,17 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtf_ingreseValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtf_ingreseValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jlIngreseApellido)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jl_IngreseId)
-                                        .addGap(0, 0, 0)
-                                        .addComponent(jl_ingreseDni))
-                                    .addComponent(jl_buscarAlumno))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jl_PorCombobox)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jlIngreseApellido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jl_IngreseId)
+                                .addGap(0, 0, 0)
+                                .addComponent(jl_ingreseDni))
+                            .addComponent(jl_buscarAlumno)
+                            .addComponent(jl_PorCombobox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jcb_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -439,21 +405,22 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0)
+                .addGap(7, 7, 7)
                 .addComponent(jl_PorCombobox)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcb_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 59, 475, -1));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 475, 210));
 
         jL_buscarMateria.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jL_buscarMateria.setText("Elegir Materia");
-        getContentPane().add(jL_buscarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 381, -1, -1));
+        getContentPane().add(jL_buscarMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
 
+        jcb_materias.setEditable(true);
         jcb_materias.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jcb_materias.setNextFocusableComponent(jButton_buscar);
         jcb_materias.addItemListener(new java.awt.event.ItemListener() {
@@ -466,12 +433,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jcb_materiasActionPerformed(evt);
             }
         });
-        getContentPane().add(jcb_materias, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 190, -1));
+        getContentPane().add(jcb_materias, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 190, -1));
 
         jLabel_nota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel_nota.setText("Nota:");
 
-        jFormattedTextField_nota.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##,##"))));
+        jFormattedTextField_nota.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jFormattedTextField_nota.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jFormattedTextField_nota.setNextFocusableComponent(jButton_guardar);
         jFormattedTextField_nota.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -482,6 +449,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jFormattedTextField_nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextField_notaActionPerformed(evt);
+            }
+        });
+        jFormattedTextField_nota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextField_notaKeyTyped(evt);
             }
         });
 
@@ -509,18 +481,56 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 220, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, -1, -1));
 
         jl_nombreAlumno.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jl_nombreAlumno.setText("Nombre");
         jl_nombreAlumno.setToolTipText("");
         jl_nombreAlumno.setFocusable(false);
         jl_nombreAlumno.setRequestFocusEnabled(false);
-        getContentPane().add(jl_nombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 332, -1, -1));
+        getContentPane().add(jl_nombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, -1, -1));
 
         jl_idAlumno.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jl_idAlumno.setText("ID");
-        getContentPane().add(jl_idAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 332, -1, -1));
+        getContentPane().add(jl_idAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("ID INSCRIPCION:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 160, 20));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("ID MATERIA:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 130, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("NOMBRE MATERIA:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
+
+        jb_buscInscri.setText("Buscar Inscripcion");
+        jb_buscInscri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_buscInscriActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jb_buscInscri, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 150, 30));
+
+        jl_numeroInscr.setEditable(false);
+        jl_numeroInscr.setBackground(new java.awt.Color(204, 204, 204));
+        jl_numeroInscr.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_numeroInscr.setFocusable(false);
+        getContentPane().add(jl_numeroInscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 80, 30));
+
+        jl_nombreMateria.setEditable(false);
+        jl_nombreMateria.setBackground(new java.awt.Color(204, 204, 204));
+        jl_nombreMateria.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_nombreMateria.setFocusable(false);
+        getContentPane().add(jl_nombreMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, 150, 30));
+
+        jl_iDmateria.setEditable(false);
+        jl_iDmateria.setBackground(new java.awt.Color(204, 204, 204));
+        jl_iDmateria.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_iDmateria.setFocusable(false);
+        getContentPane().add(jl_iDmateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 120, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -554,21 +564,31 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jcb_materiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_materiasActionPerformed
         // TODO add your handling code here:
-        Alumno alumno= null;
-        try{
-            alumno = ((Alumno) alumno_data.buscar_alumno(Integer.parseInt(jl_idAlumno.getText())) );
-          } catch (NumberFormatException e){
-              System.out.println("No se puede convertir a numero");
-          }
+        System.out.println("eligo materia");
+        limpiarInscripcion();
         
-        mostrarInscripciones(alumno);
+        Alumno alumno = getAlumno();
+        System.out.println(alumno);
+        
+         Materia materia = (Materia) jcb_materias.getSelectedItem();
+         
+         System.out.println(materia);
+        if (materia != null && alumno != null) {
+            setMateria(materia);
+//            
+            System.out.println("mando a imprimir la inscripcion");
+        } else {
+            System.out.println("algo paso aca");
+        }
+//               
+        
     }//GEN-LAST:event_jcb_materiasActionPerformed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         // TODO add your handling code here:
 
         if (true) {
-            borraFilasTabla();      //Borra los datos de la tabla
+//            borraFilasTabla();      //Borra los datos de la tabla
             Alumno elAlumno = null;
 
             if (jchb_porId.isSelected()) {
@@ -591,8 +611,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 jl_nombreAlumno.setText(elAlumno.getApellido() + " " + elAlumno.getNombre());
                 jl_idAlumno.setText(String.valueOf(elAlumno.getId_alumno()));
                 jl_nombreAlumno.setVisible(true);
-                mostrarInscripciones(elAlumno);
-//                cargarMateriasxAlumno();
+                jcb_materias.setEnabled(true);
+                
+                setAlumno(elAlumno);
+                cargarMateriasxAlumno(elAlumno);
+                
             } else {
                 escribirEstados("No existe ese alumno");
             }
@@ -607,21 +630,44 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
         // TODO add your handling code here:
-        //              
-        if(!jl_numeroInscr.getText().equals(" ")){
+        
+        // 
+        String mensaje=
+                "\"¿Seguro que desea actualizar?\n"
+                + "La nueva nota pasara a ser \n"
+                + Double.parseDouble(jFormattedTextField_nota.getText())+" ";
+        if(Double.parseDouble(jFormattedTextField_nota.getText()) > 10){
+        JOptionPane.showMessageDialog(this, "Valor incoorrecto, debe ser entre 0 y 10");
+        jFormattedTextField_nota.requestFocus();
+    } else {
+        
+       
+        int respuesta = JOptionPane.showConfirmDialog(this, mensaje, "Actualizar Nota" , JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(this, respuesta);
+            if (respuesta == 0) {
+               
+        if(!jl_numeroInscr.getText().equals("")){
             try{
+                
             inscripcion_data.registrar_nota(Integer.parseInt(jl_numeroInscr.getText()), Double.parseDouble(jFormattedTextField_nota.getText()));
           } catch (NumberFormatException e){
               System.out.println("No se puede convertir a numero");
           }
             
+            limpiar();
+        }
             
             System.out.println("ingreso la nota");
+            try{
             System.out.println(Double.parseDouble(jFormattedTextField_nota.getText()));
+            }catch (NumberFormatException e){
+              System.out.println("No se puede convertir a numero");
+            }
             
-            modelo.setValueAt(jFormattedTextField_nota.getText(), 0, 3);
-            JOptionPane.showMessageDialog(this, "No se pudo guardar la nota");
+           
         }
+        }
+        
     }//GEN-LAST:event_jButton_guardarActionPerformed
 
     private void jtf_ingreseValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_ingreseValorActionPerformed
@@ -634,18 +680,9 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
   
     }//GEN-LAST:event_jcb_materiasItemStateChanged
 
-    private void jFormattedTextField_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField_notaActionPerformed
-
     private void jtf_ingreseValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtf_ingreseValorFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_jtf_ingreseValorFocusLost
-
-    private void jFormattedTextField_notaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaFocusLost
-        // TODO add your handling code here:
-        jButton_guardar.setEnabled(true);
-    }//GEN-LAST:event_jFormattedTextField_notaFocusLost
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -659,16 +696,20 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jcb_alumno.setEnabled(true);
         escribirEstados("Ha elegido buscar por ComboBox, Eliga un alumna de la lista desplegable");
         jl_PorCombobox.setVisible(true);
-        this.borraFilasTabla();
+//        this.borraFilasTabla();
         jtf_ingreseValor.setText(" ");
-        jtf_ingreseValor.setEnabled(false);
+        jtf_ingreseValor.setEnabled(true);
         jFormattedTextField_nota.setText(" ");
+        jFormattedTextField_nota.setEnabled(true);
         cargarAlumnos();
         jcb_alumno.requestFocus();
     }//GEN-LAST:event_jchb_porComboActionPerformed
 
     private void jcb_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_alumnoActionPerformed
         // TODO add your handling code here:
+        limpiarInscripcion();
+        setAlumno(null);
+        jcb_materias.setSelectedItem(null);
     }//GEN-LAST:event_jcb_alumnoActionPerformed
 
     private void jcb_alumnoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_alumnoMouseEntered
@@ -687,22 +728,87 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcb_alumnoItemStateChanged
 
+    private void jFormattedTextField_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField_notaActionPerformed
+
+    private void jFormattedTextField_notaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaFocusLost
+        // TODO add your handling code here:
+        jButton_guardar.setEnabled(true);
+    }//GEN-LAST:event_jFormattedTextField_notaFocusLost
+
+    private void jb_buscInscriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_buscInscriActionPerformed
+        // TODO add your handling code here:
+        
+        System.out.println("presionado el boton");
+        
+            mostrarInscripciones();
+            jFormattedTextField_nota.setEnabled(true);
+        
+        System.out.println("mande imprimr");
+        
+        
+    }//GEN-LAST:event_jb_buscInscriActionPerformed
+
+    private void jFormattedTextField_notaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField_notaKeyTyped
+        // TODO add your handling code here:
+        jButton_guardar.setEnabled(true);
+       
+       
+       try{
+        char caracter = evt.getKeyChar();
+        // Verificar si la tecla pulsada no es un digito
+        if (((caracter < '0')
+                || (caracter > '9'))
+              && (caracter != '\b' /*corresponde a BACK_SPACE*/) &&(caracter != '.') &&(caracter != ',')) {
+            evt.consume();  // ignorar el evento de teclado
+        }
+       } catch (NumberFormatException e){
+              System.out.println("No se puede convertir a numero");
+       }
+       
+       
+        
+
+       
+        
+    }//GEN-LAST:event_jFormattedTextField_notaKeyTyped
+
+    private void jtf_ingreseValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_ingreseValorKeyTyped
+        // TODO add your handling code here:
+        
+        char caracter = evt.getKeyChar();
+        if (!(((caracter < '0') || (caracter > '9')) && (caracter != '\b'))) {
+            
+        } else {
+            
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_jtf_ingreseValorKeyTyped
+
     public void limpiar() {
         
         jtf_ingreseValor.setText("");
+        jl_nombreMateria.setText("");
+        jl_iDmateria.setText("");
+        jl_numeroInscr.setText("");
         jFormattedTextField_nota.setText("");
         jcb_materias.setSelectedItem(null);
         jcb_alumno.setSelectedItem(null);
         jcb_materias.setEnabled(false);
         jl_idAlumno.setText("");
         jl_nombreAlumno.setText("");
-        borraFilasTabla();
+        jButton_guardar.setEnabled(false);
+        setAlumno(null);
+        setMateria(null);
+//        borraFilasTabla();
                
         hacerFoco();
     }
 
     public void escribirEstados(String estado) {
-        jl_estadosYMensajes.setText(estado);
+//        jl_estadosYMensajes.setText(estado);
 //        int delay = 5000; // miliseg
 //        ActionListener taskPerformer = (ActionEvent evt) -> {
 //            jl_estadosYMensajes.setVisible(false);
@@ -720,34 +826,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jtf_ingreseValor.requestFocus();
     }
 
-//    public boolean chekaDatosIngresados(){
-//        boolean esValido = false;
-//        if((jtf_ingreseValor.getText().isEmpty()) && ((jcb_materias.getSelectedObjects())==null)){
-////          if(true){
-//            
-//            esValido = false;
-//                    
-//           if (jtf_ingreseValor.getText().isEmpty()){
-//                escribirEstados("Falta ingresar el argumento para la busqueda. Ingrese un id o dni de acuerdo a su seleccion");
-//                jtf_ingreseValor.requestFocus();
-//           } 
-//           else if (jcb_materias.getSelectedObjects() == null){
-//                escribirEstados("Eliga una materia. ");
-//                jcb_materias.requestFocus();
-//           } else {
-//               escribirEstados("Eliga una materia y un alumno. ");
-//                jtf_ingreseValor.requestFocus();
-//               
-//           }
-//           } 
-//        else 
-//        {
-//           esValido=true;
-//        }
-//        
-//        
-//        return esValido;
-//    }
+//  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -757,16 +836,16 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton_salir;
     private javax.swing.JFormattedTextField jFormattedTextField_nota;
     private javax.swing.JLabel jL_buscarMateria;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel_nota;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    public javax.swing.JTable jTable_cargaNotas;
+    private javax.swing.JButton jb_buscInscri;
     private javax.swing.JComboBox<Alumno> jcb_alumno;
     private javax.swing.JComboBox<Materia> jcb_materias;
     private javax.swing.JCheckBox jchb_porCombo;
@@ -776,11 +855,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jl_IngreseId;
     private javax.swing.JLabel jl_PorCombobox;
     private javax.swing.JLabel jl_buscarAlumno;
-    private javax.swing.JLabel jl_estadosYMensajes;
+    private javax.swing.JTextField jl_iDmateria;
     private javax.swing.JLabel jl_idAlumno;
     private javax.swing.JLabel jl_ingreseDni;
     private javax.swing.JLabel jl_nombreAlumno;
-    private javax.swing.JLabel jl_numeroInscr;
+    private javax.swing.JTextField jl_nombreMateria;
+    private javax.swing.JTextField jl_numeroInscr;
     private javax.swing.JLabel jl_titulo;
     private javax.swing.JTextField jtf_ingreseValor;
     // End of variables declaration//GEN-END:variables

@@ -122,6 +122,7 @@ public class ConsultaAlumnosPorMateria extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jt_alumnos.setToolTipText("");
         jScrollPane1.setViewportView(jt_alumnos);
 
         jcb_materias.addActionListener(new java.awt.event.ActionListener() {
