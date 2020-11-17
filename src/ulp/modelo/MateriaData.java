@@ -49,17 +49,15 @@ public class MateriaData {
        
         try {
             Statement instruccion = c.createStatement();
-            try (ResultSet consulta = instruccion.executeQuery("UPDATE materia SET nombre_materia="+materia.getNombre_materia()+" WHERE id_materia="+materia.getId_materia()+ ";")) {
-                if (consulta.next()) {
-                    materia = new Materia();
-                    materia.setId_materia(consulta.getInt("id_materia"));
-                    materia.setNombre_materia(consulta.getString("nombre_materia"));
-                    JOptionPane.showMessageDialog(null, "Materia encontrada");
-                    System.out.println("Materia encontrada");
+            int celdasAfectadas= instruccion.executeUpdate("UPDATE materia SET nombre_materia='"+materia.getNombre_materia()+"' WHERE id_materia="+materia.getId_materia()+ ";");
+                if (celdasAfectadas>0) {
+                    JOptionPane.showMessageDialog(null, "Materia Actualizada");
+                    System.out.println("Materia Actualizada");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró tal materia");
+                    System.out.println("La cantidad de celdas afectadas"+celdasAfectadas);
                 }
-            }
+            
             instruccion.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar materia");
@@ -175,7 +173,7 @@ public class MateriaData {
                 materias.add(materia);
                 }
                 System.out.println("Se encontraron materias");
-                JOptionPane.showMessageDialog(null, "Se encontraron materias");
+                //JOptionPane.showMessageDialog(null, "Se encontraron materias");
             } else {
                 System.out.println("No se encontraron materias");
                 JOptionPane.showMessageDialog(null, "No se encontraorn materias");

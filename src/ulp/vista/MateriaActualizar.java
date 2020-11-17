@@ -5,17 +5,86 @@
  */
 package ulp.vista;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import ulp.entidades.Alumno;
+import ulp.entidades.Materia;
+import ulp.modelo.AlumnoData;
+import ulp.modelo.Conexion;
+import ulp.modelo.InscripcionesData;
+import ulp.modelo.MateriaData;
+
 /**
  *
  * @author MArio
  */
 public class MateriaActualizar extends javax.swing.JInternalFrame {
-
+    Conexion conexion = new Conexion();
+        Alumno alumno;
+        Materia materia;
+        AlumnoData alumno_data;
+        MateriaData materia_data;
+        InscripcionesData ins_data;
+        DefaultTableModel modelo;
+        List<Materia> materias;
+        ListSelectionModel sAlumno;
     /**
      * Creates new form MateriaActualizar
      */
+    
+    /**
+     * Creates new form MateriaActualizar
+     */
+        public void cargarMaterias(){
+        materias=materia_data.obtener_materias();
+        for (Materia m:materias) {
+        modelo.addRow(new Object[]{m.getId_materia(),m.getNombre_materia()});
+        }
+    
+    }
+        private void armarCabeceraTabla(){
+       ArrayList<Object> columnas=new ArrayList<Object>();   
+       columnas.add("ID");
+       columnas.add("Nombre");
+       for(Object it:columnas){
+           modelo.addColumn(it);
+       }
+       jt_materias.setModel(modelo);
+}
+        public void borrarFilasTabla(){
+       int a=jt_materias.getRowCount()-1;
+       for(int i=a;i>=0;i--){
+           modelo.removeRow(i);
+       }
+    }
+    public void Limpiar(){
+        jtf_nombre.setText("");
+    }
     public MateriaActualizar() {
         initComponents();
+        try {
+        //Array instancias
+        conexion = new Conexion();
+        modelo=new DefaultTableModel();
+        alumno_data = new AlumnoData(conexion);
+        materia_data = new MateriaData(conexion);
+        ins_data = new InscripcionesData(conexion);
+        //Instancias Arrays
+        materias=new ArrayList<>();
+        this.armarCabeceraTabla();
+        this.cargarMaterias();
+        getContentPane().setBackground(Color.ORANGE);
+        jb_actualizar.setEnabled(false);
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -27,21 +96,183 @@ public class MateriaActualizar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
-        );
+        jb_actualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jtf_nombre = new javax.swing.JTextField();
+        jb_salir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jt_materias = new javax.swing.JTable();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(11, 0), new java.awt.Dimension(11, 0), new java.awt.Dimension(11, 32767));
+
+        setEnabled(false);
+        setOpaque(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jb_actualizar.setText("Actualizar");
+        jb_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_actualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jb_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 119, 147, 30));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel1.setText("Actualizar Materias");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 16, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setText("Nombre Materia");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 127, -1, -1));
+
+        jtf_nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtf_nombreActionPerformed(evt);
+            }
+        });
+        jtf_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtf_nombreKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtf_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 125, 185, -1));
+
+        jb_salir.setText("Salir");
+        jb_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_salirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jb_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 413, -1, -1));
+
+        jt_materias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "ID", "Nombre"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jt_materias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        sAlumno=jt_materias.getSelectionModel();
+        sAlumno.addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent e){
+                if (!e.getValueIsAdjusting()){
+                    alumnoLineaSelecionada(jt_materias);
+                }
+            }
+        });
+        jt_materias.setColumnSelectionAllowed(true);
+        jt_materias.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jt_materias);
+        jt_materias.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 194, -1, 207));
+        getContentPane().add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, 30, 20));
+        getContentPane().add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, 30, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jb_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_actualizarActionPerformed
+        int filaSleccionada=jt_materias.getSelectedRow();
+        
+        materia=new Materia();
+           if ("".equals(jtf_nombre.getText())) {
+                JOptionPane.showMessageDialog(this, "Debe selecionar una materia");
+                jtf_nombre.requestFocus();
+            } if(JOptionPane.YES_NO_OPTION==JOptionPane.showConfirmDialog(this, "Esta seguro de los cambios??","Actualizacion de Materia",JOptionPane.YES_NO_OPTION)) {
+                int id=Integer.parseInt(jt_materias.getValueAt(filaSleccionada, 0).toString());
+                materia.setId_materia(id);
+                //System.out.println(jtf_id.getText());
+                materia.setNombre_materia(jtf_nombre.getText());
+                System.out.println(jtf_nombre.getText());
+                materia_data.actualizar_materia(materia);
+                System.out.println(materia);
+                //cajaSalida.setText("Alumno guardado con Exito");
+                this.borrarFilasTabla();
+                this.cargarMaterias();
+                this.Limpiar();
+            }else{
+                JOptionPane.showMessageDialog(this, "Vuelva a seleccionar una materia");
+            }
+    }//GEN-LAST:event_jb_actualizarActionPerformed
 
+    private void jtf_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_nombreActionPerformed
+        if(!jtf_nombre.getText().isEmpty()){
+                jb_actualizar.setEnabled(true);
+        }
+            
+    }//GEN-LAST:event_jtf_nombreActionPerformed
+
+    private void jtf_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_nombreKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c) == false || !(c > '5') ) {
+            if(!"".equals(jtf_nombre.getText()))
+            jb_actualizar.setEnabled(true);
+        } else {
+            jb_actualizar.setEnabled(false);
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtf_nombreKeyTyped
+
+    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jb_salirActionPerformed
+
+private void alumnoLineaSelecionada(JTable tb){
+    try {
+        int filaSleccionada=jt_materias.getSelectedRow();
+         
+         if(filaSleccionada!=-1){
+                 jtf_nombre.setText(jt_materias.getValueAt(filaSleccionada, 1).toString());                 
+         }
+        } catch (Exception e) {
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jb_actualizar;
+    private javax.swing.JButton jb_salir;
+    private javax.swing.JTable jt_materias;
+    private javax.swing.JTextField jtf_nombre;
     // End of variables declaration//GEN-END:variables
 }

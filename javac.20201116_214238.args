@@ -1,0 +1,18 @@
+-d
+"D:\\Desarrollador de Software\\Laboratorio 1\\Practicos NetBeans\\Clonadas\\2C-U2-TPO1-GRUPO1\\build\\classes"
+-classpath
+"D:\\Desarrollador de Software\\Laboratorio 1\\Practicos NetBeans\\Clonadas\\2C-U2-TPO1-GRUPO1\\build\\classes;D:\\Desarrollador de Software\\Laboratorio 1\\Tema3 Acceso a Datos\\mariadb-java-client-2.3.0.jar;D:\\Desarrollador de Software\\Laboratorio 1\\Grupo1-DemoTransversal\\jcalendar-1.4.jar\\jcalendar-1.4.jar;C:\\Program Files\\NetBeans-12.1\\netbeans\\java\\modules\\ext\\AbsoluteLayout.jar"
+-sourcepath
+"D:\\Desarrollador de Software\\Laboratorio 1\\Practicos NetBeans\\Clonadas\\2C-U2-TPO1-GRUPO1\\src"
+-target
+1.8
+-encoding
+UTF-8
+-g
+-processorpath
+"D:\\Desarrollador de Software\\Laboratorio 1\\Tema3 Acceso a Datos\\mariadb-java-client-2.3.0.jar;D:\\Desarrollador de Software\\Laboratorio 1\\Grupo1-DemoTransversal\\jcalendar-1.4.jar\\jcalendar-1.4.jar;C:\\Program Files\\NetBeans-12.1\\netbeans\\java\\modules\\ext\\AbsoluteLayout.jar;D:\\Desarrollador de Software\\Laboratorio 1\\Practicos NetBeans\\Clonadas\\2C-U2-TPO1-GRUPO1\\build\\empty"
+-s
+"D:\\Desarrollador de Software\\Laboratorio 1\\Practicos NetBeans\\Clonadas\\2C-U2-TPO1-GRUPO1\\build\\generated-sources\\ap-source-output"
+-source
+1.8
+"D:\\Desarrollador de Software\\Laboratorio 1\\Practicos NetBeans\\Clonadas\\2C-U2-TPO1-GRUPO1\\src\\ulp\\vista\\Principal.java"
