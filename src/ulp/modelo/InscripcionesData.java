@@ -249,7 +249,7 @@ public class InscripcionesData {
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
                     materias.add(materia);
                 }
-                JOptionPane.showMessageDialog(null, "Materias encontradas");
+                //JOptionPane.showMessageDialog(null, "Materias encontradas");
                 System.out.println("Materias encontradas");
 
             } else {
@@ -284,7 +284,7 @@ public class InscripcionesData {
                 materias.add(materia);
                 }
                 System.out.println("Se encontraron materias");
-                JOptionPane.showMessageDialog(null, "Se encontraron materias");
+                //JOptionPane.showMessageDialog(null, "Se encontraron materias");
             } else {
                 System.out.println("No se encontraron materias");
                 JOptionPane.showMessageDialog(null, "No se encontraorn materias");
@@ -422,7 +422,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(m);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");
@@ -461,7 +461,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(materia);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");
@@ -501,7 +501,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(m);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");
@@ -541,7 +541,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(m);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");
@@ -581,7 +581,7 @@ public class InscripcionesData {
                     inscripcion.setMateria(m);
                     registros.add(inscripcion);
                 }
-                JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
+                //JOptionPane.showMessageDialog(null, "Inscripciones Encontradas");
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay inscripciones");

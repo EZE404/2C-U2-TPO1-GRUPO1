@@ -181,7 +181,15 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jt_materia);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,7 +256,6 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jb_salirActionPerformed
 
     private void jcb_alumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_alumnosActionPerformed
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_jcb_alumnosActionPerformed
 
@@ -277,58 +284,64 @@ public class vistaInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jrb_no_inscriptasActionPerformed
 
     private void jb_anularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_anularActionPerformed
-        Alumno a = (Alumno) jcb_alumnos.getSelectedItem();
-        int filaSleccionada = jt_materia.getSelectedRow();
-        if (filaSleccionada != -1) {
-            int id_materia = (Integer) modelo.getValueAt(filaSleccionada, 0);
-            if (a != null) {
-                int id_alumno = a.getId_alumno();
-                ins_data.desinscribir_alumno(id_alumno, id_materia);
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea anular inscripción?", "Anular inscripción", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (respuesta == 0) {
+            Alumno a = (Alumno) jcb_alumnos.getSelectedItem();
+            int filaSleccionada = jt_materia.getSelectedRow();
+            if (filaSleccionada != -1) {
+                int id_materia = (Integer) modelo.getValueAt(filaSleccionada, 0);
+                if (a != null) {
+                    int id_alumno = a.getId_alumno();
+                    ins_data.desinscribir_alumno(id_alumno, id_materia);
+                    jrb_inscriptas.setSelected(true);
+                    this.cargarInscriptas();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "No hay alumno seleccionado");
+                    buttonGroup1.clearSelection();
+                    this.borrarFilasTabla();
+                    jcb_alumnos.requestFocus();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay materia seleccionada");
                 jrb_inscriptas.setSelected(true);
                 this.cargarInscriptas();
-                
-            } else {
-                JOptionPane.showMessageDialog(this, "No hay alumno seleccionado");
-                buttonGroup1.clearSelection();
-                this.borrarFilasTabla();
-                jcb_alumnos.requestFocus();
+                jb_anular.setSelected(false);
+                jt_materia.requestFocus();
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay materia seleccionada");
-            jrb_inscriptas.setSelected(true);
-            this.cargarInscriptas();
-            jb_anular.setSelected(false);
-            jt_materia.requestFocus();
         }
     }//GEN-LAST:event_jb_anularActionPerformed
 
     private void jb_inscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_inscribirActionPerformed
-        Inscripcion inscripcion;
-        Materia m;
-        Alumno a = (Alumno) jcb_alumnos.getSelectedItem();
-        int filaSleccionada = jt_materia.getSelectedRow();
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea inscribir?", "Inscribir alumno", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (respuesta == 0) {
+            Inscripcion inscripcion;
+            Materia m;
+            Alumno a = (Alumno) jcb_alumnos.getSelectedItem();
+            int filaSleccionada = jt_materia.getSelectedRow();
 
-        if (filaSleccionada != -1) {
-            int idMateria = (Integer) modelo.getValueAt(filaSleccionada, 0);
-            m = materia_data.buscar_materia(idMateria);
-            if (a != null) {
-                inscripcion = new Inscripcion(a, m);
-                ins_data.inscribir_alumno(inscripcion);
-                System.out.println("el id de alumno cuando va a inscribir es "+a.getId_alumno());
+            if (filaSleccionada != -1) {
+                int idMateria = (Integer) modelo.getValueAt(filaSleccionada, 0);
+                m = materia_data.buscar_materia(idMateria);
+                if (a != null) {
+                    inscripcion = new Inscripcion(a, m);
+                    ins_data.inscribir_alumno(inscripcion);
+                    System.out.println("el id de alumno cuando va a inscribir es " + a.getId_alumno());
+                    jrb_no_inscriptas.setSelected(true);
+                    this.cargarNoInscriptas();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No hay alumno seleccionado");
+                    buttonGroup1.clearSelection();
+                    this.borrarFilasTabla();
+                    jcb_alumnos.requestFocus();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay materia seleccionada");
                 jrb_no_inscriptas.setSelected(true);
                 this.cargarNoInscriptas();
-            } else {
-                JOptionPane.showMessageDialog(this, "No hay alumno seleccionado");
-                buttonGroup1.clearSelection();
-                this.borrarFilasTabla();
-                jcb_alumnos.requestFocus();
+                jb_inscribir.setSelected(false);
+                jt_materia.requestFocus();
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay materia seleccionada");
-            jrb_no_inscriptas.setSelected(true);
-            this.cargarNoInscriptas();
-            jb_inscribir.setSelected(false);
-            jt_materia.requestFocus();
         }
     }//GEN-LAST:event_jb_inscribirActionPerformed
 
