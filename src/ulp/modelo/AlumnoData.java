@@ -230,10 +230,10 @@ public class AlumnoData {
                 alumno.setActivo(consulta.getBoolean("activo"));
                 alumnos.add(alumno);
             }
-                JOptionPane.showMessageDialog(null, "Se encontraron alumnos");
+//                JOptionPane.showMessageDialog(null, "Se encontraron alumnos");
                 System.out.println("Se encontraron alumnos");
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontraron alumnos");
+//                JOptionPane.showMessageDialog(null, "No se encontraron alumnos");
                 System.out.println("No se encontraron alumnos");
             }
             

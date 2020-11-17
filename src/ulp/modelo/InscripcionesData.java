@@ -664,8 +664,8 @@ public class InscripcionesData {
                     inscripcion = new Inscripcion();
 
                     inscripcion.setId_inscripcion(consulta.getInt("id_registro"));
-                    inscripcion.getAlumno().setId_alumno(consulta.getInt("id_alumno"));
-                    inscripcion.getMateria().setId_materia(consulta.getInt("id_materia"));
+//                    inscripcion.setAlumno(alumno);
+//                    inscripcion.setMateria(materia);
                     inscripcion.setCalificacion(consulta.getDouble("nota"));
 
                 } else {

@@ -275,7 +275,7 @@ public class Principal extends javax.swing.JFrame {
     private void jmi_manipulacion_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_manipulacion_notasActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        vistaCargaNota vcn=new vistaCargaNota();
+        VistaCargaNota vcn=new VistaCargaNota();
         vcn.setVisible(true);
         escritorio.add(vcn);
         Dimension desktopSize = escritorio.getSize();
