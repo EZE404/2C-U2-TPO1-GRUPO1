@@ -121,8 +121,15 @@ public class ConsultaAlumnosPorMateria extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jt_alumnos.setToolTipText("");
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jt_alumnos);
 
         jcb_materias.addActionListener(new java.awt.event.ActionListener() {

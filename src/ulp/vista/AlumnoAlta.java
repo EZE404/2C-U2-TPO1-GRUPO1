@@ -162,6 +162,11 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
 
         cajaFechaN.setForeground(new java.awt.Color(60, 63, 65));
         cajaFechaN.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cajaFechaN.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaFechaNKeyTyped(evt);
+            }
+        });
         getContentPane().add(cajaFechaN, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 249, 177, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -315,7 +320,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
             cont++;
             cajaFechaN.requestFocus();
         }
-        if(cont==0){
+        if(cont==0&&(JOptionPane.YES_NO_OPTION==JOptionPane.showConfirmDialog(this, "Esta seguro que desea guardar", "Guaradar Alumno", JOptionPane.YES_NO_OPTION))){
         
             alumno=new Alumno();
             LocalDate hoy;
@@ -343,6 +348,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
             }else{
             cajaSalida.setText("Alumno guardado con Exito");
             this.delay(" ", 3, 5);
+            this.Limpiar();
             }
         }
         else{
@@ -383,7 +389,7 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
             jl_aviso_nombre.setText("Complete");
         }
 ///////////////////////////////////////        
-        if(Character.isSpaceChar(c)){
+        if(Character.isSpaceChar(c)||jtf_nombre.getText().isEmpty()){
             jl_aviso_nombre.setText("Complete");
         }
         this.limpiarJL(jl_aviso_nombre, 3, 2);
@@ -398,6 +404,12 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
             evt.consume();  // ignorar el evento de teclado
             jl_aviso_dni.setText("Solo numeros");
         }
+        if(!(jtf_dni.getText().length()<8)){
+            evt.consume();
+            jl_aviso_dni.setText("Solo 8 digitos");
+        }
+        
+       
         this.limpiarJL(jl_aviso_dni, 3, 2);
        
     }//GEN-LAST:event_jtf_dniKeyTyped
@@ -443,6 +455,11 @@ public class AlumnoAlta extends javax.swing.JInternalFrame {
     private void jl_aviso_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jl_aviso_nombreKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jl_aviso_nombreKeyTyped
+
+    private void cajaFechaNKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaFechaNKeyTyped
+  
+
+    }//GEN-LAST:event_cajaFechaNKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
