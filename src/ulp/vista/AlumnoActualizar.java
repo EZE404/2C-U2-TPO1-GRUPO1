@@ -407,6 +407,8 @@ public class AlumnoActualizar extends javax.swing.JInternalFrame {
     private void jrb_por_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_dniActionPerformed
         // TODO add your handling code here:
         jl_buscar.setText("Ingrese DNI");
+        jtf_dni_id.setText("");
+        jtf_dni_id.requestFocus();
         //jtf_dni.setText("Ingrese DNI");
     }//GEN-LAST:event_jrb_por_dniActionPerformed
 
@@ -424,12 +426,22 @@ public class AlumnoActualizar extends javax.swing.JInternalFrame {
             jl_aviso_dni.setText("Solo números");
             evt.consume();
         }
+        if(!(jtf_dni_id.getText().length()<8)&&jrb_por_dni.isSelected()){
+            evt.consume();
+            jl_aviso_dni.setText("Solo 8 digitos");
+        }
+        if(!(jtf_dni_id.getText().length()<3)&&jrb_por_id.isSelected()){
+            evt.consume();
+            jl_aviso_dni.setText("Maximo 3 digitos");
+        }
 
     }//GEN-LAST:event_jtf_dni_idKeyTyped
 
     private void jrb_por_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_idActionPerformed
         // TODO add your handling code here:
         jl_buscar.setText("Ingrese ID");
+        jtf_dni_id.setText("");
+        jtf_dni_id.requestFocus();
         //jtf_dni.setText("Ingrese ID");
     }//GEN-LAST:event_jrb_por_idActionPerformed
 
@@ -440,6 +452,9 @@ public class AlumnoActualizar extends javax.swing.JInternalFrame {
             
         } else {
             
+            evt.consume();
+        }
+        if(!(jtf_dni_resultado.getText().length()<8)){
             evt.consume();
         }
     }//GEN-LAST:event_jtf_dni_resultadoKeyTyped

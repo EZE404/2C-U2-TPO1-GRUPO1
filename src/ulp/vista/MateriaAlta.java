@@ -99,7 +99,6 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
         jtf_nombre = new javax.swing.JTextField();
         cajaSalida = new javax.swing.JLabel();
         jb_salir = new javax.swing.JButton();
-        cajaSalida1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jt_materia = new javax.swing.JTable();
@@ -168,11 +167,6 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jb_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, -1, -1));
-
-        cajaSalida1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cajaSalida1.setForeground(new java.awt.Color(0, 0, 255));
-        cajaSalida1.setEnabled(false);
-        getContentPane().add(cajaSalida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(521, 202, 299, 34));
 
         jLabel4.setText("Estado:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 151, -1, -1));
@@ -274,7 +268,6 @@ public class MateriaAlta extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cajaSalida;
-    private javax.swing.JLabel cajaSalida1;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel1;
