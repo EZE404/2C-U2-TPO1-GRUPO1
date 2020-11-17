@@ -315,6 +315,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void jmi_actualizar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_actualizar_alumnoActionPerformed
         // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        AlumnoActualizar aa=new AlumnoActualizar();
+        aa.setVisible(true);
+        escritorio.add(aa);
+        Dimension desktopSize = escritorio.getSize();
+        Dimension FrameSize = aa.getSize();
+        aa.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        aa.show();
     }//GEN-LAST:event_jmi_actualizar_alumnoActionPerformed
 
     private void jmi_baja_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_baja_materiaActionPerformed

@@ -5,19 +5,65 @@
  */
 package ulp.vista;
 
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+import ulp.entidades.Alumno;
+import ulp.modelo.AlumnoData;
+import ulp.modelo.Conexion;
+
 /**
  *
  * @author MArio
  */
 public class AlumnoActualizar extends javax.swing.JInternalFrame {
-
+    private AlumnoData ad;
+    private Conexion conexion;
+    private Alumno alumno_aux;
     /**
      * Creates new form AlumnoAlta
      */
     public AlumnoActualizar() {
         initComponents();
+        try {
+            conexion = new Conexion();
+            ad = new AlumnoData(conexion);
+            
+        } catch (Exception e) {
+        }
+        
+        jb_limpiar.setEnabled(false);
+        jb_actualizar_alumno.setEnabled(false);
+        
+        jtf_nombre_alumno.setEnabled(false);
+        jtf_apellido_alumno.setEnabled(false);
+        jtf_dni_resultado.setEnabled(false);
+        
+        jdc_fecha_nac.setDate(null);
+        jdc_fecha_nac.setEnabled(false);
+        
+        jrb_activo_no.setEnabled(false);
+        jrb_activo_si.setEnabled(false);
+        
+        jrb_por_dni.setSelected(true);
+        jl_buscar.setText("Ingrese DNI");
+        jtf_dni_id.requestFocus();
     }
-
+    private void habilitarCampos() {
+        jtf_nombre_alumno.setEnabled(true);
+        jtf_apellido_alumno.setEnabled(true);
+        jtf_dni_resultado.setEnabled(true);
+        jdc_fecha_nac.setEnabled(true);
+        jrb_activo_si.setEnabled(true);
+        jrb_activo_no.setEnabled(true);
+        jtf_nombre_alumno.setEditable(true);
+        jtf_apellido_alumno.setEditable(true);
+        jtf_dni_resultado.setEditable(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +73,419 @@ public class AlumnoActualizar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bg_jrb_buscar = new javax.swing.ButtonGroup();
+        bg_rb_activo = new javax.swing.ButtonGroup();
+        jb_actualizar_alumno = new javax.swing.JButton();
+        jl_buscar = new javax.swing.JLabel();
+        jb_buscar_alumno = new javax.swing.JButton();
+        jtf_nombre_alumno = new javax.swing.JTextField();
+        jtf_apellido_alumno = new javax.swing.JTextField();
+        jb_limpiar = new javax.swing.JButton();
+        jb_salir = new javax.swing.JButton();
+        jrb_por_dni = new javax.swing.JRadioButton();
+        jtf_dni_id = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jrb_por_id = new javax.swing.JRadioButton();
+        jl_aviso_dni = new javax.swing.JLabel();
+        jtf_dni_resultado = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jrb_activo_si = new javax.swing.JRadioButton();
+        jrb_activo_no = new javax.swing.JRadioButton();
+        jdc_fecha_nac = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+
+        jb_actualizar_alumno.setText("ACTUALIZAR");
+        jb_actualizar_alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_actualizar_alumnoActionPerformed(evt);
+            }
+        });
+
+        jl_buscar.setText("Ingrese DNI");
+
+        jb_buscar_alumno.setText("BUSCAR");
+        jb_buscar_alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_buscar_alumnoActionPerformed(evt);
+            }
+        });
+
+        jtf_nombre_alumno.setEditable(false);
+        jtf_nombre_alumno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtf_nombre_alumnoKeyTyped(evt);
+            }
+        });
+
+        jtf_apellido_alumno.setEditable(false);
+        jtf_apellido_alumno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtf_apellido_alumnoKeyTyped(evt);
+            }
+        });
+
+        jb_limpiar.setText("LIMPIAR");
+        jb_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarActionPerformed(evt);
+            }
+        });
+
+        jb_salir.setText("SALIR");
+        jb_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_salirActionPerformed(evt);
+            }
+        });
+
+        bg_jrb_buscar.add(jrb_por_dni);
+        jrb_por_dni.setText("Buscar por DNI");
+        jrb_por_dni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_por_dniActionPerformed(evt);
+            }
+        });
+
+        jtf_dni_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtf_dni_idActionPerformed(evt);
+            }
+        });
+        jtf_dni_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtf_dni_idKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setText("NOMBRE");
+
+        jLabel3.setText("APELLIDO");
+
+        jLabel4.setText("FECHA DE NAC");
+
+        jLabel6.setText("ACTIVO");
+
+        bg_jrb_buscar.add(jrb_por_id);
+        jrb_por_id.setText("Buscar por ID");
+        jrb_por_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_por_idActionPerformed(evt);
+            }
+        });
+
+        jtf_dni_resultado.setEditable(false);
+        jtf_dni_resultado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtf_dni_resultadoKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setText("DNI");
+
+        bg_rb_activo.add(jrb_activo_si);
+        jrb_activo_si.setText("Si");
+
+        bg_rb_activo.add(jrb_activo_no);
+        jrb_activo_no.setText("No");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("MODIFICAR DATOS DE ALUMNO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jl_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jl_aviso_dni, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtf_dni_id, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jb_buscar_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jb_limpiar)
+                                .addGap(121, 121, 121))
+                            .addComponent(jb_actualizar_alumno)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jrb_por_dni)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jrb_por_id, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jtf_apellido_alumno, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtf_nombre_alumno, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtf_dni_resultado, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jrb_activo_si)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jrb_activo_no))
+                            .addComponent(jdc_fecha_nac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jb_salir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(192, 192, 192))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel5)
+                .addGap(65, 65, 65)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jl_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtf_dni_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jb_buscar_alumno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jl_aviso_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jtf_nombre_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jrb_por_id)
+                            .addComponent(jrb_por_dni))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtf_apellido_alumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtf_dni_resultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jdc_fecha_nac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jrb_activo_si)
+                            .addComponent(jrb_activo_no))))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jb_limpiar)
+                    .addComponent(jb_actualizar_alumno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jb_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jb_actualizar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_actualizar_alumnoActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea actualizar?", "Actualizar Alumno", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (respuesta==0) {
+            //acá voy a usar un alumno declarado en la clase, y definido en el botón buscar
+            alumno_aux.setNombre(jtf_nombre_alumno.getText());
+            alumno_aux.setApellido(jtf_apellido_alumno.getText());
+            alumno_aux.setDni(jtf_dni_resultado.getText());
+            alumno_aux.setFecha_n(LocalDateTime.ofInstant(jdc_fecha_nac.getDate().toInstant(), ZoneId.systemDefault()).toLocalDate());
+            alumno_aux.setActivo(jrb_activo_si.isSelected());
+            
+            ad.modificar_alumno(alumno_aux);
+            
+        }
+
+    }//GEN-LAST:event_jb_actualizar_alumnoActionPerformed
+
+    private void jb_buscar_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_buscar_alumnoActionPerformed
+        // TODO add your handling code here:
+        if ("".equals(jtf_dni_id.getText())) {
+            jl_aviso_dni.setText("Ingrese dato");
+            jtf_dni_id.requestFocus();
+        } else {
+            if (jrb_por_dni.isSelected()) {
+                String dni = jtf_dni_id.getText();
+                Alumno alumno = ad.buscar_alumno(dni);
+                alumno_aux = alumno;
+                if (alumno != null) {
+                    jtf_nombre_alumno.setText(alumno.getNombre());
+                    jtf_apellido_alumno.setText(alumno.getApellido());
+                    jtf_dni_resultado.setText(alumno.getDni());
+                    jdc_fecha_nac.setDate(Date.valueOf(alumno.getFecha_n()));
+                    
+                    if (alumno.isActivo()) {
+                        jrb_activo_si.setSelected(true);
+                        jrb_activo_no.setSelected(false);
+                    } else {
+                        jrb_activo_si.setSelected(false);
+                        jrb_activo_no.setSelected(true);
+                    }
+                    //jtf_id_alumno.setText(alumno.getId_alumno() + "");
+                    jb_actualizar_alumno.setEnabled(true);
+                    this.habilitarCampos();
+
+                }
+                jb_limpiar.setEnabled(true);
+            } else if (jrb_por_id.isSelected()) {
+                if (jtf_dni_id.getText().length()<=5) {
+                    int id_alumno = Integer.parseInt(jtf_dni_id.getText());
+                    Alumno alumno = ad.buscar_alumno(id_alumno);
+                    alumno_aux = alumno;
+                    if (alumno != null) {
+                        jtf_nombre_alumno.setText(alumno.getNombre());
+                        jtf_apellido_alumno.setText(alumno.getApellido());
+                        jtf_dni_resultado.setText(alumno.getDni());
+                        jdc_fecha_nac.setDate(Date.valueOf(alumno.getFecha_n()));
+                        
+                        if (alumno.isActivo()) {
+                        jrb_activo_si.setSelected(true);
+                        jrb_activo_no.setSelected(false);
+                    } else {
+                        jrb_activo_si.setSelected(false);
+                        jrb_activo_no.setSelected(true);
+                    }
+                        //jtf_id_alumno.setText(alumno.getId_alumno() + "");
+                        jb_actualizar_alumno.setEnabled(true);
+                        this.habilitarCampos();
+                    }
+                    jb_limpiar.setEnabled(true);
+                } else {
+                    jl_aviso_dni.setText("Max 5 dígitos");
+                    jtf_dni_id.requestFocus();
+                }
+            }
+        }
+    }//GEN-LAST:event_jb_buscar_alumnoActionPerformed
+
+    private void jb_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarActionPerformed
+        // TODO add your handling code here:
+        jtf_dni_id.setText("");
+        
+        jtf_nombre_alumno.setText("");
+        jtf_apellido_alumno.setText("");
+        jtf_dni_resultado.setText("");
+        
+        jtf_nombre_alumno.setEditable(false);
+        jtf_apellido_alumno.setEditable(false);
+        jtf_dni_resultado.setEditable(false);
+        jtf_nombre_alumno.setEnabled(false);
+        jtf_apellido_alumno.setEnabled(false);
+        jtf_dni_resultado.setEnabled(false);
+    
+        jdc_fecha_nac.setDate(null);
+        jdc_fecha_nac.setEnabled(false);
+        
+        jrb_activo_no.setEnabled(false);
+        jrb_activo_si.setEnabled(false);
+        
+        jtf_dni_id.requestFocus();
+        jb_actualizar_alumno.setEnabled(false);
+        jb_limpiar.setEnabled(false);
+
+    }//GEN-LAST:event_jb_limpiarActionPerformed
+
+    private void jb_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_salirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jb_salirActionPerformed
+
+    private void jrb_por_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_dniActionPerformed
+        // TODO add your handling code here:
+        jl_buscar.setText("Ingrese DNI");
+        //jtf_dni.setText("Ingrese DNI");
+    }//GEN-LAST:event_jrb_por_dniActionPerformed
+
+    private void jtf_dni_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_dni_idActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jtf_dni_idActionPerformed
+
+    private void jtf_dni_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_dni_idKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if (!(((caracter < '0') || (caracter > '9')) && (caracter != '\b'))) {
+            jl_aviso_dni.setText("");
+        } else {
+            jl_aviso_dni.setText("Solo números");
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_jtf_dni_idKeyTyped
+
+    private void jrb_por_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_por_idActionPerformed
+        // TODO add your handling code here:
+        jl_buscar.setText("Ingrese ID");
+        //jtf_dni.setText("Ingrese ID");
+    }//GEN-LAST:event_jrb_por_idActionPerformed
+
+    private void jtf_dni_resultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_dni_resultadoKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if (!(((caracter < '0') || (caracter > '9')) && (caracter != '\b'))) {
+            
+        } else {
+            
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtf_dni_resultadoKeyTyped
+
+    private void jtf_nombre_alumnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_nombre_alumnoKeyTyped
+        // TODO add your handling code here:
+         char c = evt.getKeyChar();
+        if (Character.isDigit(c) == false) {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtf_nombre_alumnoKeyTyped
+
+    private void jtf_apellido_alumnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_apellido_alumnoKeyTyped
+        // TODO add your handling code here:
+         char c = evt.getKeyChar();
+        if (Character.isDigit(c) == false) {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtf_apellido_alumnoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bg_jrb_buscar;
+    private javax.swing.ButtonGroup bg_rb_activo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton jb_actualizar_alumno;
+    private javax.swing.JButton jb_buscar_alumno;
+    private javax.swing.JButton jb_limpiar;
+    private javax.swing.JButton jb_salir;
+    private com.toedter.calendar.JDateChooser jdc_fecha_nac;
+    private javax.swing.JLabel jl_aviso_dni;
+    private javax.swing.JLabel jl_buscar;
+    private javax.swing.JRadioButton jrb_activo_no;
+    private javax.swing.JRadioButton jrb_activo_si;
+    private javax.swing.JRadioButton jrb_por_dni;
+    private javax.swing.JRadioButton jrb_por_id;
+    private javax.swing.JTextField jtf_apellido_alumno;
+    private javax.swing.JTextField jtf_dni_id;
+    private javax.swing.JTextField jtf_dni_resultado;
+    private javax.swing.JTextField jtf_nombre_alumno;
     // End of variables declaration//GEN-END:variables
 }
