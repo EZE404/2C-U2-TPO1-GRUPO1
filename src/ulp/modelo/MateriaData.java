@@ -78,7 +78,7 @@ public class MateriaData {
                     materia = new Materia();
                     materia.setId_materia(consulta.getInt("id_materia"));
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
-                    JOptionPane.showMessageDialog(null, "Materia encontrada");
+                    //JOptionPane.showMessageDialog(null, "Materia encontrada");
                     System.out.println("Materia encontrada");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró tal materia");
@@ -103,7 +103,7 @@ public class MateriaData {
                     materia = new Materia();
                     materia.setId_materia(consulta.getInt("id_materia"));
                     materia.setNombre_materia(consulta.getString("nombre_materia"));
-                    JOptionPane.showMessageDialog(null, "Materia encontrada");
+                    //JOptionPane.showMessageDialog(null, "Materia encontrada");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró tal materia");
                     System.out.println("No se encontró tal materia");
