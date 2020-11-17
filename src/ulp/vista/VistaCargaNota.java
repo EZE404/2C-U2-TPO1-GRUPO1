@@ -76,7 +76,6 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         this.jtf_ingreseValor.setLocation(new Point(20, 3));
         jcb_alumno.setEnabled(false);
         jcb_materias.setEnabled(false);
-        jButton_guardar.setEnabled(false);
         jFormattedTextField_nota.setEditable(true);
         jl_nombreAlumno.setVisible(true);
         limpiar();
@@ -100,8 +99,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     public void cargarMateriasxAlumno(Alumno alumno) {
         
-       
-        
+        jcb_materias.removeAllItems();
+              
         List<Materia> materias = inscripcion_data.materias_alumno(alumno.getId_alumno());
         for (Materia item: materias) {
             jcb_materias.addItem(item);
@@ -129,13 +128,18 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         System.out.println(materia);
         
         Inscripcion inscripcion;
+        
         inscripcion = (Inscripcion)inscripcion_data.buscar_inscripcion(alumno, materia);
+        
+        if(inscripcion != null){
+        
         System.out.println(inscripcion);
         
         jl_numeroInscr.setText(String.valueOf(inscripcion.getId_inscripcion()));
         jl_iDmateria.setText(String.valueOf(String.valueOf(materia.getId_materia())));
         jl_nombreMateria.setText(materia.getNombre_materia());
         jFormattedTextField_nota.setText(String.valueOf(inscripcion.getCalificacion()));
+        }
         
     }
 
@@ -481,7 +485,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, -1, -1));
 
         jl_nombreAlumno.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jl_nombreAlumno.setText("Nombre");
@@ -496,15 +500,15 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("ID INSCRIPCION:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 160, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 160, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("ID MATERIA:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 130, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 130, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("NOMBRE MATERIA:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
 
         jb_buscInscri.setText("Buscar Inscripcion");
         jb_buscInscri.addActionListener(new java.awt.event.ActionListener() {
@@ -518,30 +522,33 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jl_numeroInscr.setBackground(new java.awt.Color(204, 204, 204));
         jl_numeroInscr.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jl_numeroInscr.setFocusable(false);
-        getContentPane().add(jl_numeroInscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 80, 30));
+        getContentPane().add(jl_numeroInscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 80, 30));
 
         jl_nombreMateria.setEditable(false);
         jl_nombreMateria.setBackground(new java.awt.Color(204, 204, 204));
         jl_nombreMateria.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jl_nombreMateria.setFocusable(false);
-        getContentPane().add(jl_nombreMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, 150, 30));
+        getContentPane().add(jl_nombreMateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 230, 30));
 
         jl_iDmateria.setEditable(false);
         jl_iDmateria.setBackground(new java.awt.Color(204, 204, 204));
         jl_iDmateria.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jl_iDmateria.setFocusable(false);
-        getContentPane().add(jl_iDmateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 120, 30));
+        getContentPane().add(jl_iDmateria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 80, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jchb_porDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porDniActionPerformed
         // TODO add your handling code here:
+        limpiar();
         this.jl_IngreseId.setVisible(false);
         this.jl_ingreseDni.setVisible(true);
         jtf_ingreseValor.setEnabled(true);
         jcb_alumno.setEnabled(false);
         this.escribirEstados("Ha elegido buscar por Dni, ingrese un numero valido");
+        
+        
 
     }//GEN-LAST:event_jchb_porDniActionPerformed
 
@@ -553,12 +560,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jchb_porIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porIdActionPerformed
         // TODO add your handling code here:
+        limpiar();
         this.jl_ingreseDni.setVisible(false);
         this.jl_IngreseId.setVisible(true);
         jtf_ingreseValor.setEnabled(true);
         jcb_alumno.setEnabled(false);
         this.escribirEstados("Ha elegido buscar por Id, ingrese un numero valido");
-        limpiar();
+        
 
     }//GEN-LAST:event_jchb_porIdActionPerformed
 
@@ -575,11 +583,14 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
          System.out.println(materia);
         if (materia != null && alumno != null) {
             setMateria(materia);
+            jb_buscInscri.setEnabled(true);
 //            
             System.out.println("mando a imprimir la inscripcion");
         } else {
             System.out.println("algo paso aca");
         }
+        
+        
 //               
         
     }//GEN-LAST:event_jcb_materiasActionPerformed
@@ -587,8 +598,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         // TODO add your handling code here:
 
-        if (true) {
-//            borraFilasTabla();      //Borra los datos de la tabla
+        
+
             Alumno elAlumno = null;
 
             if (jchb_porId.isSelected()) {
@@ -615,10 +626,11 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
                 
                 setAlumno(elAlumno);
                 cargarMateriasxAlumno(elAlumno);
+                jcb_alumno.setEnabled(false);
+                jButton_buscar.setEnabled(false);
                 
-            } else {
-                escribirEstados("No existe ese alumno");
-            }
+                
+           
         }
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
@@ -677,6 +689,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jcb_materiasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcb_materiasItemStateChanged
         // TODO add your handling code here:
+        
   
     }//GEN-LAST:event_jcb_materiasItemStateChanged
 
@@ -690,13 +703,13 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     private void jchb_porComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchb_porComboActionPerformed
         // TODO add your handling code here:
+        limpiar();
         this.jl_ingreseDni.setVisible(false);
         this.jl_IngreseId.setVisible(false);
         this.jtf_ingreseValor.setEnabled(false);
         jcb_alumno.setEnabled(true);
         escribirEstados("Ha elegido buscar por ComboBox, Eliga un alumna de la lista desplegable");
         jl_PorCombobox.setVisible(true);
-//        this.borraFilasTabla();
         jtf_ingreseValor.setText(" ");
         jtf_ingreseValor.setEnabled(true);
         jFormattedTextField_nota.setText(" ");
@@ -708,8 +721,8 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
     private void jcb_alumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_alumnoActionPerformed
         // TODO add your handling code here:
         limpiarInscripcion();
-        setAlumno(null);
-        jcb_materias.setSelectedItem(null);
+//        setAlumno(null);
+//        jcb_materias.setSelectedItem(null);
     }//GEN-LAST:event_jcb_alumnoActionPerformed
 
     private void jcb_alumnoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcb_alumnoMouseEntered
@@ -789,6 +802,7 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
 
     public void limpiar() {
         
+        jb_buscInscri.setEnabled(false);
         jtf_ingreseValor.setText("");
         jl_nombreMateria.setText("");
         jl_iDmateria.setText("");
@@ -802,7 +816,12 @@ public class VistaCargaNota extends javax.swing.JInternalFrame {
         jButton_guardar.setEnabled(false);
         setAlumno(null);
         setMateria(null);
-//        borraFilasTabla();
+        if(jchb_porCombo.isSelected()){
+            jcb_alumno.setEnabled(true);
+        }
+        
+        jButton_buscar.setEnabled(true);
+
                
         hacerFoco();
     }
